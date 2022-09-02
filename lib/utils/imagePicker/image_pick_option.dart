@@ -1,0 +1,6 @@
+
+
+enum ImagePickOption{
+  camera,
+  gallery
+}
