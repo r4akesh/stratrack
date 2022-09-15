@@ -65,47 +65,6 @@ class SelectMatch extends StatelessWidget {
                 child: TabBarView(children: [
               Column(
                 children: [
-                  /*  Container(
-                          margin: EdgeInsets.only(top: 5),
-                          color: Colors.white,
-                          width: MediaQuery.of(context).size.width,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: Image.asset(
-                                  arrowLeftIcon,
-                                  height: 20,
-                                  width: 20,
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  color: Colors.blueAccent,
-                                  alignment: Alignment.center,
-                                  height: 40,
-                                  width: 50,
-                                  // child: ListView.builder(scrollDirection: Axis.horizontal ,itemCount: 10,itemBuilder: ((context, index) {
-                                  child: PageView.builder(
-                                    //   onPageChanged: (int index) => setState(() => _index = index),
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: 10,
-                                      itemBuilder: ((context, index) {
-                                        return Container(
-                                          child: Text("Week 1"),
-                                        );
-                                      })),
-                                ),
-                              ),
-                              Expanded(
-                                  child: Image.asset(
-                                    arrowRightIcon,
-                                    height: 20,
-                                    width: 20,
-                                  ))
-                            ],
-                          ),
-                        ),*/
                   Expanded(
                       child: ListView.builder(itemBuilder: (context, index) {
                     return GestureDetector(

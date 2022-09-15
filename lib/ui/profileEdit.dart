@@ -101,9 +101,7 @@ class ProfileEdit extends StatelessWidget {
                     appText(MyApp.box.read("email") !=null?MyApp.box.read("email"): "",
                         txtColor: appLightBlue,
                         fontweight: FontWeight.w400,
-                        fontSize: 14
-
-                       )
+                        fontSize: 14)
                   ],
                 )
               ],

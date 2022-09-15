@@ -11,58 +11,60 @@ class UpcomingMatchController extends GetxController {
   final apiClient = Apiclient.instance;
 
 //  var subscriptionplans = <Subscriptionplans>[].obs;
-  var weekList = <Games>[].obs;
+  var eventList = <Events>[].obs;
   var isSelected = 0.obs;
   var weekValue = 1.obs;
 
   @override
   void onInit() {
     super.onInit();
-    getData(weekValue.value);
+   // getData(weekValue.value);
+    getData();
   }
 
-  increseWeek() {
-    if(weekList.isEmpty) return;
-    weekValue += 1;
-    getData(weekValue.value);
+  // increseWeek() {
+  //   if(eventList.isEmpty) return;
+  //
+  //   getData( );
+  // }
+  //
+  // decreseWeek() {
+  //   if (weekValue.value > 1) {
+  //     weekValue -= 1;
+  //     getData(weekValue.value);
+  //   }
+  // }
+
+
+
+  void getData() {
+    callUpcomingMatch();
   }
 
-  decreseWeek() {
-    if (weekValue.value > 1) {
-      weekValue -= 1;
-      getData(weekValue.value);
-    }
-  }
-
-  callUpcomingMatch(int value) async {
+  callUpcomingMatch() async {
     Map<String, dynamic> map = {};
     try {
       print("callUpcomingMatch");
       isLoading.value = true;
       //showProgressBar();
-      var data = await apiClient?.get(
-          url: "http://api.sportradar.us/nfl/official/trial/v7/en/games/2022/REG/" + weekValue.value.toString() + "/schedule.json?api_key=2ecuc2rgset82rqvy482wef3",
+      var data = await apiClient?.getSports(
+          url: "https://allsportsapi2.p.rapidapi.com/api/american-football/matches/15/9/2022",
           body: map,
           context: Get.context!);
       var response = UpcomingModel.fromJson(data);
 
-      if (response.week?.games != null) {
-        weekList.value.clear();
-        weekList.value = response.week?.games as List<Games>;
+      if (response.events != null) {
+        eventList.value = response.events as List<Events>;
         update();
       }
     }
     catch(e){
       print("catch");
 
-      weekList.value.clear();
+      eventList.value.clear();
     }finally {
       // closeProgress();
       isLoading.value = false;
     }
-  }
-
-  void getData(int value) {
-    callUpcomingMatch(value);
   }
 }

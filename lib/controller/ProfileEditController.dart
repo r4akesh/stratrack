@@ -73,10 +73,7 @@ class ProfileEditController extends GetxController {
       isLoading.value = true;
       update();
       var data = await apiClient?.post(
-        url: BASE_URL + "users/updateProfilePicture",
-        body: map,
-        context: Get.context!,
-      );
+        url: BASE_URL + "users/updateProfilePicture", body: map, context: Get.context!,);
 
       var responce = UpdateProfileModel.fromJson(data);
       isLoading.value = false;
