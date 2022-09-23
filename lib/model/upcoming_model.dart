@@ -30,7 +30,7 @@ class Events {
   bool? hasEventPlayerStatistics;
   bool? hasGlobalHighlights;
   AwayScore? homeScore;
-  HomeTeam? homeTeam;
+  AwayTeam? homeTeam;
   int? id;
   Periods? periods;
   RoundInfo? roundInfo;
@@ -39,7 +39,7 @@ class Events {
   Status? status;
   Time? time;
   Tournament? tournament;
-  String? winnerCode;
+  int? winnerCode;
 
   Events(
       {this.awayScore,
@@ -78,7 +78,7 @@ class Events {
         ? new AwayScore.fromJson(json['homeScore'])
         : null;
     homeTeam = json['homeTeam'] != null
-        ? new HomeTeam.fromJson(json['homeTeam'])
+        ? new AwayTeam.fromJson(json['homeTeam'])
         : null;
     id = json['id'];
     periods =
@@ -142,12 +142,12 @@ class Events {
 }
 
 class AwayScore {
-  Null? current;
-  Null? display;
-  Null? period1;
-  Null? period2;
-  Null? period3;
-  Null? period4;
+  int? current;
+  int? display;
+  int? period1;
+  int? period2;
+  int? period3;
+  int? period4;
 
   AwayScore(
       {this.current,
@@ -185,7 +185,7 @@ class AwayTeam {
   String? shortName;
   String? slug;
   Sport? sport;
- // List<String>? subTeams;
+  //List<Null>? subTeams;
   TeamColors? teamColors;
   int? type;
   int? userCount;
@@ -197,7 +197,7 @@ class AwayTeam {
         this.shortName,
         this.slug,
         this.sport,
-      //  this.subTeams,
+       // this.subTeams,
         this.teamColors,
         this.type,
         this.userCount});
@@ -290,85 +290,19 @@ class TeamColors {
 
 class Changes {
   int? changeTimestamp;
-  Null? changes;
+ // List<String>? changes;
 
-  Changes({this.changeTimestamp, this.changes});
+  Changes({this.changeTimestamp});
 
   Changes.fromJson(Map<String, dynamic> json) {
     changeTimestamp = json['changeTimestamp'];
-    changes = json['changes'];
+   // changes = json['changes'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['changeTimestamp'] = this.changeTimestamp;
-    data['changes'] = this.changes;
-    return data;
-  }
-}
-
-class HomeTeam {
-  bool? disabled;
-  int? id;
-  String? name;
-  String? shortName;
-  String? slug;
-  Sport? sport;
- // List<Null>? subTeams;
-  TeamColors? teamColors;
-  int? type;
-  int? userCount;
-
-  HomeTeam(
-      {this.disabled,
-        this.id,
-        this.name,
-        this.shortName,
-        this.slug,
-        this.sport,
-       // this.subTeams,
-        this.teamColors,
-        this.type,
-        this.userCount});
-
-  HomeTeam.fromJson(Map<String, dynamic> json) {
-    disabled = json['disabled'];
-    id = json['id'];
-    name = json['name'];
-    shortName = json['shortName'];
-    slug = json['slug'];
-    sport = json['sport'] != null ? new Sport.fromJson(json['sport']) : null;
-    // if (json['subTeams'] != null) {
-    //   subTeams = <Null>[];
-    //   json['subTeams'].forEach((v) {
-    //     subTeams!.add(new Null.fromJson(v));
-    //   });
-    // }
-    teamColors = json['teamColors'] != null
-        ? new TeamColors.fromJson(json['teamColors'])
-        : null;
-    type = json['type'];
-    userCount = json['userCount'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['disabled'] = this.disabled;
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['shortName'] = this.shortName;
-    data['slug'] = this.slug;
-    if (this.sport != null) {
-      data['sport'] = this.sport!.toJson();
-    }
-    // if (this.subTeams != null) {
-    //   data['subTeams'] = this.subTeams!.map((v) => v.toJson()).toList();
-    // }
-    if (this.teamColors != null) {
-      data['teamColors'] = this.teamColors!.toJson();
-    }
-    data['type'] = this.type;
-    data['userCount'] = this.userCount;
+  //  data['changes'] = this.changes;
     return data;
   }
 }
@@ -449,9 +383,9 @@ class Status {
 }
 
 class Time {
-  Null? overtimeLength;
-  Null? periodLength;
-  Null? totalPeriodCount;
+  int? overtimeLength;
+  int? periodLength;
+  int? totalPeriodCount;
 
   Time({this.overtimeLength, this.periodLength, this.totalPeriodCount});
 

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:stattrack/controller/loginController.dart';
 
 import 'colors.dart';
@@ -178,6 +179,37 @@ void showMyAlert(BuildContext context, String msg) {
       ],
     ),
   );
+}
+
+ String fetchNextDate(int weekValue){
+   var now =   DateTime.now();
+   final tomorrow = DateTime(now.year, now.month, now.day + weekValue);
+ //  final yesterday = DateTime(now.year, now.month, now.day - 1);
+   var formatter =   DateFormat('dd/MM/yyyy');
+ //  String formattedDate = formatter.format(now);//current
+   String formattedDate = formatter.format(tomorrow);//nextDate
+  // String formattedDate = formatter.format(yesterday);//previousDate
+  // print("formattedDate>>${formattedDate}"); // 2016-01-25
+  // print("formattedDate>>${formattedDate}");
+
+  return formattedDate;
+ }
+
+String fetchPreDate(int weekValue){
+  var now =   DateTime.now();
+  final yesterday = DateTime(now.year, now.month, now.day - weekValue);
+  var formatter =   DateFormat('dd/MM/yyyy');
+  String formattedDate = formatter.format(yesterday);//nextDate
+  //print("formattedDate>>${formattedDate}");
+  return formattedDate;
+}
+
+String fetchMillsToDate(int mills){
+  final DateTime date1 = DateTime.fromMillisecondsSinceEpoch(mills);
+  var formatter =   DateFormat('dd/MM/yyyy');
+  String formattedDate = formatter.format(date1);//nextDate
+  print("formattedDate>>${formattedDate}");
+  return formattedDate;
 }
 
 showProgressBar() {

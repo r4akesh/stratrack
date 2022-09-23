@@ -7,35 +7,36 @@ import '../model/SubcriptionModel.dart';
 import '../network/apiClient.dart';
 import '../utils/commen.dart';
 
-class UpcomingMatchController extends GetxController {
+class OldMatchController extends GetxController {
   var isLoading = false.obs;
   final apiClient = Apiclient.instance;
 
-//  var subscriptionplans = <Subscriptionplans>[].obs;
-   var eventList = <Events>[].obs;
-  var eventListOrignal = <Events>[].obs;
-  var isSelected = 0.obs;
-  var weekValue = 0;//1
+  var eventListorignal = <Events>[].obs;
+  var eventList = <Events>[].obs;
+ // var isSelected = 0.obs;
+  var weekValue = 0;
   var dateValue = "";
 
   @override
   void onInit() {
     super.onInit();
-
-
-    getData(fetchNextDate(weekValue));
+    getData(fetchPreDate(weekValue));
   }
 
   increseWeek() {
     //if(eventList.isEmpty) return;
-    weekValue += 1;
-    getData(fetchNextDate(weekValue));
+    print("weekValue>>${weekValue}");
+    if(weekValue>0) {
+      weekValue -= 1;
+      getData(fetchPreDate(weekValue));
+    }
   }
 
   decreseWeek() {
-    if (weekValue > 1) {
-      weekValue -= 1;
-      getData(fetchNextDate(weekValue));
+    print("weekValue>>${weekValue}");
+    if (weekValue >=0) {
+      weekValue += 1;
+      getData(fetchPreDate(weekValue));
     }
   }
 
@@ -59,25 +60,28 @@ class UpcomingMatchController extends GetxController {
       var response = UpcomingModel.fromJson(data);
 
       if (response.events != null) {
-        eventListOrignal.value = response.events as List<Events>;
+        eventListorignal.value = response.events as List<Events>;
         int crntTime =  DateTime.now().millisecondsSinceEpoch;
         eventList.clear();
-        for(int i= 0 ; i<eventListOrignal.length;i++){
-          var matchTimeMills= eventListOrignal[i].startTimestamp!*1000;
-         var matchDate =  fetchMillsToDate(matchTimeMills);
-        // if(matchTimeMills >crntTime && date==matchDate){
-          if(eventListOrignal[i].status?.type=="notstarted" && date==matchDate){//
-          //  print("catch>>$date >> ${eventList[i].status?.type}");
-            eventList.add(eventListOrignal[i]);
-           }
+        for(int i= 0 ; i<eventListorignal.length;i++){
+          var matchTimeMills= eventListorignal[i].startTimestamp!*1000;
+          var matchDate =  fetchMillsToDate(matchTimeMills);
+          //if(matchTimeMills <crntTime && date==matchDate){
+          if(eventListorignal[i].status?.type=="finished" && date==matchDate){
+            print("catch>>$date >> $matchDate");
+            eventList.add(eventListorignal[i]);
+          }
         }
         update();
+
+
+
       }
     }
     catch(e){
       print("catch>>$e");
-      eventListOrignal.value.clear();
-      eventList.value.clear();
+
+      eventListorignal.value.clear();
       rethrow;
     }finally {
       // closeProgress();

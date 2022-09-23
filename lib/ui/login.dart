@@ -7,7 +7,7 @@ import 'package:stattrack/ui/dashBoard.dart';
 import 'package:stattrack/ui/forgoPassword.dart';
 import 'package:stattrack/ui/payment_screen.dart';
 import 'package:stattrack/ui/signup.dart';
-import 'package:stattrack/ui/subscription.dart';
+
 import 'package:stattrack/utils/colors.dart';
 import 'package:stattrack/utils/constant.dart';
 import 'package:stattrack/utils/string.dart';
