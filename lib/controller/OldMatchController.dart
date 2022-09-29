@@ -16,6 +16,7 @@ class OldMatchController extends GetxController {
  // var isSelected = 0.obs;
   var weekValue = 0;
   var dateValue = "";
+  var matchId ;
 
   @override
   void onInit() {

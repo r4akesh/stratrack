@@ -2,20 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:stattrack/ui/MatchPlayerStats.dart';
 import 'package:stattrack/ui/player_record.dart';
 import 'package:stattrack/ui/team_details.dart';
 import 'package:stattrack/utils/colors.dart';
 
+import '../controller/OldMatchController.dart';
 import '../utils/commen.dart';
 import '../utils/constant.dart';
 
 class MatchDetails extends StatelessWidget {
   var from = "";
+  var oldMatchController = Get.put(OldMatchController());
 
   MatchDetails({Key? key, required this.from}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print("matchID>>${ oldMatchController.matchId}");
+
     return Scaffold(
       appBar: appBar(),
       body: Container(
@@ -106,71 +111,13 @@ class MatchDetails extends StatelessWidget {
                           Tab(
                             text: "Defense",
                           ),
+
                         ]),
                     Expanded(
                         child: TabBarView(children: [
                           for(var i=0;i<4;i++)...[
-                            Column(
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.symmetric(vertical: 10),
-                                  height: 25,
-                                  color: applightgrey,
-                                  child: Row(
-                                    children: [
-                                      Expanded(flex: 2, child: SizedBox()),
-                                      for (var i = 0; i < 6; i++) ...[
-                                        Expanded(
-                                          child: Container(
-                                              width: 40,
-                                              alignment: Alignment.center,
-                                              child: appText("Gp",
-                                                  fontweight: FontWeight.w400,
-                                                  fontSize: 12)),
-                                        )
-                                      ]
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: ListView.builder(
-                                    itemCount: 10,
-                                    itemBuilder: (context, index) {
-                                      return Card(
-                                        margin: EdgeInsets.all(5),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 20),
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                  flex: 2,
-                                                  child: GestureDetector(
-                                                    onTap: (){
-                                                      Get.to(PlayerRecord());
-                                                    },
-                                                    child: appText("Evan McPherson",
-                                                        fontSize: 12),
-                                                  )),
-                                              for (var i = 0; i < 6; i++) ...[
-                                                Expanded(
-                                                  child: Container(
-                                                      width: 40,
-                                                      alignment: Alignment.center,
-                                                      child: appText("2",
-                                                          fontweight: FontWeight.w400,
-                                                          fontSize: 12)),
-                                                )
-                                              ]
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
+
+                            MatchPlayerstats(oldMatchController.matchId),
                           ]
 
 

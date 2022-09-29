@@ -252,6 +252,7 @@ class TeamDetails extends StatelessWidget {
             ListView.builder(padding: const EdgeInsets.only(top: 0),itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
+
                   Get.to(MatchDetails(from: "Old"));
                 },
                 child: Card(

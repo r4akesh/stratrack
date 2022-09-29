@@ -79,6 +79,7 @@ class OldMatch extends StatelessWidget {
                         itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
+                          controller.matchId = controller.eventList[index].id;
                           Get.to(MatchDetails(from: "Old"));
                         },
                         child: Card(

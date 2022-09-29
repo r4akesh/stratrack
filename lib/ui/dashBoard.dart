@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
@@ -14,7 +12,6 @@ import 'package:stattrack/ui/welcome.dart';
 import 'package:stattrack/utils/colors.dart';
 import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
-
 import '../model/myDashboard.dart';
 import '../utils/string.dart';
 import 'notifaction.dart';
