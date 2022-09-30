@@ -3,10 +3,9 @@ import 'package:stattrack/model/matchdetail_model.dart';
 
 import '../network/apiClient.dart';
 
-class MatchPlayerStatsController extends GetxController {
+class MatchDetailController extends GetxController {
   var isLoading = false.obs;
   final apiClient = Apiclient.instance;
-  var matchIdFetchFromPreScreen;
   var homePlayerList = <Players>[].obs;
   var awayPlayerList = <Players>[].obs;
 

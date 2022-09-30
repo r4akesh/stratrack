@@ -72,7 +72,7 @@ class UpcomingMatch extends StatelessWidget {
                   itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Get.to(MatchDetails(from: "Upcoming"));
+                   // Get.to(MatchDetails(from: "Upcoming"));
                   },
                   child: Card(
                     margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),

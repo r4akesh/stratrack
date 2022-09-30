@@ -34,17 +34,14 @@ Text appText(String txt,
         Color txtColor = appBlack,
         bool isUnderline = false,
         TextAlign textAlign = TextAlign.start}) =>
-    Text(
-      txt,
-      textAlign: textAlign,
-      style: TextStyle(
+    Text(txt, textAlign: textAlign, style: TextStyle(
           fontSize: fontSize,
           color: txtColor,
           fontWeight: fontweight,
           fontFamily: 'Rubik',
-          decoration:
-              isUnderline ? TextDecoration.underline : TextDecoration.none),
-    );
+
+          decoration: isUnderline ? TextDecoration.underline : TextDecoration.none),
+    maxLines: 2,);
 
 Widget appTextField(String lable,
     {TextEditingController? controller, String hint = ""}) {

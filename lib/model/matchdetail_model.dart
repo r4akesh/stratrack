@@ -6,7 +6,7 @@ class MatchDetailModel {
 
   MatchDetailModel.fromJson(Map<String, dynamic> json) {
     away = json['away'] != null ? new Away.fromJson(json['away']) : null;
-    home = json['home'];
+    home = json['home']!= null ? new Home.fromJson(json['home']) : null;
     confirmed = json['confirmed'];
   }
 
@@ -239,18 +239,18 @@ class Statistics {
   int? defensiveCombineTackles;
   int? defensiveForcedFumbles;
   int? defensiveInterceptions;
-  Null? defensiveInterceptionsYards;
+  int? defensiveInterceptionsYards;
   int? defensivePassesDefensed;
   int? defensiveSacks;
   int? fumbleFumbles;
   int? fumbleLost;
   int? fumbleRecovery;
   int? fumbleTouchdownReturns;
-  Null? kickReturnsAverageYards;
-  Null? kickReturnsLong;
-  Null? kickReturnsTotal;
-  Null? kickReturnsTouchdowns;
-  Null? kickReturnsYards;
+  int? kickReturnsAverageYards;
+  int? kickReturnsLong;
+  int? kickReturnsTotal;
+  int? kickReturnsTouchdowns;
+  int? kickReturnsYards;
   int? kickingExtraAttempts;
   int? kickingExtraMade;
   int? passingAttempts;
@@ -262,9 +262,9 @@ class Statistics {
   int? passingTouchdowns;
   int? passingYards;
   double? passingYardsPerAttempt;
-  Null? puntReturnsLong;
-  Null? puntReturnsTotal;
-  Null? puntReturnsYards;
+  int? puntReturnsLong;
+  int? puntReturnsTotal;
+  int? puntReturnsYards;
   int? puntingBlocked;
   int? puntingInside20;
   int? puntingLongest;
@@ -282,7 +282,7 @@ class Statistics {
   int? rushingLongest;
   int? rushingTouchdowns;
   int? rushingYards;
-  double? rushingYardsPerAttempt;
+ // String? rushingYardsPerAttempt;
 
   Statistics(
       {this.defensiveAssistTackles,
@@ -332,7 +332,8 @@ class Statistics {
         this.rushingLongest,
         this.rushingTouchdowns,
         this.rushingYards,
-        this.rushingYardsPerAttempt});
+       // this.rushingYardsPerAttempt
+      });
 
   Statistics.fromJson(Map<String, dynamic> json) {
     defensiveAssistTackles = json['defensiveAssistTackles'];
@@ -348,7 +349,7 @@ class Statistics {
     fumbleTouchdownReturns = json['fumbleTouchdownReturns'];
     kickReturnsAverageYards = json['kickReturnsAverageYards'];
     kickReturnsLong = json['kickReturnsLong'];
-    kickReturnsTotal = json['kickReturnsTotal'];
+    kickReturnsTotal = int.parse(((json['kickReturnsTotal'] ?? "0").toString()) );
     kickReturnsTouchdowns = json['kickReturnsTouchdowns'];
     kickReturnsYards = json['kickReturnsYards'];
     kickingExtraAttempts = json['kickingExtraAttempts'];
@@ -360,8 +361,8 @@ class Statistics {
     passingNetYards = json['passingNetYards'];
     passingSacked = json['passingSacked'];
     passingTouchdowns = json['passingTouchdowns'];
-    passingYards = json['passingYards'];
-    passingYardsPerAttempt = json['passingYardsPerAttempt'];
+    passingYards = int.parse(((json['passingYards'] ?? "0").toString()));
+    passingYardsPerAttempt = double.parse(((json['passingYardsPerAttempt'] ?? "0").toString()));
     puntReturnsLong = json['puntReturnsLong'];
     puntReturnsTotal = json['puntReturnsTotal'];
     puntReturnsYards = json['puntReturnsYards'];
@@ -376,13 +377,13 @@ class Statistics {
     receivingLongest = json['receivingLongest'];
     receivingReceptions = json['receivingReceptions'];
     receivingTouchdowns = json['receivingTouchdowns'];
-    receivingYards = json['receivingYards'];
+    receivingYards = int.parse(((json['receivingYards'] ?? "0").toString()));
     receivingYardsPerReception = json['receivingYardsPerReception'];
     rushingAttempts = json['rushingAttempts'];
     rushingLongest = json['rushingLongest'];
     rushingTouchdowns = json['rushingTouchdowns'];
-    rushingYards = json['rushingYards'];
-    rushingYardsPerAttempt = json['rushingYardsPerAttempt'];
+    rushingYards = int.parse(((json['rushingYards'] ?? "0").toString()));
+  //  rushingYardsPerAttempt = json['rushingYardsPerAttempt'];
   }
 
   Map<String, dynamic> toJson() {
@@ -434,7 +435,7 @@ class Statistics {
     data['rushingLongest'] = this.rushingLongest;
     data['rushingTouchdowns'] = this.rushingTouchdowns;
     data['rushingYards'] = this.rushingYards;
-    data['rushingYardsPerAttempt'] = this.rushingYardsPerAttempt;
+   // data['rushingYardsPerAttempt'] = this.rushingYardsPerAttempt;
     return data;
   }
 }

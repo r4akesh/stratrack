@@ -68,7 +68,7 @@ class SelectMatch extends StatelessWidget {
               ListView.builder(itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    Get.to(MatchDetails(from: "Live"));
+                   // Get.to(MatchDetails(from: "Live"));
                   },
                   child: Card(
                     margin: const EdgeInsets.symmetric(

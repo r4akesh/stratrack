@@ -43,3 +43,5 @@ const arrowLeftIcon ="assets/images/arrow_left.png";
 
 
 const KEY_DASHBOARD_LIST = "KEY_DASHBOARD_LIST";
+const TeamHomeName = "TeamHomeName";
+const TeamAwayName = "TeamAwayName";

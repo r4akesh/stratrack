@@ -4,53 +4,128 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:stattrack/ui/player_record.dart';
 import '../controller/MatchPlayerStatsController.dart';
+import '../model/matchdetail_model.dart';
 import '../utils/LoadingWidget.dart';
+import '../utils/colors.dart';
 import '../utils/commen.dart';
 
 class MatchPlayerstats extends StatelessWidget {
-  var matchId;
+  RxList<Players> matchId;
    MatchPlayerstats(this.matchId, {Key? key}) : super(key: key);
   var matchPlayerStatsController = Get.put(MatchPlayerStatsController());
   @override
   Widget build(BuildContext context) {
-    matchPlayerStatsController.matchIdd = matchId;
-    print("matchIdd>>${matchPlayerStatsController.matchIdd}");
-    return
-      GetX<MatchPlayerStatsController>(
-      init: MatchPlayerStatsController() ,
-      builder: (controller){
-        return Expanded(
-          child: controller.isLoading.value? LoadingWidget():controller.homePlayers.isEmpty?Center(child: Text("No match found",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),):
+   // matchPlayerStatsController.getLineupsCall(matchId!);
+    print("matchIdd>>${matchId}");
 
-          ListView.builder(
-            itemCount: 10,
+        return Expanded(
+          child: ListView.builder(
+            itemCount: matchId.length,
             itemBuilder: (context, index) {
               return Card(
                 margin: EdgeInsets.all(5),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
-                      horizontal: 5, vertical: 20),
-                  child: Row(
+                      horizontal: 5, vertical: 10),
+                  child: Column(
                     children: [
-                      Expanded(
-                          flex: 2,
-                          child: GestureDetector(
-                            onTap: (){
-                              Get.to(PlayerRecord());
-                            },
-                            child: appText("Evan McPherson",
-                                fontSize: 12),
-                          )),
-                      for (var i = 0; i < 6; i++) ...[
-                        Expanded(
-                          child: Container(
-                              width: 40,
-                              alignment: Alignment.center,
-                              child: appText("2",
-                                  fontweight: FontWeight.w400,
-                                  fontSize: 12)),
-                        )
-                      ]
+                      Row(
+                        children: [
+                          Expanded(
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText(matchId[index].player?.name ??"", fontSize: 12),
+                              )),
+
+                        ],
+                      ),
+                      SizedBox(height: 7,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText("Kick Returns Total", fontSize: 12,fontweight: FontWeight.w500, textAlign: TextAlign.center),
+                              )),
+                          SizedBox(width: 4,),
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText("Passing Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
+                              )),
+                          SizedBox(width: 4,),
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText("Receiving Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
+                              )),
+                          SizedBox(width: 4,),
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText("Rushing Yards", fontSize: 12 ,fontweight: FontWeight.w500,textAlign: TextAlign.center ),
+                              )),
+
+                        ],
+                      ),
+                      SizedBox(height: 3,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText(matchId[index].statistics?.kickReturnsTotal.toString() ?? "N/A" , fontSize: 12, textAlign: TextAlign.center),
+                              )),
+                          SizedBox(width: 4,),
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText(matchId[index].statistics?.passingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
+                              )),
+                          SizedBox(width: 4,),
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText(matchId[index].statistics?.receivingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
+                              )),
+                          SizedBox(width: 4,),
+                          Expanded(
+                              flex: 2,
+                              child: GestureDetector(
+                                onTap: (){
+                                  Get.to(PlayerRecord());
+                                },
+                                child: appText(matchId[index].statistics?.rushingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
+                              )),
+
+                        ],
+                      )
                     ],
                   ),
                 ),
@@ -58,8 +133,8 @@ class MatchPlayerstats extends StatelessWidget {
             },
           ),
         );
-      },
-    );
+
+
 
   }
 }

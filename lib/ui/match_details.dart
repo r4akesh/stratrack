@@ -2,25 +2,29 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:stattrack/main.dart';
 import 'package:stattrack/ui/MatchPlayerStats.dart';
 import 'package:stattrack/ui/player_record.dart';
 import 'package:stattrack/ui/team_details.dart';
 import 'package:stattrack/utils/colors.dart';
 
+import '../controller/MatchDetailController.dart';
 import '../controller/OldMatchController.dart';
+import '../utils/LoadingWidget.dart';
 import '../utils/commen.dart';
 import '../utils/constant.dart';
 
 class MatchDetails extends StatelessWidget {
   var from = "";
   var oldMatchController = Get.put(OldMatchController());
-
   MatchDetails({Key? key, required this.from}) : super(key: key);
+  int? matchID;
 
+  var matchDetailController = Get.put(MatchDetailController());
   @override
   Widget build(BuildContext context) {
-    print("matchID>>${ oldMatchController.matchId}");
-
+    matchID =oldMatchController.matchId;
+    matchDetailController.getLineupsCall(matchID!);
     return Scaffold(
       appBar: appBar(),
       body: Container(
@@ -35,36 +39,47 @@ class MatchDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 40,
-                      child: ClipOval(
-                        child: Image.asset(demoImage),
-                      ),
+                GestureDetector(
+                  onTap: (){
+                    print("object");
+                  //  MatchPlayerstats(matchDetailController.homePlayerList);
+                  } ,
+                  child: Expanded(
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 40,
+                          child: ClipOval(
+                            child: Image.asset(demoImage),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        appText(MyApp.box.read(TeamHomeName),textAlign: TextAlign.center)
+                      ],
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    appText("Philadelphia Eagles")
-                  ],
+                  ),
                 ),
                 appText("VS"),
-                Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      radius: 40,
-                      child: ClipOval(
-                        child: Image.asset(demoImage),
+                
+                Expanded(
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 40,
+                        child: ClipOval(
+                          child: Image.asset(demoImage),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    appText("Philadelphia Eagles")
-                  ],
+                      SizedBox(
+                        height: 10,
+                      ),
+                      appText(MyApp.box.read(TeamAwayName), textAlign: TextAlign.center)
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -86,45 +101,9 @@ class MatchDetails extends StatelessWidget {
               thickness: 1,
             ),
             Expanded(
-              child: DefaultTabController(
-                length: 4,
-                child: Column(
-                  children: [
-                    const TabBar(
-                        labelColor: appOrange,
-                        indicatorColor: appOrange,
-                        unselectedLabelColor: appBlack,
-                        labelStyle: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500
-                        ),
-                        tabs: [
-                          Tab(
-                            text: "Kicking",
-                          ),
-                          Tab(
-                            text: "Passing",
-                          ),
-                          Tab(
-                            text: "Receiving",
-                          ),
-                          Tab(
-                            text: "Defense",
-                          ),
-
-                        ]),
-                    Expanded(
-                        child: TabBarView(children: [
-                          for(var i=0;i<4;i++)...[
-
-                            MatchPlayerstats(oldMatchController.matchId),
-                          ]
-
-
-                    ]))
-                  ],
-                ),
-              ),
+              child: GetBuilder<MatchDetailController>(builder: ( controller) {
+                return controller.isLoading.value? LoadingWidget():controller.homePlayerList.isEmpty?Center(child: Text("No match found",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),):MatchPlayerstats(controller.homePlayerList);
+              }, ),
             ),
           ],
         ),

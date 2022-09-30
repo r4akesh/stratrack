@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:stattrack/main.dart';
 import 'package:stattrack/utils/LoadingWidget.dart';
 
 import '../controller/OldMatchController.dart';
@@ -80,7 +81,10 @@ class OldMatch extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           controller.matchId = controller.eventList[index].id;
-                          Get.to(MatchDetails(from: "Old"));
+                          MyApp.box.write(TeamHomeName, ""+controller.eventList.value[index].homeTeam!.name.toString());
+                          MyApp.box.write(TeamAwayName, ""+controller.eventList.value[index].awayTeam!.name.toString());
+
+                         // Get.to(MatchDetails(from: "Old"));
                         },
                         child: Card(
                           margin: const EdgeInsets.symmetric(
