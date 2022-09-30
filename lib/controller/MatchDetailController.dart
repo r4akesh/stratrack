@@ -9,9 +9,16 @@ class MatchDetailController extends GetxController {
   var homePlayerList = <Players>[].obs;
   var awayPlayerList = <Players>[].obs;
 
+  var isHome = false.obs;
+
   @override
   void onInit() {
     super.onInit();
+  }
+
+  updateView(bool value ){
+    isHome  = value.obs;
+    update();
   }
 
   getLineupsCall(int matchIdd) async {

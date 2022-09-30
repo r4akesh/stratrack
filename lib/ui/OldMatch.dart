@@ -84,7 +84,7 @@ class OldMatch extends StatelessWidget {
                           MyApp.box.write(TeamHomeName, ""+controller.eventList.value[index].homeTeam!.name.toString());
                           MyApp.box.write(TeamAwayName, ""+controller.eventList.value[index].awayTeam!.name.toString());
 
-                         // Get.to(MatchDetails(from: "Old"));
+                          Get.to(MatchDetails(from: "Old"));
                         },
                         child: Card(
                           margin: const EdgeInsets.symmetric(

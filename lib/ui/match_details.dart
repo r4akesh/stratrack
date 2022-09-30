@@ -39,12 +39,12 @@ class MatchDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap: (){
-                    print("object");
-                  //  MatchPlayerstats(matchDetailController.homePlayerList);
-                  } ,
-                  child: Expanded(
+                Expanded(
+                  child: GestureDetector(
+                    onTap: (){
+                      print("object");
+                      matchDetailController.updateView(true);
+                    },
                     child: Column(
                       children: [
                         CircleAvatar(
@@ -65,20 +65,25 @@ class MatchDetails extends StatelessWidget {
                 appText("VS"),
                 
                 Expanded(
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 40,
-                        child: ClipOval(
-                          child: Image.asset(demoImage),
+                  child: GestureDetector(
+                    onTap: (){
+                      matchDetailController.updateView(false);
+                    },
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white,
+                          radius: 40,
+                          child: ClipOval(
+                            child: Image.asset(demoImage),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      appText(MyApp.box.read(TeamAwayName), textAlign: TextAlign.center)
-                    ],
+                        SizedBox(
+                          height: 10,
+                        ),
+                        appText(MyApp.box.read(TeamAwayName), textAlign: TextAlign.center)
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -102,7 +107,7 @@ class MatchDetails extends StatelessWidget {
             ),
             Expanded(
               child: GetBuilder<MatchDetailController>(builder: ( controller) {
-                return controller.isLoading.value? LoadingWidget():controller.homePlayerList.isEmpty?Center(child: Text("No match found",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),):MatchPlayerstats(controller.homePlayerList);
+                return controller.isLoading.value? LoadingWidget():controller.homePlayerList.isEmpty?Center(child: Text("No match found",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),) : controller.isHome.value ?  MatchPlayerstats(controller.homePlayerList) : MatchPlayerstats(controller.awayPlayerList)  ;
               }, ),
             ),
           ],
