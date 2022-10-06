@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:stattrack/controller/playerDetailController.dart';
 import 'package:stattrack/main.dart';
 
 import '../model/myDashboard.dart';
@@ -13,11 +14,14 @@ import '../utils/commen.dart';
 import '../utils/constant.dart';
 
 class PlayerRecord extends StatelessWidget {
-    PlayerRecord({Key? key}) : super(key: key);
+  int plrId;
+    PlayerRecord(this.plrId, {Key? key}) : super(key: key);
   //final box = Hive.box('boxName');
+   var plrDetailController = Get.put(PlayerDetailController());
   @override
   Widget build(BuildContext context) {
 
+    plrDetailController.plrDetailAPICall(plrId);
     List<UserData> listUd= <UserData>[];
     return Scaffold(
     body: Stack(
@@ -30,7 +34,7 @@ class PlayerRecord extends StatelessWidget {
             child: Image.asset(backIcon,scale: 3,color: Colors.white,width: 20,height: 20,))),
         Padding(padding: EdgeInsets.only(top: 60),
           child: Column(children: [
-            appText("Action",txtColor: Colors.white),
+           // appText("Action",txtColor: Colors.white),
             const SizedBox(height: 25,),
             Container( alignment: Alignment.topCenter,child: CircleAvatar(
               radius: 50,
@@ -42,8 +46,9 @@ class PlayerRecord extends StatelessWidget {
             ),),
             const SizedBox(height: 20,),
             appText("Philadelphia Eagles",txtColor: Colors.white),
-            const SizedBox(height: 40,),
-            Expanded(
+            appText("countery name",txtColor: Colors.white,fontSize: 14),
+            const SizedBox(height: 20,),
+           /* Expanded(
               child: DefaultTabController(
                 length: 4,
                 child: Column(
@@ -117,13 +122,48 @@ class PlayerRecord extends StatelessWidget {
                   ],
                 ),
               ),
+            ),*/
+            Padding(
+              padding: EdgeInsets.all(10),
+              child: Align(alignment: Alignment.centerLeft,
+                  child: appText("Personal Information",txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal)),
             ),
+            Column(children: [
+              rowPersonal("DOB","26 july"),
+              rowPersonal("Height","26 july"),
+              rowPersonal("Position","26 july"),
+              rowPersonal("Team Name","26 july"),
+
+
+
+
+            ],)
 
           ],),
         ),
 
       ],
     ),
+    );
+  }
+
+  Widget rowPersonal(String s1, String s2){
+    return  Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Container(
+        color: Colors.white,
+        child: Row(children: [
+          Expanded(
+              flex:1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: appText(s1,txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal,fontSize: 14),
+              )),
+          Expanded(
+              flex: 2,
+              child: appText(s2,txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal,fontSize: 14))
+        ],),
+      ),
     );
   }
 }

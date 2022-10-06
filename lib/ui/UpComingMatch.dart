@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import '../controller/UpcomingMatchController.dart';
+import '../main.dart';
 import '../utils/LoadingWidget.dart';
 import '../utils/colors.dart';
 import '../utils/commen.dart';
@@ -72,7 +73,20 @@ class UpcomingMatch extends StatelessWidget {
                   itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                   // Get.to(MatchDetails(from: "Upcoming"));
+                    if(controller.eventList.length>0) {
+                      controller.matchId = controller.eventList[index].id;
+                      MyApp.box.write(TeamHomeName, "" +
+                          controller.eventList.value[index].homeTeam!.name
+                              .toString());
+                      MyApp.box.write(TeamAwayName, "" +
+                          controller.eventList.value[index].awayTeam!.name
+                              .toString());
+                      print("Rakesh${controller.eventList.value[index].awayTeam!
+                          .name.toString()}");
+                      Get.to(MatchDetails(from: "Upcoming"));
+                    }else{
+                      print("no data");
+                    }
                   },
                   child: Card(
                     margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),

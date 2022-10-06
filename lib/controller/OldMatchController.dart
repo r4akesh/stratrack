@@ -83,6 +83,7 @@ class OldMatchController extends GetxController {
       print("catch>>$e");
 
       eventListorignal.value.clear();
+      print("catch>>${eventListorignal.length}");
       rethrow;
     }finally {
       // closeProgress();

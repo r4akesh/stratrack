@@ -79,6 +79,8 @@ class Apiclient {
     }
   }
 
+
+
   Future<dynamic> getSports(
       {required String url,
         required BuildContext context,
@@ -86,9 +88,9 @@ class Apiclient {
         required Map<String, dynamic> body}) async {
     dio!.options.headers["Content-Type"] = "application/json";
     dio!.options.headers["Accept"] = "application/json";
-    dio!.options.headers["X-RapidAPI-Key"] = "1bcfb7144amshd72b4d50e461425p12e6a6jsnfdb51d63eb88";
-   // dio!.options.headers["X-RapidAPI-Key"] = "eae7178a8fmshe35eac387bfc7f8p14be32jsnf393c46ecc97";
-   // dio!.options.headers["X-RapidAPI-Key"] = "fef39838a0mshc76f220c77521bcp10d45ajsn681b861bcd95";
+   // dio!.options.headers["X-RapidAPI-Key"] = "1bcfb7144amshd72b4d50e461425p12e6a6jsnfdb51d63eb88";
+    //dio!.options.headers["X-RapidAPI-Key"] = "eae7178a8fmshe35eac387bfc7f8p14be32jsnf393c46ecc97"; //DK
+    dio!.options.headers["X-RapidAPI-Key"] = "fef39838a0mshc76f220c77521bcp10d45ajsn681b861bcd95";
     dio!.options.headers["X-RapidAPI-Host"] = "allsportsapi2.p.rapidapi.com";
     dio!.options.connectTimeout = 30000;
     print("Api => $url");
@@ -96,10 +98,11 @@ class Apiclient {
 
     try {
       Response response = await dio!.get(url, queryParameters: prams ?? {});
-   //  log("Response => ${response.data}");
+     // print("ResponseApi => ${response.data}");
+      log("ResApiClient => ${response.data}");
       return response.data;
     } on DioError catch (e) {
-      log("Response222 => ${e.response}");
+      print("ResApiClient catch => ${e.response}");
       switch (e.type) {
         case DioErrorType.connectTimeout:
           {

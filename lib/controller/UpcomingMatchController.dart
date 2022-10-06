@@ -17,7 +17,7 @@ class UpcomingMatchController extends GetxController {
   var isSelected = 0.obs;
   var weekValue = 0;//1
   var dateValue = "";
-
+  var matchId ;
   @override
   void onInit() {
     super.onInit();

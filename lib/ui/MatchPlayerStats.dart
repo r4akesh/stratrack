@@ -11,7 +11,8 @@ import '../utils/commen.dart';
 
 class MatchPlayerstats extends StatelessWidget {
   RxList<Players> matchId;
-   MatchPlayerstats(this.matchId, {Key? key}) : super(key: key);
+  RxBool isHome;
+   MatchPlayerstats(this.matchId, this.isHome, {Key? key}) : super(key: key);
   var matchPlayerStatsController = Get.put(MatchPlayerStatsController());
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,9 @@ class MatchPlayerstats extends StatelessWidget {
                           Expanded(
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText(matchId[index].player?.name ??"", fontSize: 12),
                               )),
@@ -50,7 +53,9 @@ class MatchPlayerstats extends StatelessWidget {
                             flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText("Kick Returns Total", fontSize: 12,fontweight: FontWeight.w500, textAlign: TextAlign.center),
                               )),
@@ -59,7 +64,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText("Passing Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
                               )),
@@ -68,7 +75,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText("Receiving Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
                               )),
@@ -77,7 +86,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText("Rushing Yards", fontSize: 12 ,fontweight: FontWeight.w500,textAlign: TextAlign.center ),
                               )),
@@ -92,7 +103,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText(matchId[index].statistics?.kickReturnsTotal.toString() ?? "N/A" , fontSize: 12, textAlign: TextAlign.center),
                               )),
@@ -101,7 +114,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText(matchId[index].statistics?.passingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
                               )),
@@ -110,7 +125,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText(matchId[index].statistics?.receivingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
                               )),
@@ -119,7 +136,9 @@ class MatchPlayerstats extends StatelessWidget {
                               flex: 2,
                               child: GestureDetector(
                                 onTap: (){
-                                  Get.to(PlayerRecord());
+                                  var plrId=matchId[index].player?.id;
+                                  print("plrID>>${plrId}");
+                                  Get.to(PlayerRecord(plrId!));
                                 },
                                 child: appText(matchId[index].statistics?.rushingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
                               )),
