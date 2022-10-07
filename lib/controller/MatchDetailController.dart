@@ -63,7 +63,7 @@ class MatchDetailController extends GetxController {
 
   matchHiglightCall(int matchIdd)  {
     //delay for 1 sec coz per sec Api call sow error limit excced
-    Future.delayed(Duration(milliseconds: 1000), () {
+    Future.delayed(Duration(milliseconds: 2000), () {
      matchNameApiCall(matchIdd);
     });
 

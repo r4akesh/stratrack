@@ -40,7 +40,9 @@ class PlayerDetailController extends GetxController {
 
       if (response.player != null) {
         playerDetail.value = response.player as Player;
+        isLoading.value = false;
         update();
+        print("try plrDetailAPICal ${isLoading.value}");
       }
     }
     catch(e){

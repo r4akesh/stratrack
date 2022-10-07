@@ -42,7 +42,7 @@ class LoginController extends GetxController {
 
   callLoginApi() async {
     Map<String, dynamic> map = {
-      "email": emailEditController!.text.toString(),
+      "email": emailEditController!.text.toString().toLowerCase(),
       "password": passwordEditController!.text.toString(),
     };
     print("1");

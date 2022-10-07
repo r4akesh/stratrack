@@ -75,7 +75,7 @@ class SignUpController extends GetxController {
   callSignupApi() async {
 
     Map<String, dynamic> map = {
-      "email": emailEditController!.text.toString(),
+      "email": emailEditController!.text.toString().toLowerCase(),
       "password": passwordEditController!.text.toString(),
       "confPassword": CnfpasswordEditController!.text.toString(),
       "firstName": firstNameEditController!.text.toString(),
