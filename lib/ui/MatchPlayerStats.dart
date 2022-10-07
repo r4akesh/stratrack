@@ -19,138 +19,137 @@ class MatchPlayerstats extends StatelessWidget {
    // matchPlayerStatsController.getLineupsCall(matchId!);
     print("matchIdd>>${matchId}");
 
-        return Expanded(
-          child: ListView.builder(
-            itemCount: matchId.length,
-            itemBuilder: (context, index) {
-              return Card(
-                margin: EdgeInsets.all(5),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 5, vertical: 10),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText(matchId[index].player?.name ??"", fontSize: 12),
-                              )),
+        return ListView.builder(
+          itemCount: matchId.length,
+          itemBuilder: (context, index) {
+            return Card(
+              margin: EdgeInsets.all(5),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 5, vertical: 10),
 
-                        ],
-                      ),
-                      SizedBox(height: 7,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText(matchId[index].player?.name ??"", fontSize: 12),
+                            )),
+
+                      ],
+                    ),
+                    SizedBox(height: 7,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText("Kick Returns Total", fontSize: 12,fontweight: FontWeight.w500, textAlign: TextAlign.center),
+                            )),
+                        SizedBox(width: 4,),
+                        Expanded(
                             flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText("Kick Returns Total", fontSize: 12,fontweight: FontWeight.w500, textAlign: TextAlign.center),
-                              )),
-                          SizedBox(width: 4,),
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText("Passing Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
-                              )),
-                          SizedBox(width: 4,),
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText("Receiving Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
-                              )),
-                          SizedBox(width: 4,),
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText("Rushing Yards", fontSize: 12 ,fontweight: FontWeight.w500,textAlign: TextAlign.center ),
-                              )),
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText("Passing Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
+                            )),
+                        SizedBox(width: 4,),
+                        Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText("Receiving Yards", fontSize: 12,fontweight: FontWeight.w500,textAlign: TextAlign.center),
+                            )),
+                        SizedBox(width: 4,),
+                        Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText("Rushing Yards", fontSize: 12 ,fontweight: FontWeight.w500,textAlign: TextAlign.center ),
+                            )),
 
-                        ],
-                      ),
-                      SizedBox(height: 3,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText(matchId[index].statistics?.kickReturnsTotal.toString() ?? "N/A" , fontSize: 12, textAlign: TextAlign.center),
-                              )),
-                          SizedBox(width: 4,),
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText(matchId[index].statistics?.passingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
-                              )),
-                          SizedBox(width: 4,),
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText(matchId[index].statistics?.receivingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
-                              )),
-                          SizedBox(width: 4,),
-                          Expanded(
-                              flex: 2,
-                              child: GestureDetector(
-                                onTap: (){
-                                  var plrId=matchId[index].player?.id;
-                                  print("plrID>>${plrId}");
-                                  Get.to(PlayerRecord(plrId!));
-                                },
-                                child: appText(matchId[index].statistics?.rushingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
-                              )),
+                      ],
+                    ),
+                    SizedBox(height: 3,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText(matchId[index].statistics?.kickReturnsTotal.toString() ?? "N/A" , fontSize: 12, textAlign: TextAlign.center),
+                            )),
+                        SizedBox(width: 4,),
+                        Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText(matchId[index].statistics?.passingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
+                            )),
+                        SizedBox(width: 4,),
+                        Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText(matchId[index].statistics?.receivingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
+                            )),
+                        SizedBox(width: 4,),
+                        Expanded(
+                            flex: 2,
+                            child: GestureDetector(
+                              onTap: (){
+                                var plrId=matchId[index].player?.id;
+                                print("plrID>>${plrId}");
+                                Get.to(PlayerRecord(plrId!));
+                              },
+                              child: appText(matchId[index].statistics?.rushingYards.toString() ?? "N/A", fontSize: 12,textAlign: TextAlign.center),
+                            )),
 
-                        ],
-                      )
-                    ],
-                  ),
+                      ],
+                    )
+                  ],
                 ),
-              );
-            },
-          ),
+              ),
+            );
+          },
         );
 
 

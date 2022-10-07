@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:stattrack/controller/playerDetailController.dart';
 import 'package:stattrack/main.dart';
 import 'package:stattrack/utils/LoadingWidget.dart';
@@ -50,88 +51,14 @@ class PlayerRecord extends StatelessWidget {
             appText(plrDetailController.playerDetail.value.name ?? "N/A",txtColor: Colors.white),
             appText(plrDetailController.playerDetail.value.team?.country?.name ?? "N/A",txtColor: Colors.white,fontSize: 14),
             const SizedBox(height: 20,),
-           /* Expanded(
-              child: DefaultTabController(
-                length: 4,
-                child: Column(
-                  children: [
-                    const TabBar(
-                        labelColor: appOrange,
-                        indicatorColor: Colors.transparent,
-                        unselectedLabelColor: appBlack,
-                        indicatorSize: TabBarIndicatorSize.label,
 
-                        labelStyle: TextStyle(
-                          fontSize: 14,
-
-                        ),
-                        tabs: [
-                          Tab(
-                            text: "Kicking",
-
-                          ),
-                          Tab(
-                            text: "Passing",
-                          ),
-                          Tab(
-                            text: "Receiving",
-                          ),
-                          Tab(
-                            text: "Defense",
-                          ),
-                        ]),
-
-                    Expanded(
-                        child: TabBarView(
-                            children: [
-                          for(var i=0;i<4;i++)...[
-                            Expanded(
-                              child: ListView.builder(
-                                padding: EdgeInsets.all(0),
-                                itemCount: 10,
-                                itemBuilder: (context, index) {
-                                  return Container(
-                                    color: applightgrey,
-                                    margin: const EdgeInsets.only(left: 5,right: 5,bottom: 5),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5, vertical: 10),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          appText("Gp",fontweight: FontWeight.w400,fontSize: 14),
-                                          appText("2",fontweight: FontWeight.w400,fontSize: 14),
-                                          GestureDetector(
-                                              onTap: () async {
-                                                UserData ud = UserData("Player1","2");
-                                                listUd.add(ud);
-                                                MyApp.box.write(KEY_DASHBOARD_LIST, jsonEncode(listUd));
-                                                var fetchData = MyApp.box.read(KEY_DASHBOARD_LIST);
-                                                print(fetchData);
-                                                toast("Record added in your dashboard");
-                                                },
-                                              child: Image.asset(addIcon,scale: 3.2,))
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            )
-                          ]
-
-                        ]))
-                  ],
-                ),
-              ),
-            ),*/
             Padding(
-              padding: EdgeInsets.all(10),
+              padding: EdgeInsets.only(top: 30,left: 10,bottom: 10),
               child: Align(alignment: Alignment.centerLeft,
                   child: appText("Personal Information",txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal)),
             ),
             Column(children: [
-              rowPersonal("DOB",plrDetailController.playerDetail.value.dateOfBirthTimestamp.toString()),
+              rowPersonal("DOB",DateFormat('dd MMM, yyyy').format(DateTime.fromMillisecondsSinceEpoch(plrDetailController.playerDetail.value.dateOfBirthTimestamp!))),
               rowPersonal("Height",plrDetailController.playerDetail.value.height.toString()),
               rowPersonal("Position",plrDetailController.playerDetail.value.position.toString()),
               rowPersonal("Team Name",plrDetailController.playerDetail.value.team?.name ?? "".toString()),

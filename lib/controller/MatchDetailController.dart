@@ -23,8 +23,13 @@ class MatchDetailController extends GetxController {
     isHome  = value.obs;
     update();
   }
+  clearData(){
+    homePlayerList.clear();
+    awayPlayerList.clear();
+  }
 
   getLineupsCall(int matchIdd) async {
+
     Map<String, dynamic> map = {};
     try {
       print("LineupsCall>$matchIdd");

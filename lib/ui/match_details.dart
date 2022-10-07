@@ -5,10 +5,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:stattrack/controller/UpcomingMatchController.dart';
 import 'package:stattrack/main.dart';
 import 'package:stattrack/ui/MatchPlayerStats.dart';
-import 'package:stattrack/ui/player_record.dart';
-import 'package:stattrack/ui/team_details.dart';
-import 'package:stattrack/utils/colors.dart';
-import 'package:url_launcher/url_launcher.dart';
+
+
 
 import '../controller/MatchDetailController.dart';
 import '../controller/OldMatchController.dart';
@@ -29,6 +27,7 @@ class MatchDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (from == "Upcoming") {
+      matchDetailController.clearData();
       textMsg = "Match not started yet";
       matchID = upcomingMatchController.matchId;
 
@@ -43,157 +42,143 @@ class MatchDetails extends StatelessWidget {
       appBar: appBar(),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Expanded(
-          child: Column(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 30,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                        print("object");
-                         matchDetailController.updateView(true);
-                      },
-                      child:  Column(
-                        children: [
-                          GetX<MatchDetailController>(
+        child: Column(
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 30,
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      print("object");
+                       matchDetailController.updateView(true);
+                    },
+                    child:  Column(
+                      children: [
+                        GetX<MatchDetailController>(
+                          init: MatchDetailController(),
+                          builder: (controllerMatch) {
+                            return controllerMatch.hightLightList.isNotEmpty?
+                              CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 40,
+                              child: ClipOval(
+                                child: controllerMatch.isLoadingTwo.value
+                                    ? Image.asset(appLogo)
+                                    : Image.network(
+                                        controllerMatch
+                                            .hightLightList[0].thumbnailUrl!,
+                                        fit: BoxFit.fill,
+                                        width: 100,
+                                        height: 100,
+                                      ),
+                              ),
+                            ):  SizedBox(
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 40,
+                                child: ClipOval(
+                                    child: Image.asset(appLogo)
+                                ),
+                              ),
+                            ) ;
+                          },
+                        ) ,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+
+                          height: 40,
+                          child: appText(MyApp.box.read(TeamHomeName),
+                              textAlign: TextAlign.center),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                appText("VS", ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                        matchDetailController.updateView(false);
+                    },
+                    child: Column(
+                      children: [
+
+                        GetX<MatchDetailController>(
                             init: MatchDetailController(),
                             builder: (controllerMatch) {
-                              return controllerMatch.hightLightList.isNotEmpty?
+                              return    controllerMatch
+                                  .hightLightList.isNotEmpty?
                                 CircleAvatar(
                                 backgroundColor: Colors.white,
                                 radius: 40,
                                 child: ClipOval(
-                                  child: controllerMatch.isLoadingTwo.value
-                                      ? Image.asset(appLogo)
-                                      : Image.network(
-                                          controllerMatch
-                                              .hightLightList[0].thumbnailUrl!,
-                                          fit: BoxFit.fill,
-                                          width: 100,
-                                          height: 100,
-                                        ),
-                                ),
+                                    child: controllerMatch
+                                            .isLoadingTwo.value
+                                        ? Image.asset(appLogo)
+                                        : controllerMatch
+                                                    .hightLightList.length >
+                                                1
+                                            ? Image.network(
+                                      controllerMatch
+                                                    .hightLightList[1]
+                                                    .thumbnailUrl!,
+                                                fit: BoxFit.fill,
+                                                width: 100,
+                                                height: 100,
+                                              )
+                                            : Image.asset(appLogo)),
                               ):  SizedBox(
                                 child: CircleAvatar(
-                                  backgroundColor: Colors.white,
                                   radius: 40,
+                                    backgroundColor: Colors.white,
                                   child: ClipOval(
                                       child: Image.asset(appLogo)
                                   ),
                                 ),
                               ) ;
-                            },
-                          ) ,
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
+                            }),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          height: 40,
 
-                            height: 40,
-                            child: appText(MyApp.box.read(TeamHomeName),
-                                textAlign: TextAlign.center),
-                          )
-                        ],
-                      ),
+                          child: appText(MyApp.box.read(TeamAwayName),
+                              textAlign: TextAlign.center),
+                        )
+                      ],
                     ),
                   ),
-                  appText("VS", ),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: () {
-                          matchDetailController.updateView(false);
-                      },
-                      child: Column(
-                        children: [
-
-                          GetX<MatchDetailController>(
-                              init: MatchDetailController(),
-                              builder: (controllerMatch) {
-                                return    controllerMatch
-                                    .hightLightList.isNotEmpty?
-                                  CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 40,
-                                  child: ClipOval(
-                                      child: controllerMatch
-                                              .isLoadingTwo.value
-                                          ? Image.asset(appLogo)
-                                          : controllerMatch
-                                                      .hightLightList.length >
-                                                  1
-                                              ? Image.network(
-                                        controllerMatch
-                                                      .hightLightList[1]
-                                                      .thumbnailUrl!,
-                                                  fit: BoxFit.fill,
-                                                  width: 100,
-                                                  height: 100,
-                                                )
-                                              : Image.asset(appLogo)),
-                                ):  SizedBox(
-                                  child: CircleAvatar(
-                                    radius: 40,
-                                      backgroundColor: Colors.white,
-                                    child: ClipOval(
-                                        child: Image.asset(appLogo)
-                                    ),
-                                  ),
-                                ) ;
-                              }),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: 40,
-
-                            child: appText(MyApp.box.read(TeamAwayName),
-                                textAlign: TextAlign.center),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              // appText("Saturday, August 13,2022",
-              //     txtColor: appTextGrey,
-              //     fontweight: FontWeight.w400,
-              //     fontSize: 14),
-              // GestureDetector(
-              //   onTap: (){
-              //     _launchUrl(matchHighLightController.hightLightList[0].url!);
-              //   },
-              //   child: appText(matchHighLightController.isLoadingTwo.value? "N/A Url" : matchHighLightController.hightLightList[0].url!,
-              //       txtColor: appTextGrey,
-              //       fontweight: FontWeight.w400,
-              //       fontSize: 14),
-              // ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Divider(
-                thickness: 1,
-              ),
-              Expanded(
-                child: GetBuilder<MatchDetailController>(
-                  builder: (controller) {
-                    return controller.isLoading.value
-                        ? LoadingWidget() : controller.homePlayerList.isEmpty
-                            ?   Center(child: Text(textMsg, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),) : controller.isHome.value
-                                ? MatchPlayerstats(controller.homePlayerList,controller.isHome) : MatchPlayerstats(controller.awayPlayerList,controller.isHome);
-                  },
                 ),
+              ],
+            ),
+
+
+            const SizedBox(
+              height: 5,
+            ),
+            const Divider(
+              thickness: 1,
+            ),
+            Expanded(
+              child: GetBuilder<MatchDetailController>(
+                builder: (controller) {
+                  return controller.isLoading.value
+                      ? LoadingWidget() : controller.homePlayerList.isEmpty
+                          ?   Center(child: Text(textMsg, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),) : controller.isHome.value
+                              ? MatchPlayerstats(controller.homePlayerList,controller.isHome) : MatchPlayerstats(controller.awayPlayerList,controller.isHome);
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -201,7 +186,7 @@ class MatchDetails extends StatelessWidget {
 
 
 
-  Future<void> _launchUrl(String url) async {
+/*  Future<void> _launchUrl(String url) async {
     if (!await launch(
       url,
       forceSafariVC: true,
@@ -210,7 +195,7 @@ class MatchDetails extends StatelessWidget {
     )) {
       throw 'Could not launch $url';
     }
-  }
+  }*/
 
   AppBar appBar() {
     return AppBar(

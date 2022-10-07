@@ -89,8 +89,8 @@ class Apiclient {
     dio!.options.headers["Content-Type"] = "application/json";
     dio!.options.headers["Accept"] = "application/json";
    // dio!.options.headers["X-RapidAPI-Key"] = "1bcfb7144amshd72b4d50e461425p12e6a6jsnfdb51d63eb88";
-    dio!.options.headers["X-RapidAPI-Key"] = "eae7178a8fmshe35eac387bfc7f8p14be32jsnf393c46ecc97"; //DK
-   // dio!.options.headers["X-RapidAPI-Key"] = "fef39838a0mshc76f220c77521bcp10d45ajsn681b861bcd95";
+   // dio!.options.headers["X-RapidAPI-Key"] = "eae7178a8fmshe35eac387bfc7f8p14be32jsnf393c46ecc97"; //DK
+    dio!.options.headers["X-RapidAPI-Key"] = "fef39838a0mshc76f220c77521bcp10d45ajsn681b861bcd95";
    // dio!.options.headers["X-RapidAPI-Key"] = "331d2a2f71msh01dd81e672e73d3p1795b4jsnb474b3c0c9ea";//rahul
   //  dio!.options.headers["X-RapidAPI-Key"] =   "690cab678fmshf73a3e54b2017979p14f746jsn4bd3de022654";//client
     dio!.options.headers["X-RapidAPI-Host"] = "allsportsapi2.p.rapidapi.com";
