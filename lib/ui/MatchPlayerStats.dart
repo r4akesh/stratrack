@@ -13,12 +13,10 @@ class MatchPlayerstats extends StatelessWidget {
   RxList<Players> matchId;
   RxBool isHome;
    MatchPlayerstats(this.matchId, this.isHome, {Key? key}) : super(key: key);
-  var matchPlayerStatsController = Get.put(MatchPlayerStatsController());
+ // var matchPlayerStatsController = Get.put(MatchPlayerStatsController());
   @override
   Widget build(BuildContext context) {
-   // matchPlayerStatsController.getLineupsCall(matchId!);
     print("matchIdd>>${matchId}");
-
         return ListView.builder(
           itemCount: matchId.length,
           itemBuilder: (context, index) {

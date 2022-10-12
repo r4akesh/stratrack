@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -17,81 +15,145 @@ import '../utils/constant.dart';
 
 class PlayerRecord extends StatelessWidget {
   int plrId;
-    PlayerRecord(this.plrId, {Key? key}) : super(key: key);
+  PlayerRecord(this.plrId, {Key? key}) : super(key: key);
   //final box = Hive.box('boxName');
-   var plrDetailController = Get.put(PlayerDetailController());
+  var plrDetailController = Get.put(PlayerDetailController());
   @override
   Widget build(BuildContext context) {
-
     plrDetailController.plrDetailAPICall(plrId);
-    List<UserData> listUd= <UserData>[];
-    return GetBuilder<PlayerDetailController>(init: PlayerDetailController() ,builder: (value)=>
-    Scaffold(
-    body: Stack(
-      children: [
-        Image.asset(topHeaderImg2,   fit: BoxFit.fill,),
-        Positioned(left:15,top: 50,child: GestureDetector(
-            onTap: (){
-              Get.back();
-            },
-            child: Image.asset(backIcon,scale: 3,color: Colors.white,width: 20,height: 20,))),
-        Padding(padding: EdgeInsets.only(top: 60),
-          child: value.isLoading.value? LoadingWidget(): Column(children: [
-           // appText("Action",txtColor: Colors.white),
-            const SizedBox(height: 25,),
-            Container( alignment: Alignment.topCenter,child: CircleAvatar(
-              radius: 50,
-              backgroundColor: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(3), // Border radius
-                child: ClipOval(child: Image.asset(appLogo)),
-              ),
-            ),),
-            const SizedBox(height: 20,),
-            appText(plrDetailController.playerDetail.value.name ?? "N/A",txtColor: Colors.white),
-            appText(plrDetailController.playerDetail.value.team?.country?.name ?? "N/A",txtColor: Colors.white,fontSize: 14),
-            const SizedBox(height: 20,),
-
-            Padding(
-              padding: EdgeInsets.only(top: 30,left: 10,bottom: 10),
-              child: Align(alignment: Alignment.centerLeft,
-                  child: appText("Personal Information",txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal)),
+    List<UserData> listUd = <UserData>[];
+    return GetBuilder<PlayerDetailController>(
+      init: PlayerDetailController(),
+      builder: (value) => Scaffold(
+        body: Stack(
+          children: [
+            Image.asset(
+              topHeaderImg2,
+              fit: BoxFit.fill,
             ),
-            Column(children: [
-              rowPersonal("DOB",DateFormat('dd MMM, yyyy').format(DateTime.fromMillisecondsSinceEpoch(plrDetailController.playerDetail.value.dateOfBirthTimestamp!))),
-              rowPersonal("Height",plrDetailController.playerDetail.value.height.toString()),
-              rowPersonal("Position",plrDetailController.playerDetail.value.position.toString()),
-              rowPersonal("Team Name",plrDetailController.playerDetail.value.team?.name ?? "".toString()),
+            Positioned(
+                left: 15,
+                top: 50,
+                child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Image.asset(
+                      backIcon,
+                      scale: 3,
+                      color: Colors.white,
+                      width: 20,
+                      height: 20,
+                    ))),
+            Padding(
+              padding: EdgeInsets.only(top: 60),
+              child: value.isLoading.value
+                  ? LoadingWidget()
+                  : Column(
+                      children: [
+                        // appText("Action",txtColor: Colors.white),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                       ClipRRect(
+                         borderRadius: BorderRadius.circular(50),
+                         child:  Container(
+                           height: 100,
+                           child: Image.network("https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plrId/image",
+                             headers: const {
+                               "X-RapidAPI-Key": RAPID_API_KEY,
+                               "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
+                             },
+                           ),
+                         ),
+                       ),
 
 
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        appText(
+                            plrDetailController.playerDetail.value.name ??
+                                "N/A",
+                            txtColor: Colors.white),
+                        appText(
+                            plrDetailController
+                                    .playerDetail.value.team?.country?.name ??
+                                "N/A",
+                            txtColor: Colors.white,
+                            fontSize: 14),
+                        const SizedBox(
+                          height: 20,
+                        ),
 
-
-            ],)
-
-          ],),
+                        Padding(
+                          padding:
+                              EdgeInsets.only(top: 30, left: 10, bottom: 10),
+                          child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: appText("Personal Information",
+                                  txtColor: Colors.black,
+                                  textAlign: TextAlign.start,
+                                  fontweight: FontWeight.normal)),
+                        ),
+                        Column(
+                          children: [
+                            rowPersonal(
+                                "DOB",
+                                DateFormat('dd MMM, yyyy').format(
+                                    DateTime.fromMillisecondsSinceEpoch(
+                                        plrDetailController.playerDetail.value
+                                            .dateOfBirthTimestamp!))),
+                            rowPersonal(
+                                "Height",
+                                plrDetailController.playerDetail.value.height
+                                    .toString()),
+                            rowPersonal(
+                                "Position",
+                                plrDetailController.playerDetail.value.position
+                                    .toString()),
+                            rowPersonal(
+                                "Team Name",
+                                plrDetailController
+                                        .playerDetail.value.team?.name ??
+                                    "".toString()),
+                          ],
+                        )
+                      ],
+                    ),
+            ),
+          ],
         ),
-
-      ],
-    ),
-    ),);
+      ),
+    );
   }
 
-  Widget rowPersonal(String s1, String s2){
-    return  Padding(
+  Widget rowPersonal(String s1, String s2) {
+    return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Container(
         color: Colors.white,
-        child: Row(children: [
-          Expanded(
-              flex:1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: appText(s1,txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal,fontSize: 12),
-              )),
-          Expanded(
-              flex: 2,
-              child: appText(s2,txtColor: Colors.black, textAlign: TextAlign.start,fontweight: FontWeight.normal,fontSize: 12))
-        ],),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: appText(s1,
+                      txtColor: Colors.black,
+                      textAlign: TextAlign.start,
+                      fontweight: FontWeight.normal,
+                      fontSize: 12),
+                )),
+            Expanded(
+                flex: 2,
+                child: appText(s2,
+                    txtColor: Colors.black,
+                    textAlign: TextAlign.start,
+                    fontweight: FontWeight.normal,
+                    fontSize: 12))
+          ],
+        ),
       ),
     );
   }

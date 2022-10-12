@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:stattrack/model/matchdetail_model.dart';
+import 'package:stattrack/model/matchstats_model.dart';
 
 import '../model/matchhilight_model.dart';
 import '../network/apiClient.dart';
@@ -8,9 +9,11 @@ class MatchDetailController extends GetxController {
   var isLoading = false.obs;
   var isLoadingTwo = true.obs;
   final apiClient = Apiclient.instance;
+  var staticList = <Groups>[].obs;
   var homePlayerList = <Players>[].obs;
   var awayPlayerList = <Players>[].obs;
   var isHome = true.obs;
+  var isStats = true.obs;
 
   var hightLightList = <Highlights>[].obs;
 
@@ -23,30 +26,33 @@ class MatchDetailController extends GetxController {
     isHome  = value.obs;
     update();
   }
+
+  updateViewStatsOrPlayer(bool value ){
+    isStats  = value.obs;
+    update();
+  }
   clearData(){
     homePlayerList.clear();
     awayPlayerList.clear();
   }
 
   getLineupsCall(int matchIdd) async {
-
     Map<String, dynamic> map = {};
     try {
       print("LineupsCall>$matchIdd");
       isLoading.value = true;
-      //showProgressBar();
+      update();
       var data = await apiClient?.getSports(
           url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/lineups",
           body: map,
           context: Get.context!);
-     // print("data>>${data}");
       if(data!=null) {
         var response = MatchDetailModel.fromJson(data);
         if (response.home != null) {
           homePlayerList.value = response.home?.players as List<Players>;
           awayPlayerList.value = response.away?.players as List<Players>;
           print("catch3  >>$isLoading");
-          isLoading.value = true;
+          isLoading.value = false;
           print("catch4  >>$isLoading");
           update();
         }
@@ -64,7 +70,35 @@ class MatchDetailController extends GetxController {
     }
   }
 
+  getStatisticsCall(int matchIdd) async {
+    Map<String, dynamic> map = {};
+    try {
+      print("statisticsLength1>${matchIdd}");
+      isLoading.value = true;
+      var data = await apiClient?.getSports(
+          url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/statistics",
+          body: map,
+          context: Get.context!);
+      if(data!=null) {
+        var response = MatchStatsModel.fromJson(data);
+        if (response.statistics != null) {
+          staticList.value  =   response.statistics?[0].groups as List<Groups>; //getting group at 0th pos
+          print("statisticsLength2>${staticList.value.length}");
+          isLoading.value = true;
+          update();
+        }
+      }
 
+    } catch (e) {
+      print("catch statistics>>$e");
+      staticList.value.clear();
+      update();
+      rethrow;
+    } finally {
+      // closeProgress();
+      isLoading.value = false;
+    }
+  }
 
   matchHiglightCall(int matchIdd)  {
     //delay for 1 sec coz per sec Api call sow error limit excced
@@ -76,7 +110,12 @@ class MatchDetailController extends GetxController {
 
   @override
   void onClose() {
-    hightLightList.value.clear();
+    // hightLightList.value.clear();
+    // homePlayerList.value.clear();
+    // awayPlayerList.value.clear();
+    // staticList.value.clear();
+    // isStats = false.obs;
+    // isHome = false.obs;
     super.onClose();
   }
 

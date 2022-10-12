@@ -45,3 +45,4 @@ const arrowLeftIcon ="assets/images/arrow_left.png";
 const KEY_DASHBOARD_LIST = "KEY_DASHBOARD_LIST";
 const TeamHomeName = "TeamHomeName";
 const TeamAwayName = "TeamAwayName";
+const RAPID_API_KEY = "690cab678fmshf73a3e54b201797p14f746jsn4bd3de022654";//client

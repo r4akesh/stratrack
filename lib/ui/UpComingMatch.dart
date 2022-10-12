@@ -83,7 +83,7 @@ class UpcomingMatch extends StatelessWidget {
                               .toString());
                       print("Rakesh${controller.eventList.value[index].awayTeam!
                           .name.toString()}");
-                      Get.to(MatchDetails(from: "Upcoming"));
+                     // Get.to(MatchDetails(from: "Upcoming"));
                     }else{
                       print("no data");
                     }
