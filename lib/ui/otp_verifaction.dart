@@ -125,6 +125,7 @@ class OtpVerifaction extends StatelessWidget {
                                         text: " Resend",
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
+                                            //addddd
                                             otpController.callAPIForgot(email);
                                             otpController.update();
                                           },
