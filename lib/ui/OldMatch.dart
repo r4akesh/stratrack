@@ -81,8 +81,11 @@ class OldMatch extends StatelessWidget {
                       return GestureDetector(
                         onTap: () {
                           controller.matchId = controller.eventList[index].id;
+                          //to pass next screen i.e matchDetailScreen
                           MyApp.box.write(TeamHomeName, ""+controller.eventList.value[index].homeTeam!.name.toString());
                           MyApp.box.write(TeamAwayName, ""+controller.eventList.value[index].awayTeam!.name.toString());
+                          MyApp.box.write(TeamHomeID, ""+controller.eventList.value[index].homeTeam!.id.toString());
+                          MyApp.box.write(TeamAwayID, ""+controller.eventList.value[index].awayTeam!.id.toString());
 
                           Get.to(MatchDetails(from: "Old"));
                         },

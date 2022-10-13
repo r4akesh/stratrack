@@ -5,6 +5,7 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:stattrack/controller/OtpController.dart';
+import 'package:stattrack/utils/timer_count.dart';
 
 import '../utils/colors.dart';
 import '../utils/commen.dart';
@@ -70,10 +71,8 @@ class OtpVerifaction extends StatelessWidget {
                           onCompleted: (value) {
                             otpController.otp = value;
                             otpController.otpVerify();
-                            print(">>>>>>>>>>>>>>>>>" + value);
                           },
                           onChanged: (value) {
-                            print(">>>>>" + value);
                             otpController.otp = value.toString();
                           },
                           length: 4,
@@ -88,20 +87,11 @@ class OtpVerifaction extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerRight,
                         width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 15),
+                        margin: EdgeInsets.symmetric(horizontal: 0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            CircularProgressIndicator(
-                              backgroundColor: Colors.grey,
-                              value: .5,
-                              valueColor: AlwaysStoppedAnimation(Colors.green),
-                              strokeWidth: 5,
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            appText("00:30", fontweight: FontWeight.w400, fontSize: 15)
+                            TimeCounderProgressBar(),
                           ],
                         ),
                       ),
@@ -135,8 +125,8 @@ class OtpVerifaction extends StatelessWidget {
                                         text: " Resend",
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                          otpController.callAPIForgot(email);
-
+                                            otpController.callAPIForgot(email);
+                                            otpController.update();
                                           },
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,

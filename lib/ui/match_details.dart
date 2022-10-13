@@ -33,8 +33,12 @@ class _MatchDetailsState extends State<MatchDetails> {
   var matchDetailController = Get.put(MatchDetailController());
   var matchHighLightController = Get.put(MatchDetailController());
   String textMsg="";
+  String homeTeamId="";
+  String awayTeamId="";
 @override
   void initState() {
+  homeTeamId = MyApp.box.read(TeamHomeID);
+  awayTeamId = MyApp.box.read(TeamAwayID);
   matchDetailController.isStats.value=true;
   matchDetailController.isHome.value=true;
   matchDetailController.hightLightList.value.clear();
@@ -77,7 +81,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                 Expanded(
                   child: GestureDetector(
                     onTap: () {
-                      print("object");
+
                        matchDetailController.updateView(true);
                     },
                     child:  Column(
@@ -85,38 +89,29 @@ class _MatchDetailsState extends State<MatchDetails> {
                         GetX<MatchDetailController>(
                           init: MatchDetailController(),
                           builder: (controllerMatch) {
-                            return controllerMatch.hightLightList.isNotEmpty?
-                              CircleAvatar(
-                                radius: 40,
-                                backgroundColor:  matchDetailController.isHome.value? Colors.blue : Colors.white,
-                                child: CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 38,
-                                child: ClipOval(
-                                  child: controllerMatch.isLoadingTwo.value
-                                      ? Image.asset(appLogo)
-                                      : Image.network(
-                                          controllerMatch
-                                              .hightLightList[0].thumbnailUrl!,
-                                          fit: BoxFit.fill,
-                                          width: 100,
-                                          height: 100,
-                                        ),
-                                ),
-                            ),
-                              ):  SizedBox(
-                              child: CircleAvatar(
-                                radius: 40,
-                                backgroundColor: matchDetailController.isHome.value? Colors.blue : Colors.white,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 38,
-                                  child: ClipOval(
-                                      child: Image.asset(appLogo)
+                            return Container(
+                              height: 100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: matchDetailController.isHome.value? Colors.blue : Colors.white,
                                   ),
-                                ),
+                                  borderRadius: BorderRadius.all(Radius.circular(50))
                               ),
-                            ) ;
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(50),
+                                  child:  Container(
+                                    height: 100,
+                                    child: FadeInImage(image: NetworkImage("https://allsportsapi2.p.rapidapi.com/api/american-football/team/$homeTeamId/image", headers:const {
+                                      "X-RapidAPI-Key": RAPID_API_KEY,
+                                      "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
+                                    } ), placeholder: AssetImage(appLogo)
+
+                                  ),
+                                )
+                                )
+                                  ,
+                              )  ;
                           },
                         ) ,
                         const SizedBox(
@@ -143,43 +138,27 @@ class _MatchDetailsState extends State<MatchDetails> {
                         GetX<MatchDetailController>(
                             init: MatchDetailController(),
                             builder: (controllerMatch) {
-                              return controllerMatch.hightLightList.isNotEmpty?
-                                CircleAvatar(
-                                  backgroundColor: matchDetailController.isHome.value? Colors.white : Colors.blue,
-                                  radius: 40,
-                                  child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 38,
-                                  child: ClipOval(
-                                      child: controllerMatch
-                                              .isLoadingTwo.value
-                                          ? Image.asset(appLogo)
-                                          : controllerMatch
-                                                      .hightLightList.length >
-                                                  1
-                                              ? Image.network(
-                                        controllerMatch
-                                                      .hightLightList[1]
-                                                      .thumbnailUrl!,
-                                                  fit: BoxFit.fill,
-                                                  width: 100,
-                                                  height: 100,
-                                                )
-                                              : Image.asset(appLogo)),
-                              ),
-                                ):  SizedBox(
-                                child: CircleAvatar(
-                                  radius: 40,
-                                  backgroundColor: matchDetailController.isHome.value? Colors.white : Colors.blue,
-                                  child: CircleAvatar(
-                                    radius: 38,
-                                      backgroundColor: Colors.white,
-                                    child: ClipOval(
-                                        child: Image.asset(appLogo)
+                              return Container(
+                                height: 100,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: matchDetailController.isHome.value? Colors.white : Colors.blue,
                                     ),
-                                  ),
+                                    borderRadius: BorderRadius.all(Radius.circular(50))
                                 ),
-                              ) ;
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50),
+                                      child:  Container(
+                                        height: 100,
+                                        child: FadeInImage(image: NetworkImage("https://allsportsapi2.p.rapidapi.com/api/american-football/team/$awayTeamId/image", headers:const {
+                                          "X-RapidAPI-Key": RAPID_API_KEY,
+                                          "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
+                                        } ), placeholder: AssetImage(appLogo)
+                                        ),
+                                      )
+                                  ),
+                                )  ;
                             }),
                         const SizedBox(
                           height: 10,
@@ -251,7 +230,7 @@ class _MatchDetailsState extends State<MatchDetails> {
                 builder: (controller) {
                   return controller.isLoading.value
                       ? LoadingWidget() : controller.staticList.isEmpty
-                      ?   Center(child: Text(textMsg, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),) : MatchStats(controller.staticList,controller.isHome)  ;
+                      ?   Center(child: Text("No stats found", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),) : MatchStats(controller.staticList,controller.isHome)  ;
                 },
               )
                   :
