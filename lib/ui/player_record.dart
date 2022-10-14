@@ -27,9 +27,13 @@ class PlayerRecord extends StatelessWidget {
       builder: (value) => Scaffold(
         body: Stack(
           children: [
-            Image.asset(
-              topHeaderImg2,
-              fit: BoxFit.fill,
+            Container(
+              height: 300,
+              child: Image.asset(
+
+                topHeaderImg2,
+                fit: BoxFit.fill,
+              ),
             ),
             Positioned(
                 left: 15,
@@ -77,18 +81,10 @@ class PlayerRecord extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        appText(
-                            plrDetailController.playerDetail.value.name ??
-                                "N/A",
-                            txtColor: Colors.white),
-                        appText(
-                            plrDetailController
-                                    .playerDetail.value.team?.country?.name ??
-                                "N/A",
-                            txtColor: Colors.white,
-                            fontSize: 14),
+                        appText(plrDetailController.playerDetail.value.name ?? "N/A", txtColor: Colors.white),
+                        appText(plrDetailController.playerDetail.value.team?.country?.name ?? "N/A", txtColor: Colors.white, fontSize: 14),
                         const SizedBox(
-                          height: 20,
+                          height: 60,
                         ),
 
                         Padding(
