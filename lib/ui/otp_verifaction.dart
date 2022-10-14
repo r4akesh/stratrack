@@ -127,7 +127,6 @@ class OtpVerifaction extends StatelessWidget {
                                           ..onTap = () {
                                             //addddd
                                             otpController.callAPIForgot(email);
-                                            otpController.update();
                                           },
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,

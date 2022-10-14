@@ -55,15 +55,20 @@ class PlayerRecord extends StatelessWidget {
                         const SizedBox(
                           height: 25,
                         ),
-                       ClipRRect(
-                         borderRadius: BorderRadius.circular(50),
-                         child:  Container(
-                           height: 100,
-                           child: Image.network("https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plrId/image",
-                             headers: const {
-                               "X-RapidAPI-Key": RAPID_API_KEY,
-                               "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
-                             },
+                       Container(
+                         height: 100,
+                         width: 100,
+                         child: ClipRRect(
+                           borderRadius: BorderRadius.circular(50),
+                           child:  Container(
+                             height: 100,
+                             child:  FadeInImage(image: NetworkImage("https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plrId/image",
+                                 headers:const {
+                                   "X-RapidAPI-Key": RAPID_API_KEY,
+                                   "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
+                                 } ), placeholder: AssetImage(appLogo)
+
+                             ),
                            ),
                          ),
                        ),
