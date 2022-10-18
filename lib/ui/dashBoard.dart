@@ -4,6 +4,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:stattrack/controller/DashboardController.dart';
 import 'package:stattrack/main.dart';
+import 'package:stattrack/model/matchdetail_model.dart';
 import 'package:stattrack/ui/myPlan.dart';
 import 'package:stattrack/ui/profileEdit.dart';
 import 'package:stattrack/ui/selectMatch.dart';
@@ -697,90 +698,111 @@ class Dashboard extends StatelessWidget {
   }
 
   Widget dashboardView() {
-    var vv = jsonDecode(MyApp.box.read(KEY_DASHBOARD_LIST));
-    List<UserData> listUd = List.from(vv.map((e)=>UserData.fromJson(e)));
-    print("listSize${listUd.length}");
-    return listUd.length>0?ListView.builder(
-      itemCount: listUd.length,
-      itemBuilder: (context, index) {
-        final item = listUd[index];
-        return Dismissible(
-          key: Key(item.name),
-          onDismissed: ((direction) {
-            listUd.removeAt(index);
-            MyApp.box.write(KEY_DASHBOARD_LIST, jsonEncode(listUd));
-          }),
-          child: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    Image.asset(
-                      demoImage3,
-                      scale: 2,
-                    ),
-                    Positioned(
-                        bottom: 10,
-                        left: 10,
-                        child: appText("Even mcpherson", txtColor: Colors.white))
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                appText("Philadelphia Eagles VS Dallas Cowboys",
-                    fontweight: FontWeight.w400, fontSize: 14),
-                const SizedBox(
-                  height: 8,
-                ),
-                appText("15 / 05 / 2022 | 07:00 pm | 4th Quarter",
-                    fontweight: FontWeight.w400,
-                    fontSize: 14,
-                    txtColor: appTextGrey),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  height: 100,
-                  child: ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return Column(
+    // var vv = jsonDecode(MyApp.box.read(KEY_DASHBOARD_LIST));
+    // List<UserData> listUd = List.from(vv.map((e)=>UserData.fromJson(e)));
+    var vv2 = jsonDecode(MyApp.box.read(PLAYER_RECORD));
+    List<Players> listUd2 = List.from(vv2.map((e) => Players.fromJson(e)));
+    print("listSize${listUd2.length}");
+    return listUd2.length > 0
+        ? ListView.builder(
+            itemCount: listUd2.length,
+            itemBuilder: (context, index) {
+              final item = listUd2[index];
+              final plyrId = item.player?.id;
+              return Dismissible(
+                key: Key(item.player?.name ?? ""),
+                onDismissed: ((direction) {
+                  listUd2.removeAt(index);
+                  String jsonString = jsonEncode(listUd2);
+                  MyApp.box.write(PLAYER_RECORD, jsonString);
+                }),
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                  child: appText("Passing yard",
-                                      fontweight: FontWeight.w400, fontSize: 14)),
-                              Expanded(
-                                  child: appText(".............",
-                                      txtColor: appTextGrey)),
-                              Expanded(
-                                  child: appText("130 yard",
-                                      fontweight: FontWeight.w400, fontSize: 14)),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Divider(
-                            thickness: 1,
-                          )
+                          FadeInImage(
+                              width: double.infinity,
+                              image: NetworkImage(
+                                  "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plyrId/image",
+                                  headers: const {
+                                    "X-RapidAPI-Key": RAPID_API_KEY,
+                                    "X-RapidAPI-Host":
+                                        "allsportsapi2.p.rapidapi.com"
+                                  }),
+                              placeholder: AssetImage(appLogo)),
+                          Positioned(
+                              bottom: 10,
+                              left: 10,
+                              child: appText(item.player?.name ?? "",
+                                  txtColor: Colors.white))
                         ],
-                      );
-                    },
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      appText("Philadelphia Eagles VS Dallas Cowboys",
+                          fontweight: FontWeight.w400, fontSize: 14),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      appText("15 / 05 / 2022 | 07:00 pm | 4th Quarter",
+                          fontweight: FontWeight.w400,
+                          fontSize: 14,
+                          txtColor: appTextGrey),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        height: 100,
+                        child: ListView.builder(
+                          itemCount: 2,
+                          itemBuilder: (context, index) {
+                            return Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        child: appText("Passing yard",
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                    Expanded(
+                                        child: appText(".............",
+                                            txtColor: appTextGrey)),
+                                    Expanded(
+                                        child: appText("130 yard",
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                )
+                              ],
+                            );
+                          },
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
+                ),
+              );
+            },
+          )
+        : Center(
+            child: Text(
+              "No favourite item added yet!",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-          ),
-        );
-      },
-    ): Center(child: Text("No favourite item added yet!",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),);
+          );
   }
 }

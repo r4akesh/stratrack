@@ -16,7 +16,7 @@ import '../utils/constant.dart';
 class PlayerRecord extends StatelessWidget {
   int plrId;
   PlayerRecord(this.plrId, {Key? key}) : super(key: key);
-  //final box = Hive.box('boxName');
+  final box = Hive.box('boxName');
   var plrDetailController = Get.put(PlayerDetailController());
   @override
   Widget build(BuildContext context) {
