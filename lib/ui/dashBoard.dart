@@ -15,6 +15,7 @@ import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 import '../model/myDashboard.dart';
 import '../utils/string.dart';
+import 'allteam.dart';
 import 'notifaction.dart';
 
 class Dashboard extends StatelessWidget {
@@ -40,7 +41,7 @@ class Dashboard extends StatelessWidget {
                   : value.initialItemSelected == 1
                       ? dashboardView()
                       : value.initialItemSelected == 2
-                          ? teamView()
+                          ? Allteam()
                           : profileView(context),
             ));
   }
@@ -659,43 +660,43 @@ class Dashboard extends StatelessWidget {
         });
   }
 
-  Widget teamView() {
-    return ListView.builder(
-        itemCount: 5,
-        itemBuilder: ((context, index) {
-          return GestureDetector(
-            onTap: () {
-              Get.to(TeamDetails());
-            },
-            child: Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)),
-                color: Colors.white,
-                margin: EdgeInsets.only(top: 15, left: 10, right: 10),
-                child: Container(
-                  height: 100,
-                  child: Row(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(55),
-                            bottomLeft: Radius.circular(55)), // Image border
-                        child: Image.asset(
-                          demoImage,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      appText("Philadelphia Eagles",
-                          fontweight: FontWeight.w400)
-                    ],
-                  ),
-                )),
-          );
-        }));
-  }
+  // Widget teamView() {
+  //   return ListView.builder(
+  //       itemCount: 5,
+  //       itemBuilder: ((context, index) {
+  //         return GestureDetector(
+  //           onTap: () {
+  //             Get.to(TeamDetails());
+  //           },
+  //           child: Card(
+  //               shape: RoundedRectangleBorder(
+  //                   borderRadius: BorderRadius.circular(50)),
+  //               color: Colors.white,
+  //               margin: EdgeInsets.only(top: 15, left: 10, right: 10),
+  //               child: Container(
+  //                 height: 100,
+  //                 child: Row(
+  //                   children: [
+  //                     ClipRRect(
+  //                       borderRadius: BorderRadius.only(
+  //                           topLeft: Radius.circular(55),
+  //                           bottomLeft: Radius.circular(55)), // Image border
+  //                       child: Image.asset(
+  //                         demoImage,
+  //                         fit: BoxFit.cover,
+  //                       ),
+  //                     ),
+  //                     SizedBox(
+  //                       width: 20,
+  //                     ),
+  //                     appText("Philadelphia Eagles",
+  //                         fontweight: FontWeight.w400)
+  //                   ],
+  //                 ),
+  //               )),
+  //         );
+  //       }));
+  // }
 
   Widget dashboardView() {
     // var vv = jsonDecode(MyApp.box.read(KEY_DASHBOARD_LIST));
@@ -727,6 +728,7 @@ class Dashboard extends StatelessWidget {
                         children: [
                           FadeInImage(
                               width: double.infinity,
+                              height: 100,
                               image: NetworkImage(
                                   "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plyrId/image",
                                   headers: const {
