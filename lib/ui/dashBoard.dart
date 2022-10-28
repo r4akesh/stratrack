@@ -249,12 +249,12 @@ class Dashboard extends StatelessWidget {
       title: appText(title, txtColor: Colors.white),
       backgroundColor: appBlue,
       toolbarHeight: 100,
-      actions: [
-        Icon(Icons.search),
-        Container(
-          width: 10,
-        )
-      ],
+      // actions: [
+      //   Icon(Icons.search),
+      //   Container(
+      //     width: 10,
+      //   )
+      // ],
       centerTitle: true,
       automaticallyImplyLeading: isimplLeading,
       elevation: 2,

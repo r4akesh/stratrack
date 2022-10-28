@@ -23,63 +23,90 @@ class Allteam extends StatelessWidget {
           return controllerAllTeam.isLoading.value
               ? LoadingWidget()
               : ExpandedTileList.builder(
-                  itemCount: 5,
+                  padding:
+                      EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
+                  itemCount: controllerAllTeam.standingList.length,
                   maxOpened: 2,
                   reverse: false,
-                  itemBuilder: (context, index, controller) {
+                  itemBuilder: (context, indexMain, controller) {
+                    print(
+                        "length${controllerAllTeam.standingList[indexMain].rows?.length}");
                     return ExpandedTile(
                       theme: const ExpandedTileThemeData(
-                        headerColor: Colors.green,
+                        headerColor: Colors.blue,
                         headerRadius: 24.0,
-                        headerPadding: EdgeInsets.all(24.0),
+
+                        headerPadding: EdgeInsets.all(15.0),
                         headerSplashColor: Colors.red,
                         //
-                        contentBackgroundColor: Colors.blue,
-                        contentPadding: EdgeInsets.all(24.0),
-                        contentRadius: 12.0,
+                        contentBackgroundColor: Colors.white,
+                        contentPadding: EdgeInsets.all(0.0),
+                        contentRadius: 20.0,
                       ),
-                      controller: index == 2
+                      controller: indexMain == 1
                           ? controller.copyWith(isExpanded: true)
                           : controller,
-                      title: Text(controllerAllTeam.standingList[index].name
+                      title: Text(controllerAllTeam.standingList[indexMain].name
                           .toString()),
                       content: Container(
-                        color: Colors.red,
-                        child: ListView.builder(
-                            itemCount: controllerAllTeam
-                                .standingList[index].rows?.length,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: ((context, index) {
-                              return Card(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(50)),
-                                  color: Colors.white,
-                                  margin: EdgeInsets.only(
-                                      top: 15, left: 10, right: 10),
-                                  child: Container(
-                                    height: 100,
-                                    child: Row(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(55),
-                                              bottomLeft: Radius.circular(
-                                                  55)), // Image border
-                                          child: Image.asset(
-                                            demoImage,
-                                            fit: BoxFit.cover,
-                                          ),
+                        child: controllerAllTeam
+                                    .standingList[indexMain].rows!.length! >
+                                0
+                            ? ListView.builder(
+                                itemCount: controllerAllTeam
+                                    .standingList[indexMain].rows?.length,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: ((context, posList) {
+                                  var teamId = controllerAllTeam
+                                      .standingList[indexMain]
+                                      .rows?[posList]
+                                      .id;
+                                  return Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      color: Colors.white,
+                                      margin: EdgeInsets.only(
+                                          top: 15, left: 10, right: 10),
+                                      child: Container(
+                                        height: 100,
+                                        child: Row(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(55),
+                                                  bottomLeft: Radius.circular(
+                                                      55)), // Image border
+                                              child: FadeInImage(
+                                                  height: 100,
+                                                  image: NetworkImage(
+                                                      "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamId/image",
+                                                      headers: const {
+                                                        "X-RapidAPI-Key":
+                                                            RAPID_API_KEY,
+                                                        "X-RapidAPI-Host":
+                                                            "allsportsapi2.p.rapidapi.com"
+                                                      }),
+                                                  placeholder:
+                                                      AssetImage(appLogo)),
+                                            ),
+                                            SizedBox(
+                                              width: 20,
+                                            ),
+                                            appText(
+                                                controllerAllTeam
+                                                        .standingList[indexMain]
+                                                        .rows?[posList]
+                                                        .team
+                                                        ?.name ??
+                                                    "",
+                                                fontweight: FontWeight.w400)
+                                          ],
                                         ),
-                                        SizedBox(
-                                          width: 20,
-                                        ),
-                                        appText("Philadelphia Eagles",
-                                            fontweight: FontWeight.w400)
-                                      ],
-                                    ),
-                                  ));
-                            })),
+                                      ));
+                                }))
+                            : LoadingWidget(),
                       ),
                       onTap: () {
                         debugPrint("tapped!!");
@@ -91,80 +118,5 @@ class Allteam extends StatelessWidget {
                   },
                 );
         });
-
-    // controllerAllTeam.isLoading.value
-    //     ? LoadingWidget()
-    //     : ListView.builder(
-    //         itemCount: controllerAllTeam.standingList.length,
-    //         itemBuilder: ((context, index) {
-    //           return GestureDetector(
-    //             onTap: () {
-    //               Get.to(TeamDetails());
-    //             },
-    //             child: CustomScrollView(
-    //               slivers: <Widget>[
-    //                 SliverList(
-    //                     delegate:
-    //                         SliverChildBuilderDelegate((context, index) {
-    //                   return Card(
-    //                       shape: RoundedRectangleBorder(
-    //                           borderRadius: BorderRadius.circular(50)),
-    //                       color: Colors.white,
-    //                       margin: EdgeInsets.only(
-    //                           top: 15, left: 10, right: 10),
-    //                       child: Container(
-    //                         height: 100,
-    //                         child: Row(
-    //                           children: [
-    //                             ClipRRect(
-    //                               borderRadius: BorderRadius.only(
-    //                                   topLeft: Radius.circular(55),
-    //                                   bottomLeft: Radius.circular(
-    //                                       55)), // Image border
-    //                               child: Image.asset(
-    //                                 demoImage,
-    //                                 fit: BoxFit.cover,
-    //                               ),
-    //                             ),
-    //                             SizedBox(
-    //                               width: 20,
-    //                             ),
-    //                             appText("Philadelphia Eagles",
-    //                                 fontweight: FontWeight.w400)
-    //                           ],
-    //                         ),
-    //                       ));
-    //                 }, childCount: 10))
-    //               ],
-    //             ),
-    //           );
-    //         }));
-  }
-
-  _playerCard() {
-    return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        color: Colors.white,
-        margin: EdgeInsets.only(top: 15, left: 10, right: 10),
-        child: Container(
-          height: 100,
-          child: Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(55),
-                    bottomLeft: Radius.circular(55)), // Image border
-                child: Image.asset(
-                  demoImage,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              appText("Philadelphia Eagles", fontweight: FontWeight.w400)
-            ],
-          ),
-        ));
   }
 }
