@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:stattrack/main.dart';
+import 'package:stattrack/utils/LoadingWidget.dart';
 
-import '../controller/LiveMatchController.dart';
-import '../main.dart';
-import '../utils/LoadingWidget.dart';
+import '../controller/OldMatchTeamController.dart';
 import '../utils/colors.dart';
 import '../utils/commen.dart';
 import '../utils/constant.dart';
-import '../utils/progress_dialog.dart';
 import 'match_details.dart';
+ 
 
-class LiveMatch extends StatelessWidget {
+class OldMatchTeam extends StatelessWidget {
+  String teamId="";
+  OldMatchTeam(String this.teamId);
+
   @override
   Widget build(BuildContext context) {
-    return GetX<LiveMatchController>(
-        init: LiveMatchController(),
+    return GetX<OldMatchTeamController>(
+        init: OldMatchTeamController(teamId),
         builder: (controller) {
           return Column(
             children: [
@@ -35,27 +38,34 @@ class LiveMatch extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    if (controller.eventList.length > 0) {
-                                      controller.matchId =
-                                          controller.eventList[index].id;
-                                      MyApp.box.write(
-                                          TeamHomeName,
-                                          "" +
-                                              controller.eventList.value[index]
-                                                  .homeTeam!.name
-                                                  .toString());
-                                      MyApp.box.write(
-                                          TeamAwayName,
-                                          "" +
-                                              controller.eventList.value[index]
-                                                  .awayTeam!.name
-                                                  .toString());
-                                      print(
-                                          "Rakesh${controller.eventList.value[index].awayTeam!.name.toString()}");
-                                      // Get.to(MatchDetails(from: "Upcoming"));
-                                    } else {
-                                      print("no data");
-                                    }
+                                    controller.matchId = controller.eventList[index].id;
+                                    //to pass next screen i.e matchDetailScreen
+                                    MyApp.box.write(
+                                        TeamHomeName,
+                                        "" +
+                                            controller.eventList.value[index]
+                                                .homeTeam!.name
+                                                .toString());
+                                    MyApp.box.write(
+                                        TeamAwayName,
+                                        "" +
+                                            controller.eventList.value[index]
+                                                .awayTeam!.name
+                                                .toString());
+                                    MyApp.box.write(
+                                        TeamHomeID,
+                                        "" +
+                                            controller.eventList.value[index]
+                                                .homeTeam!.id
+                                                .toString());
+                                    MyApp.box.write(
+                                        TeamAwayID,
+                                        "" +
+                                            controller.eventList.value[index]
+                                                .awayTeam!.id
+                                                .toString());
+
+                                   // Get.to(MatchDetails(from: "Old"));
                                   },
                                   child: Card(
                                     margin: const EdgeInsets.symmetric(
@@ -83,7 +93,7 @@ class LiveMatch extends StatelessWidget {
                                                       .toString(),
                                                   fontweight: FontWeight.w400,
                                                   txtColor: appBlack),
-                                              Spacer(),
+                                              const Spacer(),
                                               appText(
                                                   DateFormat("hh:mm")
                                                       .format(DateTime
