@@ -26,7 +26,7 @@ class Allteam extends StatelessWidget {
                   padding:
                       EdgeInsets.only(top: 10, bottom: 10, left: 10, right: 10),
                   itemCount: controllerAllTeam.standingList.length,
-                  maxOpened: 2,
+                  maxOpened: 1,
                   reverse: false,
                   itemBuilder: (context, indexMain, controller) {
                     print(
@@ -61,14 +61,18 @@ class Allteam extends StatelessWidget {
                                   var teamId = controllerAllTeam
                                       .standingList[indexMain]
                                       .rows?[posList]
-                                      .id;
+                                      .team
+                                      ?.id;
                                   return Card(
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(50)),
                                       color: Colors.white,
                                       margin: EdgeInsets.only(
-                                          top: 15, left: 10, right: 10),
+                                          top: 15,
+                                          left: 10,
+                                          right: 10,
+                                          bottom: 10),
                                       child: Container(
                                         height: 100,
                                         child: Row(
@@ -79,17 +83,40 @@ class Allteam extends StatelessWidget {
                                                   bottomLeft: Radius.circular(
                                                       55)), // Image border
                                               child: FadeInImage(
-                                                  height: 100,
-                                                  image: NetworkImage(
-                                                      "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamId/image",
-                                                      headers: const {
-                                                        "X-RapidAPI-Key":
-                                                            RAPID_API_KEY,
-                                                        "X-RapidAPI-Host":
-                                                            "allsportsapi2.p.rapidapi.com"
-                                                      }),
-                                                  placeholder:
-                                                      AssetImage(appLogo)),
+                                                height: 100,
+                                                width: 100,
+                                                image: NetworkImage(
+                                                    "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamId/image",
+                                                    headers: const {
+                                                      "X-RapidAPI-Key":
+                                                          RAPID_API_KEY,
+                                                      "X-RapidAPI-Host":
+                                                          "allsportsapi2.p.rapidapi.com"
+                                                    }),
+                                                placeholder:
+                                                    AssetImage(appLogo),
+                                                placeholderErrorBuilder:
+                                                    (context, error,
+                                                        stackTrace) {
+                                                  return Container(
+                                                      height: 100,
+                                                      width: 100,
+                                                      child: Image(
+                                                        image:
+                                                            AssetImage(appLogo),
+                                                      ));
+                                                },
+                                                imageErrorBuilder: (context,
+                                                    error, stackTrace) {
+                                                  return Container(
+                                                      height: 100,
+                                                      width: 100,
+                                                      child: Image(
+                                                        image:
+                                                            AssetImage(appLogo),
+                                                      ));
+                                                },
+                                              ),
                                             ),
                                             SizedBox(
                                               width: 20,
