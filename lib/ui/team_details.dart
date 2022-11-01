@@ -8,10 +8,13 @@ import 'package:stattrack/utils/colors.dart';
 import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 
+import '../controller/allteamStats_controller .dart';
+import 'UpcomingMatchTeam.dart';
+
 class TeamDetails extends StatelessWidget {
-  var teamId="";
-    TeamDetails(String this.teamId, {Key? key}) : super(key: key);
-   
+  var teamId = "";
+  TeamDetails(String this.teamId, {Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     TeamDetailController teamDetailController = Get.put(TeamDetailController());
@@ -247,7 +250,7 @@ class TeamDetails extends StatelessWidget {
 
   DefaultTabController schudleView() {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Column(
         children: [
           const TabBar(
@@ -259,144 +262,12 @@ class TeamDetails extends StatelessWidget {
                   text: "Old",
                 ),
                 Tab(
-                  text: "Live",
-                ),
-                Tab(
                   text: "Upcoming",
                 ),
               ]),
           Expanded(
-              child: TabBarView(children: [
-            OldMatchTeam(teamId),
-          
-            ListView.builder(
-                padding: const EdgeInsets.only(top: 0),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(MatchDetails(from: "Live"));
-                    },
-                    child: Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 40,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            color: applightgrey,
-                            child: Row(
-                              children: [
-                                appText("Saturday, August 10, 2019",
-                                    fontweight: FontWeight.w400,
-                                    txtColor: appBlack,
-                                    fontSize: 14),
-                                const Spacer(),
-                                appText("Pre WK 1",
-                                    fontweight: FontWeight.w400,
-                                    txtColor: Colors.black26,
-                                    fontSize: 14),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 15, bottom: 10, left: 10, right: 10),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                appText("VS",
-                                    fontweight: FontWeight.w600, fontSize: 14),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Image.asset(
-                                  teamIcon,
-                                  scale: 3,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                appText("Philadelphia Eagles",
-                                    fontweight: FontWeight.w400, fontSize: 14),
-                                const Spacer(),
-                                appText("W 17-9",
-                                    fontweight: FontWeight.w400, fontSize: 14),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-          
-            ListView.builder(
-                padding: const EdgeInsets.only(top: 0),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Get.to(MatchDetails(from: "Upcoming"));
-                    },
-                    child: Card(
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 10),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 40,
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            color: applightgrey,
-                            child: Row(
-                              children: [
-                                appText("Saturday, August 10, 2019",
-                                    fontweight: FontWeight.w400,
-                                    txtColor: appBlack,
-                                    fontSize: 14),
-                                const Spacer(),
-                                appText("Pre WK 1",
-                                    fontweight: FontWeight.w400,
-                                    txtColor: Colors.black26,
-                                    fontSize: 14),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(
-                                top: 15, bottom: 10, left: 10, right: 10),
-                            child: Row(
-                              children: [
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                appText("VS",
-                                    fontweight: FontWeight.w600, fontSize: 14),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                Image.asset(
-                                  teamIcon,
-                                  scale: 3,
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                appText("Philadelphia Eagles",
-                                    fontweight: FontWeight.w400, fontSize: 14),
-                                const Spacer(),
-                                appText("W 17-9",
-                                    fontweight: FontWeight.w400, fontSize: 14),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
-          ]))
+              child: TabBarView(
+                  children: [OldMatchTeam(teamId), UpcomingMatchTeam(teamId)]))
         ],
       ),
     );
@@ -404,90 +275,238 @@ class TeamDetails extends StatelessWidget {
 
   Widget stateView() {
     return DefaultTabController(
-      length: 4,
+      length: 11,
       child: Column(
         children: [
           const TabBar(
+              isScrollable: true,
               labelColor: appOrange,
               indicatorColor: appOrange,
               unselectedLabelColor: appBlack,
               labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               tabs: [
                 Tab(
-                  text: "Kicking",
+                  text: "DefensiveInterceptions",
                 ),
                 Tab(
-                  text: "Passing",
+                  text: "DefensiveSacks",
                 ),
                 Tab(
-                  text: "Receiving",
+                  text: "DefensiveTotalTackles",
                 ),
                 Tab(
-                  text: "Defense",
+                  text: "KickingFgMade",
+                ),
+                Tab(
+                  text: "PassingCompletionPercentage",
+                ),
+                Tab(
+                  text: "PassingTouchdownInterceptionRatio",
+                ),
+                Tab(
+                  text: "PassingTouchdowns",
+                ),
+                Tab(
+                  text: "ReceivingTouchdowns",
+                ),
+                Tab(
+                  text: "ReceivingYardsPerReception",
+                ),
+                Tab(
+                  text: "RushingTouchdowns",
+                ),
+                Tab(
+                  text: "RushingYardsPerAttempt",
                 ),
               ]),
           Expanded(
               child: TabBarView(children: [
-            for (var i = 0; i < 4; i++) ...[
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 10),
-                    height: 30,
-                    color: applightgrey,
-                    child: Row(
+            for (var i = 0; i < 11; i++) ...[
+              GetX<AllteamStatsController>(
+                  init: AllteamStatsController(),
+                  builder: (controllerStats) {
+                    var itemLenght = 0;
+                    if (i == 0) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .defensiveInterceptions?.length ??
+                          0;
+                      print("itemLenght1{$itemLenght}");
+                    } else if (i == 1) {
+                      itemLenght = controllerStats
+                              .topPlayerList.value.defensiveSacks?.length ??
+                          0;
+                      print("itemLenght2{$itemLenght}");
+                    } else if (i == 2) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .defensiveTotalTackles?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 3) {
+                      itemLenght = controllerStats
+                              .topPlayerList.value.kickingFgMade?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 4) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .passingCompletionPercentage?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 5) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .passingTouchdownInterceptionRatio?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 6) {
+                      itemLenght = controllerStats
+                              .topPlayerList.value.passingTouchdowns?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 7) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .receivingTouchdowns?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 8) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .receivingYardsPerReception?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 9) {
+                      itemLenght = controllerStats
+                              .topPlayerList.value.rushingTouchdowns?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    } else if (i == 10) {
+                      itemLenght = controllerStats.topPlayerList.value
+                              .rushingYardsPerAttempt?.length ??
+                          0;
+                      print("itemLenght3{$itemLenght}");
+                    }
+
+                    return Column(
                       children: [
-                        Expanded(flex: 2, child: SizedBox()),
-                        for (var i = 0; i < 6; i++) ...[
-                          Expanded(
-                            child: Container(
-                                width: 40,
-                                alignment: Alignment.center,
-                                child: appText("Gp",
-                                    fontweight: FontWeight.w400, fontSize: 12)),
-                          )
-                        ]
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: 10,
-                      padding: EdgeInsets.only(top: 0),
-                      itemBuilder: (context, index) {
-                        return Card(
-                          margin: EdgeInsets.all(5),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 20),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    flex: 2,
-                                    child: GestureDetector(
-                                      onTap: () {},
-                                      child: appText("Evan McPherson",
-                                          fontSize: 12),
-                                    )),
-                                for (var i = 0; i < 6; i++) ...[
-                                  Expanded(
-                                    child: Container(
-                                        width: 40,
-                                        alignment: Alignment.center,
-                                        child: appText("2",
-                                            fontweight: FontWeight.w400,
-                                            fontSize: 12)),
-                                  )
-                                ]
-                              ],
-                            ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: itemLenght,
+                            padding: EdgeInsets.only(top: 0),
+                            itemBuilder: (context, index) {
+                              return Card(
+                                margin: EdgeInsets.all(5),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 10),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                              // child: appText(matchStaticsList[index].groupName ??"", fontSize: 12)),
+                                              child: appText("PlayerName",
+                                                  fontSize: 12)),
+                                          Expanded(
+                                              // child: appText(matchStaticsList[index].groupName ??"", fontSize: 12)),
+                                              child: appText(
+                                                  i == 0
+                                                      ? controllerStats
+                                                              .topPlayerList
+                                                              .value
+                                                              .defensiveInterceptions![
+                                                                  index]
+                                                              .player
+                                                              ?.name ??
+                                                          ""
+                                                      : i == 1
+                                                          ? controllerStats
+                                                                  .topPlayerList
+                                                                  .value
+                                                                  .defensiveSacks![
+                                                                      index]
+                                                                  .player
+                                                                  ?.name ??
+                                                              ""
+                                                          : i == 2
+                                                              ? controllerStats
+                                                                      .topPlayerList
+                                                                      .value
+                                                                      .defensiveTotalTackles![
+                                                                          index]
+                                                                      .player
+                                                                      ?.name ??
+                                                                  ""
+                                                              : i == 3
+                                                                  ? controllerStats
+                                                                          .topPlayerList
+                                                                          .value
+                                                                          .kickingFgMade![
+                                                                              index]
+                                                                          .player
+                                                                          ?.name ??
+                                                                      ""
+                                                                  : i == 4
+                                                                      ? controllerStats
+                                                                              .topPlayerList
+                                                                              .value
+                                                                              .passingCompletionPercentage![
+                                                                                  index]
+                                                                              .player
+                                                                              ?.name ??
+                                                                          ""
+                                                                      : i == 5
+                                                                          ? controllerStats.topPlayerList.value.passingTouchdownInterceptionRatio![index].player?.name ??
+                                                                              ""
+                                                                          : i == 6
+                                                                              ? controllerStats.topPlayerList.value.passingTouchdowns![index].player?.name ?? ""
+                                                                              : i == 7
+                                                                                  ? controllerStats.topPlayerList.value.receivingTouchdowns![index].player?.name ?? ""
+                                                                                  : i == 8
+                                                                                      ? controllerStats.topPlayerList.value.receivingYardsPerReception![index].player?.name ?? ""
+                                                                                      : i == 9
+                                                                                          ? controllerStats.topPlayerList.value.rushingTouchdowns![index].player?.name ?? ""
+                                                                                          : controllerStats.topPlayerList.value.rushingYardsPerAttempt![index].player?.name ?? "",
+                                                  fontSize: 12)),
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        height: 7,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          appText("DefensiveInterceptions",
+                                              fontSize: 12,
+                                              fontweight: FontWeight.w500,
+                                              textAlign: TextAlign.center),
+                                          appText("8",
+                                              fontSize: 12,
+                                              fontweight: FontWeight.w500,
+                                              textAlign: TextAlign.center),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          appText("Appearances",
+                                              fontSize: 12,
+                                              fontweight: FontWeight.w500,
+                                              textAlign: TextAlign.center),
+                                          appText("5",
+                                              fontSize: 12,
+                                              fontweight: FontWeight.w500,
+                                              textAlign: TextAlign.center),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
+                        )
+                      ],
+                    );
+                  })
             ]
           ]))
         ],
