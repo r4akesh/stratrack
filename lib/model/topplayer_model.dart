@@ -23,12 +23,12 @@ class TopPlayers {
   List<DefensiveSacks>? defensiveSacks;
   List<DefensiveTotalTackles>? defensiveTotalTackles;
   List<KickingFgMade>? kickingFgMade;
-  
+
   List<PassingCompletionPercentage>? passingCompletionPercentage;
   List<PassingTouchdownInterceptionRatio>? passingTouchdownInterceptionRatio;
   List<PassingTouchdowns>? passingTouchdowns;
   List<ReceivingTouchdowns>? receivingTouchdowns;
- 
+
   List<ReceivingYardsPerReception>? receivingYardsPerReception;
   List<RushingTouchdowns>? rushingTouchdowns;
   List<RushingYardsPerAttempt>? rushingYardsPerAttempt;
@@ -170,35 +170,6 @@ class TopPlayers {
   }
 }
 
-class DefensiveInterceptions {
-  bool? playedEnough;
-  Player? player;
-  Statistics? statistics;
-
-  DefensiveInterceptions({this.playedEnough, this.player, this.statistics});
-
-  DefensiveInterceptions.fromJson(Map<String, dynamic> json) {
-    playedEnough = json['playedEnough'];
-    player =
-        json['player'] != null ? new Player.fromJson(json['player']) : null;
-    statistics = json['statistics'] != null
-        ? new Statistics.fromJson(json['statistics'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['playedEnough'] = this.playedEnough;
-    if (this.player != null) {
-      data['player'] = this.player!.toJson();
-    }
-    if (this.statistics != null) {
-      data['statistics'] = this.statistics!.toJson();
-    }
-    return data;
-  }
-}
-
 class Player {
   int? id;
   String? name;
@@ -238,30 +209,104 @@ class Player {
 
 class Statistics {
   int? appearances;
-  int? defensiveInterceptions;
   int? id;
   String? type;
 
+  int? defensiveInterceptions;
+  int? defensiveSacks;
+  int? defensiveTotalTackles;
+
+  int? kickingFgMade;
+  double? passingCompletionPercentage;
+  double? passingTouchdownInterceptionRatio;
+
+  int? passingTouchdowns;
+  int? receivingTouchdowns;
+  double? receivingYardsPerReception;
+
+  int? rushingTouchdowns;
+  double? rushingYardsPerAttempt;
+
   Statistics(
-      {this.appearances, this.defensiveInterceptions, this.id, this.type});
+      {this.appearances,
+      this.defensiveInterceptions,
+      this.defensiveSacks,
+      this.id,
+      this.type});
 
   Statistics.fromJson(Map<String, dynamic> json) {
     appearances = json['appearances'];
-    defensiveInterceptions = json['defensiveInterceptions'];
     id = json['id'];
     type = json['type'];
+    defensiveInterceptions = json['defensiveInterceptions'];
+    defensiveSacks = json['defensiveSacks'];
+    defensiveTotalTackles = json['defensiveTotalTackles'];
+
+    kickingFgMade = json['kickingFgMade'];
+    passingCompletionPercentage = json['passingCompletionPercentage'];
+    passingTouchdownInterceptionRatio =
+        json['passingTouchdownInterceptionRatio'];
+
+    passingTouchdowns = json['passingTouchdowns'];
+    receivingTouchdowns = json['receivingTouchdowns'];
+    receivingYardsPerReception = json['receivingYardsPerReception'];
+
+    rushingTouchdowns = json['rushingTouchdowns'];
+    rushingYardsPerAttempt = json['rushingYardsPerAttempt'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['appearances'] = this.appearances;
     data['defensiveInterceptions'] = this.defensiveInterceptions;
+    data['defensiveSacks'] = this.defensiveSacks;
+    data['defensiveTotalTackles'] = this.defensiveTotalTackles;
+
+    data['kickingFgMade'] = this.kickingFgMade;
+    data['passingCompletionPercentage'] = this.passingCompletionPercentage;
+    data['passingTouchdownInterceptionRatio'] =
+        this.passingTouchdownInterceptionRatio;
+
+    data['passingTouchdowns'] = this.passingTouchdowns;
+    data['receivingTouchdowns'] = this.receivingTouchdowns;
+    data['receivingYardsPerReception'] = this.receivingYardsPerReception;
+
+    data['rushingTouchdowns'] = this.rushingTouchdowns;
+    data['rushingYardsPerAttempt'] = this.rushingYardsPerAttempt;
     data['id'] = this.id;
     data['type'] = this.type;
     return data;
   }
 }
 
+class DefensiveInterceptions {
+  bool? playedEnough;
+  Player? player;
+  Statistics? statistics;
+
+  DefensiveInterceptions({this.playedEnough, this.player, this.statistics});
+
+  DefensiveInterceptions.fromJson(Map<String, dynamic> json) {
+    playedEnough = json['playedEnough'];
+    player =
+        json['player'] != null ? new Player.fromJson(json['player']) : null;
+    statistics = json['statistics'] != null
+        ? new Statistics.fromJson(json['statistics'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['playedEnough'] = this.playedEnough;
+    if (this.player != null) {
+      data['player'] = this.player!.toJson();
+    }
+    if (this.statistics != null) {
+      data['statistics'] = this.statistics!.toJson();
+    }
+    return data;
+  }
+}
 
 class DefensiveSacks {
   bool? playedEnough;
@@ -292,7 +337,6 @@ class DefensiveSacks {
   }
 }
 
-
 class DefensiveTotalTackles {
   bool? playedEnough;
   Player? player;
@@ -321,7 +365,6 @@ class DefensiveTotalTackles {
     return data;
   }
 }
- 
 
 class KickingFgMade {
   bool? playedEnough;
@@ -357,7 +400,8 @@ class PassingCompletionPercentage {
   Player? player;
   Statistics? statistics;
 
-  PassingCompletionPercentage({this.playedEnough, this.player, this.statistics});
+  PassingCompletionPercentage(
+      {this.playedEnough, this.player, this.statistics});
 
   PassingCompletionPercentage.fromJson(Map<String, dynamic> json) {
     playedEnough = json['playedEnough'];
@@ -386,7 +430,8 @@ class PassingTouchdownInterceptionRatio {
   Player? player;
   Statistics? statistics;
 
-  PassingTouchdownInterceptionRatio({this.playedEnough, this.player, this.statistics});
+  PassingTouchdownInterceptionRatio(
+      {this.playedEnough, this.player, this.statistics});
 
   PassingTouchdownInterceptionRatio.fromJson(Map<String, dynamic> json) {
     playedEnough = json['playedEnough'];
@@ -554,4 +599,3 @@ class RushingYardsPerAttempt {
     return data;
   }
 }
-

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:stattrack/model/allteam_model.dart';
 
 import 'package:stattrack/network/apiClient.dart';
+import 'package:stattrack/utils/constant.dart';
 
 class AllteamController extends GetxController {
   var isLoading = false.obs;
@@ -22,7 +23,7 @@ class AllteamController extends GetxController {
       //showProgressBar();
       var data = await apiClient?.getSports(
           url:
-              "https://allsportsapi2.p.rapidapi.com/api/american-football/tournament/9464/season/46786/standings/total",
+              "https://allsportsapi2.p.rapidapi.com/api/american-football/tournament/$TOURNAMENT_ID/season/$SESSION_ID/standings/total",
           body: map,
           context: Get.context!);
       var response = AllTeamModel.fromJson(data);
