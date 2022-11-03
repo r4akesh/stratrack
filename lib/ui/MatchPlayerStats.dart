@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:stattrack/main.dart';
 import 'package:stattrack/ui/player_record.dart';
@@ -31,7 +32,7 @@ class MatchPlayerstats extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        flex: 1,
+                        flex: 2,
                         child: GestureDetector(
                           onTap: () {
                             var plrId = matchId[index].player?.id;
@@ -42,9 +43,10 @@ class MatchPlayerstats extends StatelessWidget {
                               fontSize: 12),
                         )),
                     Expanded(
-                        flex: 2,
+                        flex: 1,
                         child: GestureDetector(
                           onTap: () async {
+                            print("onTap call add");
                             //write
                             Players pp = matchId[index];
                             List listLcl = [];
@@ -66,6 +68,7 @@ class MatchPlayerstats extends StatelessWidget {
                             listLcl.add(plrsAsMap);
                             String jsonString = jsonEncode(listLcl);
                             await MyApp.box.write(PLAYER_RECORD, jsonString);
+                            toast("Player added sucessfully");
 
                             ///read
                             // var result2 = MyApp.box.read(PLAYER_RECORD);
@@ -76,10 +79,13 @@ class MatchPlayerstats extends StatelessWidget {
                             //     .obs;
                             // print("on TAP>>${mPlr.length}");
                           },
-                          child: Image.asset(
-                            addIcon,
-                            width: 30,
-                            height: 30,
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: Image.asset(
+                              addIcon,
+                              width: 30,
+                              height: 30,
+                            ),
                           ),
                         ))
                   ],

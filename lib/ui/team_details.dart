@@ -16,7 +16,9 @@ import 'UpcomingMatchTeam.dart';
 
 class TeamDetails extends StatelessWidget {
   var teamId = "";
-  TeamDetails(String this.teamId, {Key? key}) : super(key: key);
+  var teamName = "";
+  TeamDetails(String this.teamId, String this.teamName, {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class TeamDetails extends StatelessWidget {
           children: [
             Image.asset(
               topHeaderImg2,
-              height: MediaQuery.of(context).size.height * 0.35,
+              height: 250,
               width: MediaQuery.of(context).size.width,
               fit: BoxFit.fill,
             ),
@@ -54,14 +56,37 @@ class TeamDetails extends StatelessWidget {
                 Container(
                   alignment: Alignment.topCenter,
                   margin: const EdgeInsets.only(top: 60, bottom: 15),
-                  child: Image.asset(
-                    teamLogo,
-                    scale: 3,
+                  child: FadeInImage(
+                    height: 100,
+                    width: 130,
+                    image: NetworkImage(
+                        "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamId/image",
+                        headers: const {
+                          "X-RapidAPI-Key": RAPID_API_KEY,
+                          "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
+                        }),
+                    placeholder: AssetImage(appLogo),
+                    placeholderErrorBuilder: (context, error, stackTrace) {
+                      return Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            image: AssetImage(appLogo),
+                          ));
+                    },
+                    imageErrorBuilder: (context, error, stackTrace) {
+                      return Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            image: AssetImage(appLogo),
+                          ));
+                    },
                   ),
                 ),
-                appText("Philadelphia Eagless", txtColor: Colors.white),
+                appText(teamName, txtColor: Colors.white),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.07,
+                  height: 15,
                 ),
                 Container(
                     color: Colors.transparent,
@@ -76,7 +101,7 @@ class TeamDetails extends StatelessWidget {
                                 },
                                 child: Container(
                                   height: 50,
-                                  alignment: Alignment.topCenter,
+                                  alignment: Alignment.center,
                                   color:
                                       teamDetailController.initItem.value == 0
                                           ? Colors.white
@@ -99,7 +124,7 @@ class TeamDetails extends StatelessWidget {
                                 },
                                 child: Container(
                                   height: 50,
-                                  alignment: Alignment.topCenter,
+                                  alignment: Alignment.center,
                                   color:
                                       teamDetailController.initItem.value == 1
                                           ? Colors.white
@@ -122,7 +147,7 @@ class TeamDetails extends StatelessWidget {
                                 },
                                 child: Container(
                                   height: 50,
-                                  alignment: Alignment.topCenter,
+                                  alignment: Alignment.center,
                                   color:
                                       teamDetailController.initItem.value == 2
                                           ? Colors.white
@@ -145,7 +170,7 @@ class TeamDetails extends StatelessWidget {
                                 },
                                 child: Container(
                                   height: 50,
-                                  alignment: Alignment.topCenter,
+                                  alignment: Alignment.center,
                                   color:
                                       teamDetailController.initItem.value == 3
                                           ? Colors.white
@@ -351,9 +376,9 @@ class TeamDetails extends StatelessWidget {
             Expanded(
                 child: TabBarView(
               children: [
-                ForeginPlayerScreen(teamId,0),
-                ForeginPlayerScreen(teamId,1),
-                ForeginPlayerScreen(teamId,2),
+                ForeginPlayerScreen(teamId, 0),
+                ForeginPlayerScreen(teamId, 1),
+                ForeginPlayerScreen(teamId, 2),
               ],
             ))
           ],

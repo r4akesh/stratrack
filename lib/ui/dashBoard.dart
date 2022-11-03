@@ -714,87 +714,99 @@ class Dashboard extends StatelessWidget {
                 key: Key(item.player?.name ?? ""),
                 onDismissed: ((direction) {
                   listUd2.removeAt(index);
+                  print("size${listUd2.length}");
+                  print("index${index}");   xfgbvcvhfhfghghgfhgfh gfghfgh
                   String jsonString = jsonEncode(listUd2);
                   MyApp.box.write(PLAYER_RECORD, jsonString);
                 }),
-                child: Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stack(
-                        children: [
-                          FadeInImage(
-                              width: double.infinity,
-                              height: 100,
-                              image: NetworkImage(
-                                  "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plyrId/image",
-                                  headers: const {
-                                    "X-RapidAPI-Key": RAPID_API_KEY,
-                                    "X-RapidAPI-Host":
-                                        "allsportsapi2.p.rapidapi.com"
-                                  }),
-                              placeholder: AssetImage(appLogo)),
-                          Positioned(
-                              bottom: 10,
-                              left: 10,
-                              child: appText(item.player?.name ?? "",
-                                  txtColor: Colors.white))
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      appText("Philadelphia Eagles VS Dallas Cowboys",
-                          fontweight: FontWeight.w400, fontSize: 14),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      appText("15 / 05 / 2022 | 07:00 pm | 4th Quarter",
-                          fontweight: FontWeight.w400,
-                          fontSize: 14,
-                          txtColor: appTextGrey),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 100,
-                        child: ListView.builder(
-                          itemCount: 2,
-                          itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Expanded(
-                                        child: appText("Passing yard",
-                                            fontweight: FontWeight.w400,
-                                            fontSize: 14)),
-                                    Expanded(
-                                        child: appText(".............",
-                                            txtColor: appTextGrey)),
-                                    Expanded(
-                                        child: appText("130 yard",
-                                            fontweight: FontWeight.w400,
-                                            fontSize: 14)),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                const Divider(
-                                  thickness: 1,
-                                )
-                              ],
-                            );
-                          },
+                child: Card(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            FadeInImage(
+                                width: double.infinity,
+                                height: 100,
+                                image: NetworkImage(
+                                    "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plyrId/image",
+                                    headers: const {
+                                      "X-RapidAPI-Key": RAPID_API_KEY,
+                                      "X-RapidAPI-Host":
+                                          "allsportsapi2.p.rapidapi.com"
+                                    }),
+                                placeholder: AssetImage(appLogo)),
+                            Positioned(
+                                bottom: 10,
+                                child: appText(item.player?.name ?? "",
+                                    txtColor: Colors.black))
+                          ],
                         ),
-                      )
-                    ],
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      flex: 2,
+                                      child: appText("Kick Returns Total",
+                                          fontweight: FontWeight.w400,
+                                          fontSize: 14)),
+                                  Expanded(
+                                      flex: 2,
+                                      child: appText(".............",
+                                          txtColor: appTextGrey)),
+                                  Expanded(
+                                      flex: 1,
+                                      child: appText(
+                                          item.statistics!.kickReturnsTotal ==
+                                                  null
+                                              ? "0"
+                                              : item
+                                                  .statistics!.kickReturnsTotal
+                                                  .toString(),
+                                          fontweight: FontWeight.w400,
+                                          fontSize: 14)),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                      flex: 2,
+                                      child: appText("Passing yard",
+                                          fontweight: FontWeight.w400,
+                                          fontSize: 14)),
+                                  Expanded(
+                                      flex: 2,
+                                      child: appText(".............",
+                                          txtColor: appTextGrey)),
+                                  Expanded(
+                                      flex: 1,
+                                      child: appText(
+                                          item.statistics!.passingYards == null
+                                              ? "0"
+                                              : item.statistics!.passingYards
+                                                  .toString(),
+                                          fontweight: FontWeight.w400,
+                                          fontSize: 14)),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );

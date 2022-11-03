@@ -27,9 +27,8 @@ class PlayerAllTeamController extends GetxController {
       isLoading.value = true;
       //showProgressBar();
       var data = await apiClient?.getSports(
-          //  url:"https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamIDD/players",
           url:
-              "https://allsportsapi2.p.rapidapi.com/api/american-football/team/4426/players",
+              "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamIDD/players",
           body: map,
           context: Get.context!);
       var response = TeamPlayerModel.fromJson(data);

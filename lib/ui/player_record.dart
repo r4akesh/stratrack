@@ -16,7 +16,7 @@ import '../utils/constant.dart';
 class PlayerRecord extends StatelessWidget {
   int plrId;
   PlayerRecord(this.plrId, {Key? key}) : super(key: key);
-  final box = Hive.box('boxName');
+  // final box = Hive.box('boxName');
   var plrDetailController = Get.put(PlayerDetailController());
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,6 @@ class PlayerRecord extends StatelessWidget {
             Container(
               height: 300,
               child: Image.asset(
-
                 topHeaderImg2,
                 fit: BoxFit.fill,
               ),
@@ -59,30 +58,39 @@ class PlayerRecord extends StatelessWidget {
                         const SizedBox(
                           height: 25,
                         ),
-                       Container(
-                         height: 100,
-                         width: 100,
-                         child: ClipRRect(
-                           borderRadius: BorderRadius.circular(50),
-                           child:  Container(
-                             height: 100,
-                             child:  FadeInImage(image: NetworkImage("https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plrId/image",
-                                 headers:const {
-                                   "X-RapidAPI-Key": RAPID_API_KEY,
-                                   "X-RapidAPI-Host": "allsportsapi2.p.rapidapi.com"
-                                 } ), placeholder: AssetImage(appLogo)
-
-                             ),
-                           ),
-                         ),
-                       ),
-
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              height: 100,
+                              child: FadeInImage(
+                                  image: NetworkImage(
+                                      "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plrId/image",
+                                      headers: const {
+                                        "X-RapidAPI-Key": RAPID_API_KEY,
+                                        "X-RapidAPI-Host":
+                                            "allsportsapi2.p.rapidapi.com"
+                                      }),
+                                  placeholder: AssetImage(appLogo)),
+                            ),
+                          ),
+                        ),
 
                         const SizedBox(
                           height: 10,
                         ),
-                        appText(plrDetailController.playerDetail.value.name ?? "N/A", txtColor: Colors.white),
-                        appText(plrDetailController.playerDetail.value.team?.country?.name ?? "N/A", txtColor: Colors.white, fontSize: 14),
+                        appText(
+                            plrDetailController.playerDetail.value.name ??
+                                "N/A",
+                            txtColor: Colors.white),
+                        appText(
+                            plrDetailController
+                                    .playerDetail.value.team?.country?.name ??
+                                "N/A",
+                            txtColor: Colors.white,
+                            fontSize: 14),
                         const SizedBox(
                           height: 60,
                         ),

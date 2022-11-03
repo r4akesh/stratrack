@@ -56,9 +56,35 @@ class ForeginPlayerScreen extends StatelessWidget {
                                                         Radius.circular(55),
                                                     bottomLeft: Radius.circular(
                                                         55)), // Image border
-                                            child: Image.asset(
-                                              demoImage4,
-                                              fit: BoxFit.cover,
+                                            child: Container(
+                                              width: 80,
+                                              height: 80,
+                                              color: Colors.grey,
+                                              child: FadeInImage(
+                                                image: NetworkImage(
+                                                    playrImgUrl(
+                                                        contrloerTemPlr, index),
+                                                    headers: const {
+                                                      "X-RapidAPI-Key":
+                                                          RAPID_API_KEY,
+                                                      "X-RapidAPI-Host":
+                                                          "allsportsapi2.p.rapidapi.com"
+                                                    }),
+                                                placeholder:
+                                                    AssetImage(appLogo),
+                                                placeholderErrorBuilder:
+                                                    ((context, error,
+                                                        stackTrace) {
+                                                  return Container(
+                                                      height: 100,
+                                                      width: 100,
+                                                      child: Image(
+                                                        image:
+                                                            AssetImage(appLogo),
+                                                      ));
+                                                }),
+                                                
+                                              ),
                                             ),
                                           ),
                                           const SizedBox(
@@ -105,6 +131,25 @@ class ForeginPlayerScreen extends StatelessWidget {
       return contrloerTemPlr.nationalPlayerList[indexPos].player?.name ?? "";
     } else {
       return contrloerTemPlr.playerPlayerList[indexPos].player?.name ?? "";
+    }
+  }
+
+  String playrImgUrl(PlayerAllTeamController contrloerTemPlr, int indexPos) {
+    if (posTab == 0) {
+      var idd =
+          contrloerTemPlr.forieginPlayerList[indexPos].player?.id.toString() ??
+              "";
+      return "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$idd/image";
+    } else if (posTab == 1) {
+      var idd =
+          contrloerTemPlr.nationalPlayerList[indexPos].player?.id.toString() ??
+              "";
+      return "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$idd/image";
+    } else {
+      var idd =
+          contrloerTemPlr.playerPlayerList[indexPos].player?.id.toString() ??
+              "";
+      return "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$idd/image";
     }
   }
 }
