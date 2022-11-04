@@ -18,9 +18,14 @@ import '../utils/string.dart';
 import 'allteam.dart';
 import 'notifaction.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   Dashboard({Key? key}) : super(key: key);
 
+  @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> {
   //final globalKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -661,162 +666,136 @@ class Dashboard extends StatelessWidget {
   }
 
   // Widget teamView() {
-  //   return ListView.builder(
-  //       itemCount: 5,
-  //       itemBuilder: ((context, index) {
-  //         return GestureDetector(
-  //           onTap: () {
-  //             Get.to(TeamDetails());
-  //           },
-  //           child: Card(
-  //               shape: RoundedRectangleBorder(
-  //                   borderRadius: BorderRadius.circular(50)),
-  //               color: Colors.white,
-  //               margin: EdgeInsets.only(top: 15, left: 10, right: 10),
-  //               child: Container(
-  //                 height: 100,
-  //                 child: Row(
-  //                   children: [
-  //                     ClipRRect(
-  //                       borderRadius: BorderRadius.only(
-  //                           topLeft: Radius.circular(55),
-  //                           bottomLeft: Radius.circular(55)), // Image border
-  //                       child: Image.asset(
-  //                         demoImage,
-  //                         fit: BoxFit.cover,
-  //                       ),
-  //                     ),
-  //                     SizedBox(
-  //                       width: 20,
-  //                     ),
-  //                     appText("Philadelphia Eagles",
-  //                         fontweight: FontWeight.w400)
-  //                   ],
-  //                 ),
-  //               )),
-  //         );
-  //       }));
-  // }
-
   Widget dashboardView() {
-    // var vv = jsonDecode(MyApp.box.read(KEY_DASHBOARD_LIST));
-    // List<UserData> listUd = List.from(vv.map((e)=>UserData.fromJson(e)));
-    var vv2 = jsonDecode(MyApp.box.read(PLAYER_RECORD));
-    List<Players> listUd2 = List.from(vv2.map((e) => Players.fromJson(e)));
-    print("listSize${listUd2.length}");
-    return listUd2.length > 0
-        ? ListView.builder(
-            itemCount: listUd2.length,
-            itemBuilder: (context, index) {
-              final item = listUd2[index];
-              final plyrId = item.player?.id;
-              return Dismissible(
-                key: Key(item.player?.name ?? ""),
-                onDismissed: ((direction) {
-                  listUd2.removeAt(index);
-                  print("size${listUd2.length}");
-                  print("index${index}");   xfgbvcvhfhfghghgfhgfh gfghfgh
-                  String jsonString = jsonEncode(listUd2);
-                  MyApp.box.write(PLAYER_RECORD, jsonString);
-                }),
-                child: Card(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            FadeInImage(
-                                width: double.infinity,
-                                height: 100,
-                                image: NetworkImage(
-                                    "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plyrId/image",
-                                    headers: const {
-                                      "X-RapidAPI-Key": RAPID_API_KEY,
-                                      "X-RapidAPI-Host":
-                                          "allsportsapi2.p.rapidapi.com"
-                                    }),
-                                placeholder: AssetImage(appLogo)),
-                            Positioned(
-                                bottom: 10,
-                                child: appText(item.player?.name ?? "",
-                                    txtColor: Colors.black))
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          child: Column(
+    try {
+      var plrrecord = jsonDecode(MyApp.box.read(PLAYER_RECORD));
+      List<Players> listUd2 =
+          List.from(plrrecord.map((e) => Players.fromJson(e)));
+      print("listSize${listUd2.length}");
+      return listUd2.length > 0
+          ? ListView.builder(
+              itemCount: listUd2.length,
+              itemBuilder: (context, index) {
+                final item = listUd2[index];
+                final plyrId = item.player?.id;
+                return Dismissible(
+                  key: Key(item.player?.name ?? ""),
+                  onDismissed: ((direction) {
+                    setState(() {
+                      listUd2.removeAt(index);
+                      print("size${listUd2.length}");
+                      print("index${index}");
+                      String jsonString = jsonEncode(listUd2);
+                      MyApp.box.write(PLAYER_RECORD, jsonString);
+                    });
+                  }),
+                  child: Card(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 15),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                      flex: 2,
-                                      child: appText("Kick Returns Total",
-                                          fontweight: FontWeight.w400,
-                                          fontSize: 14)),
-                                  Expanded(
-                                      flex: 2,
-                                      child: appText(".............",
-                                          txtColor: appTextGrey)),
-                                  Expanded(
-                                      flex: 1,
-                                      child: appText(
-                                          item.statistics!.kickReturnsTotal ==
-                                                  null
-                                              ? "0"
-                                              : item
-                                                  .statistics!.kickReturnsTotal
-                                                  .toString(),
-                                          fontweight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                      flex: 2,
-                                      child: appText("Passing yard",
-                                          fontweight: FontWeight.w400,
-                                          fontSize: 14)),
-                                  Expanded(
-                                      flex: 2,
-                                      child: appText(".............",
-                                          txtColor: appTextGrey)),
-                                  Expanded(
-                                      flex: 1,
-                                      child: appText(
-                                          item.statistics!.passingYards == null
-                                              ? "0"
-                                              : item.statistics!.passingYards
-                                                  .toString(),
-                                          fontweight: FontWeight.w400,
-                                          fontSize: 14)),
-                                ],
-                              ),
+                              FadeInImage(
+                                  width: double.infinity,
+                                  height: 100,
+                                  image: NetworkImage(
+                                      "https://allsportsapi2.p.rapidapi.com/api/american-football/player/$plyrId/image",
+                                      headers: const {
+                                        "X-RapidAPI-Key": RAPID_API_KEY,
+                                        "X-RapidAPI-Host":
+                                            "allsportsapi2.p.rapidapi.com"
+                                      }),
+                                  placeholder: AssetImage(appLogo)),
+                              Positioned(
+                                  bottom: 10,
+                                  child: appText(item.player?.name ?? "",
+                                      txtColor: Colors.black))
                             ],
                           ),
-                        )
-                      ],
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        flex: 2,
+                                        child: appText("Kick Returns Total",
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                    Expanded(
+                                        flex: 2,
+                                        child: appText(".............",
+                                            txtColor: appTextGrey)),
+                                    Expanded(
+                                        flex: 1,
+                                        child: appText(
+                                            item.statistics!.kickReturnsTotal ==
+                                                    null
+                                                ? "0"
+                                                : item.statistics!
+                                                    .kickReturnsTotal
+                                                    .toString(),
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        flex: 2,
+                                        child: appText("Passing yard",
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                    Expanded(
+                                        flex: 2,
+                                        child: appText(".............",
+                                            txtColor: appTextGrey)),
+                                    Expanded(
+                                        flex: 1,
+                                        child: appText(
+                                            item.statistics!.passingYards ==
+                                                    null
+                                                ? "0"
+                                                : item.statistics!.passingYards
+                                                    .toString(),
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
-          )
-        : Center(
-            child: Text(
-              "No favourite item added yet!",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          );
+                );
+              },
+            )
+          : Center(
+              child: Text(
+                "No favourite item added yet!",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            );
+    } catch (e) {
+      return Center(
+        child: Text(
+          "No favourite item added yet!!!",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+      );
+    }
   }
 }

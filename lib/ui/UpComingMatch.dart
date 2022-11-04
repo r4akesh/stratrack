@@ -13,11 +13,11 @@ import 'match_details.dart';
 class UpcomingMatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return
-      GetX<UpcomingMatchController>(
-          init: UpcomingMatchController(),
-          builder: (controller) {
-            return Column(children: [
+    return GetX<UpcomingMatchController>(
+        init: UpcomingMatchController(),
+        builder: (controller) {
+          return Column(
+            children: [
               Container(
                 margin: EdgeInsets.only(top: 5),
                 color: Colors.white,
@@ -27,9 +27,9 @@ class UpcomingMatch extends StatelessWidget {
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: (){
-                          if(controller.isLoading.value){
-                            return;//prevent doubleTap
+                        onTap: () {
+                          if (controller.isLoading.value) {
+                            return; //prevent doubleTap
                           }
                           controller.decreseWeek();
                         },
@@ -42,112 +42,175 @@ class UpcomingMatch extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-
                         alignment: Alignment.center,
                         height: 40,
                         width: 50,
                         // child: ListView.builder(scrollDirection: Axis.horizontal ,itemCount: 10,itemBuilder: ((context, index) {
-                        child: Text(controller.dateValue.toString(),style: TextStyle(fontWeight: FontWeight.bold),),
+                        child: Text(
+                          controller.dateValue.toString(),
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                     Expanded(
                       child: GestureDetector(
-                          onTap: (){
-                            if(controller.isLoading.value){
-                              return;//prevent doubleTap
+                          onTap: () {
+                            if (controller.isLoading.value) {
+                              return; //prevent doubleTap
                             }
                             controller.increseWeek();
                             print("nextClick1");
                           },
-                          child:Image.asset(
+                          child: Image.asset(
                             arrowRightIcon,
                             height: 20,
                             width: 20,
-                          )) ,)
+                          )),
+                    )
                   ],
                 ),
               ),
-              Expanded(child: controller.isLoading.value ? LoadingWidget(): controller.eventList.isEmpty? Center(child: Text("No match found",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),):
-              ListView.builder(
-                  itemCount: controller.eventList.length,
-                  itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    if(controller.eventList.length>0) {
-                      controller.matchId = controller.eventList[index].id;
-                      MyApp.box.write(TeamHomeName, "" +
-                          controller.eventList.value[index].homeTeam!.name
-                              .toString());
-                      MyApp.box.write(TeamAwayName, "" +
-                          controller.eventList.value[index].awayTeam!.name
-                              .toString());
-                      print("Rakesh${controller.eventList.value[index].awayTeam!
-                          .name.toString()}");
-                     // Get.to(MatchDetails(from: "Upcoming"));
-                    }else{
-                      print("no data");
-                    }
-                  },
-                  child: Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 40,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          color: applightgrey,
-                          child: Row(
-                            children: [
-                             // appText("Saturday, August 10, 2019", fontweight: FontWeight.w400, txtColor: appBlack),
-                            // appText(DateFormat("EEE, MMMM, dd, yyyy").format(DateTime.parse(controller.eventList.value[index].startTimestamp.toString())), fontweight: FontWeight.w400, txtColor: appBlack),
-                             appText(DateFormat("EEE, MMMM, dd, yyyy").format(DateTime.fromMillisecondsSinceEpoch(controller.eventList.value[index].startTimestamp! * 1000)).toString(), fontweight: FontWeight.w400, txtColor: appBlack),
-                              Spacer(),
-                              appText(DateFormat("hh:mm").format(DateTime.fromMillisecondsSinceEpoch(controller.eventList.value[index].startTimestamp! * 1000)).toString(),
-                                  fontweight: FontWeight.w400,
-                                  txtColor: appBlack),
-                            ],
-                          ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Container(
-                            margin: const EdgeInsets.only(
-                                top: 15, bottom: 10, left: 10, right: 10),
-                            child: Row(
-                              children: [
-                                appText(controller.eventList.value[index].homeTeam!.name.toString(),
-                                    fontweight: FontWeight.w400, fontSize: 14),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                appText("VS",
-                                    fontweight: FontWeight.w600, fontSize: 14),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                appText(controller.eventList.value[index].awayTeam!.name.toString(),
-                                    fontweight: FontWeight.w400, fontSize: 14),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                            alignment: Alignment.bottomRight,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            child: appText(controller.eventList.value[index].status!.type!,
-                                fontweight: FontWeight.w400,
-                                fontSize: 14,
-                                txtColor: appLightBlue))
-                      ],
-                    ),
-                  ),
-                );
-              }))
-              ,
-            ],);
-          }
-        );
-
+              Expanded(
+                  child: controller.isLoading.value
+                      ? LoadingWidget()
+                      : controller.eventList.isEmpty
+                          ? Center(
+                              child: Text(
+                                "No match found",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: controller.eventList.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    if (controller.eventList.length > 0) {
+                                      controller.matchId =
+                                          controller.eventList[index].id;
+                                      MyApp.box.write(
+                                          TeamHomeName,
+                                          "" +
+                                              controller.eventList.value[index]
+                                                  .homeTeam!.name
+                                                  .toString());
+                                      MyApp.box.write(
+                                          TeamAwayName,
+                                          "" +
+                                              controller.eventList.value[index]
+                                                  .awayTeam!.name
+                                                  .toString());
+                                      print(
+                                          "Rakesh${controller.eventList.value[index].awayTeam!.name.toString()}");
+                                    //  Get.to(MatchDetails(from: "Upcoming"));
+                                    } else {
+                                      print("no data");
+                                    }
+                                  },
+                                  child: Card(
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 10),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          height: 40,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          color: applightgrey,
+                                          child: Row(
+                                            children: [
+                                              // appText("Saturday, August 10, 2019", fontweight: FontWeight.w400, txtColor: appBlack),
+                                              // appText(DateFormat("EEE, MMMM, dd, yyyy").format(DateTime.parse(controller.eventList.value[index].startTimestamp.toString())), fontweight: FontWeight.w400, txtColor: appBlack),
+                                              appText(
+                                                  DateFormat(
+                                                          "EEE, MMMM, dd, yyyy")
+                                                      .format(DateTime
+                                                          .fromMillisecondsSinceEpoch(
+                                                              controller
+                                                                      .eventList
+                                                                      .value[
+                                                                          index]
+                                                                      .startTimestamp! *
+                                                                  1000))
+                                                      .toString(),
+                                                  fontweight: FontWeight.w400,
+                                                  txtColor: appBlack),
+                                              Spacer(),
+                                              appText(
+                                                  DateFormat("hh:mm")
+                                                      .format(DateTime
+                                                          .fromMillisecondsSinceEpoch(
+                                                              controller
+                                                                      .eventList
+                                                                      .value[
+                                                                          index]
+                                                                      .startTimestamp! *
+                                                                  1000))
+                                                      .toString(),
+                                                  fontweight: FontWeight.w400,
+                                                  txtColor: appBlack),
+                                            ],
+                                          ),
+                                        ),
+                                        SingleChildScrollView(
+                                          scrollDirection: Axis.horizontal,
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 15,
+                                                bottom: 10,
+                                                left: 10,
+                                                right: 10),
+                                            child: Row(
+                                              children: [
+                                                appText(
+                                                    controller
+                                                        .eventList
+                                                        .value[index]
+                                                        .homeTeam!
+                                                        .name
+                                                        .toString(),
+                                                    fontweight: FontWeight.w400,
+                                                    fontSize: 14),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                appText("VS",
+                                                    fontweight: FontWeight.w600,
+                                                    fontSize: 14),
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                appText(
+                                                    controller
+                                                        .eventList
+                                                        .value[index]
+                                                        .awayTeam!
+                                                        .name
+                                                        .toString(),
+                                                    fontweight: FontWeight.w400,
+                                                    fontSize: 14),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                            alignment: Alignment.bottomRight,
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 10, vertical: 5),
+                                            child: appText(
+                                                controller.eventList
+                                                    .value[index].status!.type!,
+                                                fontweight: FontWeight.w400,
+                                                fontSize: 14,
+                                                txtColor: appLightBlue))
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+            ],
+          );
+        });
   }
 }

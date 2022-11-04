@@ -113,8 +113,6 @@ class ProfileEdit extends StatelessWidget {
   }
 
   Container profileView(BuildContext context,ProfileEditController editController) {
-
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
       child: SingleChildScrollView(

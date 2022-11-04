@@ -52,17 +52,20 @@ class MatchPlayerstats extends StatelessWidget {
                             List listLcl = [];
                             //read
                             var result = MyApp.box.read(PLAYER_RECORD);
-                            print("result>>${result.length}");
-                            List jsonData = jsonDecode(result);
-                            print("jsonData>>${jsonData}");
-                            List<Players> mPlrList = jsonData
-                                .map((plr) => Players.fromJson(plr))
-                                .toList()
-                                .obs;
-                            if (mPlrList != null) {
-                              listLcl.addAll(mPlrList);
+                            if (result != null) {
+                              print("result>>${result.length}");
+                              List jsonData = jsonDecode(result);
+                              print("jsonData>>${jsonData}");
+                              List<Players> mPlrList = jsonData
+                                  .map((plr) => Players.fromJson(plr))
+                                  .toList()
+                                  .obs;
+                              if (mPlrList != null) {
+                                listLcl.addAll(mPlrList);
+                              }
+                              print("mPlrList>>${mPlrList.length}");
                             }
-                            print("mPlrList>>${mPlrList.length}");
+
                             print("listLcl>>${listLcl.length}");
                             var plrsAsMap = pp.toJson();
                             listLcl.add(plrsAsMap);
