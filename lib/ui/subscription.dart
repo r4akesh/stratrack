@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 //import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:stattrack/ui/dashBoard.dart';
@@ -8,13 +9,16 @@ import 'package:stattrack/utils/constant.dart';
 
 import '../controller/SubscriptionPlanListController.dart';
 import '../main.dart';
+import '../model/SubcriptionModel.dart';
 
 class Subscription extends StatelessWidget {
   const Subscription({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // SubscriptionListController subscriptionListController = Get.put(SubscriptionListController());
+    var selectedplans = Subscriptionplans();
+    SubscriptionListController subscriptionListController =
+        Get.put(SubscriptionListController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -91,6 +95,8 @@ class Subscription extends StatelessWidget {
                     onTap: () {
                       subscriptionListController.isSelected.value = index;
                       subscriptionListController.update();
+                      selectedplans =
+                          subscriptionListController.subscriptionplans[index];
                     },
                     leading:
                         subscriptionListController.isSelected.value == index
@@ -118,8 +124,10 @@ class Subscription extends StatelessWidget {
           ),
           GestureDetector(
               onTap: () async {
-                Get.off(Dashboard());
-                //  initPaymentSheet();
+                //  Get.off(Dashboard());
+                print("object");
+                showMyBottomSheet(context, subscriptionListController,selectedplans);
+                print("object");
               },
               child: appButton(context, "Active now", 60, appOrange)),
           SizedBox(
@@ -127,6 +135,59 @@ class Subscription extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  void showMyBottomSheet(BuildContext myContext,
+      SubscriptionListController subscriptionController, Subscriptionplans selectedplansLcl) {
+    var selectedCardNum = "";
+    var selectedCVC = "";
+    var selectedMonth = "";
+    var selectedYear = "";
+    showModalBottomSheet<void>(
+      context: myContext,
+      builder: (BuildContext context) {
+        return SizedBox(
+          height: 200,
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10,
+                ),
+                appText("Card Information"),
+                SizedBox(
+                  height: 10,
+                ),
+                CardField(
+                  dangerouslyGetFullCardDetails: true,
+                  dangerouslyUpdateFullCardDetails: true,
+                  onCardChanged: (card) {
+                    print("card>>{$card}");
+                    selectedCVC = card?.cvc.toString() ?? "";
+                    selectedMonth = card?.expiryMonth.toString() ?? "";
+                    selectedYear = card?.expiryYear.toString() ?? "";
+                    selectedCardNum = card?.number.toString() ?? "";
+                   // print("card{$ccc>>>$exp>>$crd>>$year}") ?? "";
+                  },
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    subscriptionController.doPayment(selectedplansLcl,selectedCardNum,selectedCVC,selectedMonth,selectedYear);
+                  },
+                  child: Container(
+                    width: 300,
+                    child: appButton(context, "Pay", 40, appOrange),
+                  ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

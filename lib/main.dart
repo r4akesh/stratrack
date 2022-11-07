@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -16,7 +17,7 @@ void main() async => {
       await GetStorage.init(),
       await Hive.initFlutter(),
       await Hive.openBox('boxNamePlayer'),
-      //Stripe.publishableKey = StripePublishableKey,
+      Stripe.publishableKey = StripePublishableKey,
       runApp(const MyApp())
     };
 
