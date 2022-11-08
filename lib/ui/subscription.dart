@@ -20,6 +20,7 @@ class Subscription extends StatelessWidget {
     SubscriptionListController subscriptionListController =
         Get.put(SubscriptionListController());
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
@@ -62,7 +63,6 @@ class Subscription extends StatelessWidget {
                   "Subscribe StatTrack",
                   style: TextStyle(fontSize: 18, color: Colors.white),
                 )
-                //Text("name"+MyApp.box.read("firstName"), style: TextStyle(fontSize: 18, color: Colors.white),)
               ],
             )
           ],
@@ -78,19 +78,15 @@ class Subscription extends StatelessWidget {
                 fontSize: 14,
                 fontweight: FontWeight.w400),
           ),
-          // CardField(
-          //   onCardChanged: (card) {
-          //     print(card);
-          //   },
-          // ),
-          SizedBox(
-            height: 300,
+          Expanded(
             child: GetBuilder<SubscriptionListController>(
               init: SubscriptionListController(),
               builder: (subscriptionListController) => ListView.builder(
                 itemCount:
                     subscriptionListController.subscriptionplans.value.length,
                 itemBuilder: (context, index) {
+                  selectedplans = subscriptionListController
+                      .subscriptionplans[index]; //intially 0th index set value
                   return ListTile(
                     onTap: () {
                       subscriptionListController.isSelected.value = index;
@@ -122,35 +118,44 @@ class Subscription extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 5,
+          ),
           GestureDetector(
               onTap: () async {
                 //  Get.off(Dashboard());
-                print("object");
-                showMyBottomSheet(context, subscriptionListController,selectedplans);
-                print("object");
+                showMyBottomSheet(
+                    context, subscriptionListController, selectedplans);
               },
               child: appButton(context, "Active now", 60, appOrange)),
           SizedBox(
-            height: 20,
+            height: 5,
           )
         ],
       ),
     );
   }
 
-  void showMyBottomSheet(BuildContext myContext,
-      SubscriptionListController subscriptionController, Subscriptionplans selectedplansLcl) {
+  void showMyBottomSheet(
+      BuildContext myContext,
+      SubscriptionListController subscriptionController,
+      Subscriptionplans selectedplansLcl) {
     var selectedCardNum = "";
     var selectedCVC = "";
     var selectedMonth = "";
     var selectedYear = "";
     showModalBottomSheet<void>(
-      context: myContext,
-      builder: (BuildContext context) {
-        return SizedBox(
-          height: 200,
-          child: Center(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
+        isScrollControlled: true,
+        context: myContext,
+        builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 SizedBox(
                   height: 10,
@@ -168,7 +173,7 @@ class Subscription extends StatelessWidget {
                     selectedMonth = card?.expiryMonth.toString() ?? "";
                     selectedYear = card?.expiryYear.toString() ?? "";
                     selectedCardNum = card?.number.toString() ?? "";
-                   // print("card{$ccc>>>$exp>>$crd>>$year}") ?? "";
+                    // print("card{$ccc>>>$exp>>$crd>>$year}") ?? "";
                   },
                 ),
                 SizedBox(
@@ -176,18 +181,37 @@ class Subscription extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    subscriptionController.doPayment(selectedplansLcl,selectedCardNum,selectedCVC,selectedMonth,selectedYear);
+                    print("hi${selectedplansLcl.planPrice}");
+                    subscriptionController.doPayment(
+                        selectedplansLcl,
+                        selectedCardNum,
+                        selectedCVC,
+                        selectedMonth,
+                        selectedYear);
                   },
                   child: Container(
-                    width: 300,
-                    child: appButton(context, "Pay", 40, appOrange),
+                    width: 200,
+                    height: 50,
+                    child: Obx(() => subscriptionController.isLoading.value
+                        ? Container(
+                            height: 5,
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          )
+                        : appButton(
+                            context,
+                            "Pay \$${selectedplansLcl.planPrice.toString().trim()}",
+                            60,
+                            appOrange)),
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 5,
+                ),
               ],
             ),
-          ),
-        );
-      },
-    );
+          );
+        });
   }
 }

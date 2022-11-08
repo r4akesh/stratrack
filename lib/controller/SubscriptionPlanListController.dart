@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
+import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 
 import '../main.dart';
 import '../model/SubcriptionModel.dart';
 import '../model/paymentmodel.dart';
 import '../network/apiClient.dart';
+import '../ui/payment_screen.dart';
 
 class SubscriptionListController extends GetxController {
   var isLoading = false.obs;
@@ -43,47 +45,74 @@ class SubscriptionListController extends GetxController {
     }
   }
 
+  bool isValidPaymentData(String selectedCardNum, String selectedCVC,
+      String selectedMonth, String selectedYear) {
+    if (selectedCardNum.isEmpty || selectedCardNum == "null") {
+      toast("Please enter valid card number");
+      return false;
+    } else if (selectedCardNum.length < 16) {
+      toast("Please enter valid card number");
+      return false;
+    } else if (selectedMonth.isEmpty || selectedMonth == "null") {
+      toast("Please enter valid month");
+      return false;
+    } else if (selectedYear.isEmpty || selectedYear == "null") {
+      toast("Please enter valid year");
+      return false;
+    } else if (selectedCVC.isEmpty || selectedCVC == "null") {
+      toast("Please enter valid cvc number");
+      return false;
+    }
+    return true;
+  }
+
   doPayment(Subscriptionplans selectedplansLcl, String selectedCardNum,
       String selectedCVC, String selectedMonth, String selectedYear) async {
-    Map<String, dynamic> map = {
-      "user_id": MyApp.box.read("id"),
-      "subscription_id": selectedplansLcl.sId,
-      "postal_code": "",
-      "city": "",
-      "state": "",
-      "country": "",
-      "card_number": selectedCardNum,
-      "exp_month": selectedMonth,
-      "exp_year": selectedYear,
-      "cvc": selectedCVC,
-      "amount": selectedplansLcl.planPrice,
-    };
-    try {
-      print("doPayment");
-      isLoading.value = true;
-      var data = await apiClient?.post(
-          url: BASE_URL + "payment/userpayment",
-          body: map,
-          context: Get.context!);
+    var vv = isValidPaymentData(
+        selectedCardNum, selectedCVC, selectedMonth, selectedYear);
+    print("hi$selectedCardNum");
+    if (vv) {
+      Map<String, dynamic> map = {
+        "user_id": MyApp.box.read("id"),
+        // "user_id": "62e911ad79b4029289de8818",
+        "subscription_id": selectedplansLcl.sId,
+        // "subscription_id": "62e2435ca0bae5ec1e753654",
+        "postal_code": "",
+        "city": "",
+        "state": "",
+        "country": "",
+        "card_number": selectedCardNum,
+        "exp_month": selectedMonth,
+        "exp_year": selectedYear,
+        "cvc": selectedCVC,
+        "amount": selectedplansLcl.planPrice,
+        // "amount": "500",
+      };
+      try {
+        print("doPayment");
+        isLoading.value = true;
+        var data = await apiClient?.post(
+            url: BASE_URL + "payment/userpayment",
+            body: map,
+            context: Get.context!);
 
-      var response = PaymentModel.fromJson(data);
+        PaymentModel response = PaymentModel.fromJson(data);
 
-      // if (response.data?.subscriptionplans != null) {
-      //   subscriptionplans.value = response.data!.subscriptionplans!;
-      //   update();
-      // }
-sdfdsfsdfds
+        // if (response.data?.subscriptionplans != null) {
+        //   subscriptionplans.value = response.data!.subscriptionplans!;
+        //   update();
+        // }
 
-      if (response.code == 200) {
-         print("{$response.message}");
-      } else {
-        print("{$response.message}");
+        if (response.code == 200) {
+          Get.offAll(PaymentScreen());
+          print("${response.data?.type.toString()}");
+        } else {
+          print("${response.message}");
+        }
+        print("Payment Res>>${response.code}");
+      } finally {
+        isLoading.value = false;
       }
-      print("length>>");
-     
-      // model.value = response;
-    } finally {
-      isLoading.value = false;
     }
   }
 }
