@@ -87,6 +87,7 @@ Widget appTextFieldPassword(String lable,  SetPasswordController getxcontroller,
             getxcontroller.isPasswordShow.value =!getxcontroller.isPasswordShow.value;
           },
             child:  getxcontroller.isPasswordShow.value?const Icon(Icons.visibility,color: Colors.grey,):const Icon(Icons.visibility_off,color: Colors.grey,),),
+            
           labelStyle:
           const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           border: const UnderlineInputBorder(

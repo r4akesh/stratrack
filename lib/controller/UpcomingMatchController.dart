@@ -12,16 +12,15 @@ class UpcomingMatchController extends GetxController {
   final apiClient = Apiclient.instance;
 
 //  var subscriptionplans = <Subscriptionplans>[].obs;
-   var eventList = <Events>[].obs;
+  var eventList = <Events>[].obs;
   var eventListOrignal = <Events>[].obs;
   var isSelected = 0.obs;
-  var weekValue = 0;//1
+  var weekValue = 0; //1
   var dateValue = "";
-  var matchId ;
+  var matchId;
   @override
   void onInit() {
     super.onInit();
-
 
     getData(fetchNextDate(weekValue));
   }
@@ -33,13 +32,11 @@ class UpcomingMatchController extends GetxController {
   }
 
   decreseWeek() {
-    if (weekValue > 1) {
+    if (weekValue > 0) {
       weekValue -= 1;
       getData(fetchNextDate(weekValue));
     }
   }
-
-
 
   void getData(String nextDate) {
     dateValue = nextDate;
@@ -53,33 +50,35 @@ class UpcomingMatchController extends GetxController {
       isLoading.value = true;
       //showProgressBar();
       var data = await apiClient?.getSports(
-          url: "https://allsportsapi2.p.rapidapi.com/api/american-football/matches/$date",
+          url:
+              "https://allsportsapi2.p.rapidapi.com/api/american-football/matches/$date",
           body: map,
           context: Get.context!);
       var response = UpcomingModel.fromJson(data);
 
       if (response.events != null) {
         eventListOrignal.value = response.events as List<Events>;
-        int crntTime =  DateTime.now().millisecondsSinceEpoch;
+        int crntTime = DateTime.now().millisecondsSinceEpoch;
         eventList.clear();
-        for(int i= 0 ; i<eventListOrignal.length;i++){
-          var matchTimeMills= eventListOrignal[i].startTimestamp!*1000;
-         var matchDate =  fetchMillsToDate(matchTimeMills);
-        // if(matchTimeMills >crntTime && date==matchDate){
-          if(eventListOrignal[i].status?.type=="notstarted" && date==matchDate){//
-          //  print("catch>>$date >> ${eventList[i].status?.type}");
+        for (int i = 0; i < eventListOrignal.length; i++) {
+          var matchTimeMills = eventListOrignal[i].startTimestamp! * 1000;
+          var matchDate = fetchMillsToDate(matchTimeMills);
+          // if(matchTimeMills >crntTime && date==matchDate){
+          if (eventListOrignal[i].status?.type == "notstarted" &&
+              date == matchDate) {
+            //
+            //  print("catch>>$date >> ${eventList[i].status?.type}");
             eventList.add(eventListOrignal[i]);
-           }
+          }
         }
         update();
       }
-    }
-    catch(e){
+    } catch (e) {
       print("catch>>$e");
       eventListOrignal.value.clear();
       eventList.value.clear();
       rethrow;
-    }finally {
+    } finally {
       // closeProgress();
       isLoading.value = false;
     }

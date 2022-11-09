@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:stattrack/controller/DashboardController.dart';
 import 'package:stattrack/main.dart';
 import 'package:stattrack/network/apiClient.dart';
+import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 
 import '../model/updateProfileModel.dart';
@@ -73,7 +74,10 @@ class ProfileEditController extends GetxController {
       isLoading.value = true;
       update();
       var data = await apiClient?.post(
-        url: BASE_URL + "users/updateProfilePicture", body: map, context: Get.context!,);
+        url: BASE_URL + "users/updateProfilePicture",
+        body: map,
+        context: Get.context!,
+      );
 
       var responce = UpdateProfileModel.fromJson(data);
       isLoading.value = false;
@@ -83,6 +87,7 @@ class ProfileEditController extends GetxController {
       MyApp.box.write("firstName", responce.data!.firstName.toString());
       MyApp.box.write("lastName", responce.data!.lastName.toString());
       update();
+      toast("You have successfully update your profile");
       // Get.offAll(const Login());
     } catch (e) {
       print("data catch" + e.toString());
@@ -99,7 +104,7 @@ class ProfileEditController extends GetxController {
   }
 
   @override
- onClose() async {
+  onClose() async {
     super.onClose();
     band();
   }

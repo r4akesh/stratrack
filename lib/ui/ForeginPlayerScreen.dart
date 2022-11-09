@@ -4,6 +4,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
+import 'package:stattrack/ui/player_record.dart';
 
 import '../controller/player_allteam_controller.dart';
 import '../utils/LoadingWidget.dart';
@@ -38,65 +39,73 @@ class ForeginPlayerScreen extends StatelessWidget {
                               itemCount: myListLenght(
                                   contrloerTemPlr), //contrloerTemPlr.forieginPlayerList.length,
                               itemBuilder: (context, index) {
-                                return Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50)),
-                                    color: Colors.white,
-                                    margin: const EdgeInsets.only(
-                                        top: 5, left: 10, right: 10),
-                                    child: SizedBox(
-                                      height: 80,
-                                      child: Row(
-                                        children: [
-                                          ClipRRect(
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(55),
-                                                    bottomLeft: Radius.circular(
-                                                        55)), // Image border
-                                            child: Container(
-                                              width: 80,
-                                              height: 80,
-                                              color: Colors.grey,
-                                              child: FadeInImage(
-                                                image: NetworkImage(
-                                                    playrImgUrl(
-                                                        contrloerTemPlr, index),
-                                                    headers: const {
-                                                      "X-RapidAPI-Key":
-                                                          RAPID_API_KEY,
-                                                      "X-RapidAPI-Host":
-                                                          "allsportsapi2.p.rapidapi.com"
-                                                    }),
-                                                placeholder:
-                                                    AssetImage(appLogo),
-                                                placeholderErrorBuilder:
-                                                    ((context, error,
-                                                        stackTrace) {
-                                                  return Container(
-                                                      height: 100,
-                                                      width: 100,
-                                                      child: Image(
-                                                        image:
-                                                            AssetImage(appLogo),
-                                                      ));
-                                                }),
-                                                
+                                return GestureDetector(
+                                  onTap: () {
+                                    print("object");
+                                    var v = playerID(contrloerTemPlr, index);
+                                    print("object$v");
+                                    Get.to(PlayerRecord(
+                                        playerID(contrloerTemPlr, index)));
+                                  },
+                                  child: Card(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      color: Colors.white,
+                                      margin: const EdgeInsets.only(
+                                          top: 5, left: 10, right: 10),
+                                      child: SizedBox(
+                                        height: 80,
+                                        child: Row(
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius: const BorderRadius
+                                                      .only(
+                                                  topLeft: Radius.circular(55),
+                                                  bottomLeft: Radius.circular(
+                                                      55)), // Image border
+                                              child: Container(
+                                                width: 80,
+                                                height: 80,
+                                                color: Colors.grey,
+                                                child: FadeInImage(
+                                                  image: NetworkImage(
+                                                      playrImgUrl(
+                                                          contrloerTemPlr,
+                                                          index),
+                                                      headers: const {
+                                                        "X-RapidAPI-Key":
+                                                            RAPID_API_KEY,
+                                                        "X-RapidAPI-Host":
+                                                            "allsportsapi2.p.rapidapi.com"
+                                                      }),
+                                                  placeholder:
+                                                      AssetImage(appLogo),
+                                                  placeholderErrorBuilder:
+                                                      ((context, error,
+                                                          stackTrace) {
+                                                    return Container(
+                                                        height: 100,
+                                                        width: 100,
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                              appLogo),
+                                                        ));
+                                                  }),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 20,
-                                          ),
-                                          appText(
-                                              playerName(
-                                                  contrloerTemPlr, index),
-                                              fontweight: FontWeight.w400),
-                                        ],
-                                      ),
-                                    ));
+                                            const SizedBox(
+                                              width: 20,
+                                            ),
+                                            appText(
+                                                playerName(
+                                                    contrloerTemPlr, index),
+                                                fontweight: FontWeight.w400),
+                                          ],
+                                        ),
+                                      )),
+                                );
                               },
                             ))
             ],
@@ -121,6 +130,16 @@ class ForeginPlayerScreen extends StatelessWidget {
       return contrloerTemPlr.nationalPlayerList.length;
     } else {
       return contrloerTemPlr.playerPlayerList.length;
+    }
+  }
+
+  int playerID(PlayerAllTeamController contrloerTemPlr, int indexPos) {
+    if (posTab == 0) {
+      return contrloerTemPlr.forieginPlayerList[indexPos].player?.id ?? 0;
+    } else if (posTab == 1) {
+      return contrloerTemPlr.nationalPlayerList[indexPos].player?.id ?? 0;
+    } else {
+      return contrloerTemPlr.playerPlayerList[indexPos].player?.id ?? 0;
     }
   }
 

@@ -9,10 +9,10 @@ import '../utils/colors.dart';
 import '../utils/commen.dart';
 import '../utils/constant.dart';
 import 'match_details.dart';
- 
+import 'match_details_team.dart';
 
 class OldMatchTeam extends StatelessWidget {
-  String teamId="";
+  String teamId = "";
   OldMatchTeam(String this.teamId);
 
   @override
@@ -38,7 +38,8 @@ class OldMatchTeam extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
-                                    controller.matchId = controller.eventList[index].id;
+                                    controller.matchId =
+                                        controller.eventList[index].id;
                                     //to pass next screen i.e matchDetailScreen
                                     MyApp.box.write(
                                         TeamHomeName,
@@ -65,7 +66,7 @@ class OldMatchTeam extends StatelessWidget {
                                                 .awayTeam!.id
                                                 .toString());
 
-                                   // Get.to(MatchDetails(from: "Old"));
+                                    Get.to(MatchDetailsTeam(from: "Old", teamId: teamId));
                                   },
                                   child: Card(
                                     margin: const EdgeInsets.symmetric(

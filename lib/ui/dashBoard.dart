@@ -83,9 +83,13 @@ class _DashboardState extends State<Dashboard> {
                               ? Image.network(
                                   MyApp.box.read("imageUrl"),
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Container(
+                                      child: Image.asset(demoImage5),
+                                    );
+                                  },
                                 )
-                              : Image.network(
-                                  "https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq.jpg"),
+                              : Image.asset(demoImage5),
                         ),
                       ),
                     ))
@@ -308,40 +312,46 @@ class _DashboardState extends State<Dashboard> {
                             ? Image.network(
                                 MyApp.box.read("imageUrl"),
                                 fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) {
+                                  return Container(
+                                    child: Image.asset(demoImage5),
+                                  );
+                                },
                               )
-                            : Image.network(
-                                "https://alliancebjjmn.com/wp-content/uploads/2019/07/placeholder-profile-sq.jpg"),
+                            : Image.asset(demoImage5),
                       ),
                     ),
                   ),
                   const SizedBox(
                     width: 20,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MyApp.box.read("firstName") != null
-                          ? appText(
-                              MyApp.box.read("firstName") +
-                                  " " +
-                                  MyApp.box.read("lastName"),
-                              txtColor: Colors.white,
-                            )
-                          : appText(
-                              "",
-                              txtColor: Colors.white,
-                            ),
-                      MyApp.box.read("email") != null
-                          ? appText(MyApp.box.read("email"),
-                              txtColor: appLightBlue,
-                              fontweight: FontWeight.w400,
-                              fontSize: 14)
-                          : appText("",
-                              txtColor: appLightBlue,
-                              fontweight: FontWeight.w400,
-                              fontSize: 14)
-                    ],
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MyApp.box.read("firstName") != null
+                            ? appText(
+                                MyApp.box.read("firstName") +
+                                    " " +
+                                    MyApp.box.read("lastName"),
+                                txtColor: Colors.white,
+                              )
+                            : appText(
+                                "",
+                                txtColor: Colors.white,
+                              ),
+                        MyApp.box.read("email") != null
+                            ? appText(MyApp.box.read("email"),
+                                txtColor: appLightBlue,
+                                fontweight: FontWeight.w400,
+                                fontSize: 14)
+                            : appText("",
+                                txtColor: appLightBlue,
+                                fontweight: FontWeight.w400,
+                                fontSize: 14)
+                      ],
+                    ),
                   )
                 ],
               ),

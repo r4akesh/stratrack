@@ -20,8 +20,8 @@ class SplashController extends GetxController {
   }
 
   void goToNext() {
-    //MyApp.box.read("id") != null?Timer(const Duration(seconds: 3), () => Get.off(() =>   Dashboard())):Timer(const Duration(seconds: 3), () => Get.off(() => const Welcome()));
-    MyApp.box.read("id") != null?Timer(const Duration(seconds: 3), () => Get.off(() =>   Login())):Timer(const Duration(seconds: 3), () => Get.off(() => const Login()));
+    MyApp.box.read("id") != null?Timer(const Duration(seconds: 3), () => Get.off(() =>   Dashboard())):Timer(const Duration(seconds: 3), () => Get.off(() => const Welcome()));
+   // MyApp.box.read("id") != null?Timer(const Duration(seconds: 3), () => Get.offAll(() =>   Login())):Timer(const Duration(seconds: 3), () => Get.offAll(() => const Login()));
     // MyApp.box.read("id") != null
     //     ? Timer(const Duration(seconds: 3), () => Get.off(() => Subscription()))
     //     : Timer(const Duration(seconds: 3),

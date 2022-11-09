@@ -4,6 +4,7 @@ import 'package:stattrack/controller/TeamDetailController.dart';
 import 'package:stattrack/ui/OldMatchTeam.dart';
 import 'package:stattrack/ui/match_details.dart';
 import 'package:stattrack/ui/player_match_data.dart';
+import 'package:stattrack/ui/player_record.dart';
 import 'package:stattrack/utils/LoadingWidget.dart';
 import 'package:stattrack/utils/colors.dart';
 import 'package:stattrack/utils/commen.dart';
@@ -311,8 +312,8 @@ class TeamDetails extends StatelessWidget {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  // Get.to(PlayerMatchData());
-                },
+                //  Get.to(PlayerRecord());    
+                }, 
                 child: Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
