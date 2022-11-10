@@ -37,7 +37,10 @@ const subscription_plan_bg = "assets/images/subscription_plan_bg.png";
 const StarIcon = "assets/images/star_icon.png";
 const arrowRightIcon = "assets/images/arrow_right.png";
 const arrowLeftIcon = "assets/images/arrow_left.png";
-
+const IC_AboutUs = "assets/images/ic_aboutus.png";
+const IC_Privacy = "assets/images/ic_privacy.png";
+const IC_Term = "assets/images/ic_termcond.png";
+const IC_DelUser = "assets/images/ic_deluser.png";
 
 const RAPID_API_KEY =
     "690cab678fmshf73a3e54b201797p14f746jsn4bd3de022654"; //client
@@ -51,6 +54,6 @@ const KEY_DASHBOARD_LIST = "KEY_DASHBOARD_LIST";
 const SESSION_ID = "46786";
 const TOURNAMENT_ID = "9464";
 
-
 final String StripePublishableKey =
     "pk_test_51Lg86eKVSA5dEldu2Lv0wMKPxoC3qm17ZQW7HEJq61WmTh3O9fNRSqKtyoLmlnWw43uv9UMtwvw8UJ6w1G20yDG300tVvNV6X8";
+final String IS_SUBSCRIBE = "IS_SUBSCRIBE";

@@ -4,7 +4,7 @@ import 'package:stattrack/utils/constant.dart';
 
 import '../main.dart';
 import '../model/SubcriptionModel.dart';
-import '../model/paymentmodel.dart';
+import '../model/commonmodel.dart';
 import '../network/apiClient.dart';
 import '../ui/payment_screen.dart';
 
@@ -96,7 +96,7 @@ class SubscriptionListController extends GetxController {
             body: map,
             context: Get.context!);
 
-        PaymentModel response = PaymentModel.fromJson(data);
+        CommonModel response = CommonModel.fromJson(data);
 
         // if (response.data?.subscriptionplans != null) {
         //   subscriptionplans.value = response.data!.subscriptionplans!;

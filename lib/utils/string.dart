@@ -31,5 +31,9 @@ const String notifaction = "Notification";
 const String myPlan = "My plan";
 const String invitePeople = "Invite people";
 const String logout = "Logout";
+const String AboutUs = "About Us";
+const String PrivacyPolicy = "Privacy Policy";
+const String TermsNCond = "Terms & Condition";
+const String DeleteAccount = "Delete Account";
 
 

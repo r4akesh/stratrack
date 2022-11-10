@@ -365,10 +365,10 @@ class TeamDetails extends StatelessWidget {
                     TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 tabs: [
                   Tab(
-                    text: "ForeignPlayers",
+                    text: "Foreign Players",
                   ),
                   Tab(
-                    text: "NationalPlayers",
+                    text: "National Players",
                   ),
                   Tab(
                     text: "Players",
@@ -399,37 +399,37 @@ class TeamDetails extends StatelessWidget {
               labelStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
               tabs: [
                 Tab(
-                  text: "DefensiveInterceptions",
+                  text: "Defensive Interceptions",
                 ),
                 Tab(
-                  text: "DefensiveSacks",
+                  text: "Defensive Sacks",
                 ),
                 Tab(
-                  text: "DefensiveTotalTackles",
+                  text: "Defensive Total Tackles",
                 ),
                 Tab(
-                  text: "KickingFgMade",
+                  text: "Kicking Fg Made",
                 ),
                 Tab(
-                  text: "PassingCompletionPercentage",
+                  text: "Passing Completion Percentage",
                 ),
                 Tab(
-                  text: "PassingTouchdownInterceptionRatio",
+                  text: "Passing Touchdown Interception Ratio",
                 ),
                 Tab(
-                  text: "PassingTouchdowns",
+                  text: "Passing Touchdowns",
                 ),
                 Tab(
-                  text: "ReceivingTouchdowns",
+                  text: "Receiving Touchdowns",
                 ),
                 Tab(
-                  text: "ReceivingYardsPerReception",
+                  text: "Receiving Yards PerReception",
                 ),
                 Tab(
-                  text: "RushingTouchdowns",
+                  text: "Rushing Touchdowns",
                 ),
                 Tab(
-                  text: "RushingYardsPerAttempt",
+                  text: "Rushing Yards PerAttempt",
                 ),
               ]),
           Expanded(

@@ -1,11 +1,11 @@
-class PaymentModel {
+class IsSubsscribeModel {
   String? message;
   int? code;
   Data? data;
 
-  PaymentModel({this.message, this.code, this.data});
+  IsSubsscribeModel({this.message, this.code, this.data});
 
-  PaymentModel.fromJson(Map<String, dynamic> json) {
+  IsSubsscribeModel.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     code = json['code'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
@@ -23,17 +23,20 @@ class PaymentModel {
 }
 
 class Data {
-  String? type;
+  
+  bool? isPlanActive;
 
-  Data({this.type});
+  Data({ this.isPlanActive});
 
   Data.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
+   
+    isPlanActive = json['isPlanActive'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
+    
+    data['isPlanActive'] = this.isPlanActive;
     return data;
   }
 }

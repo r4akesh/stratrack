@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -9,7 +8,11 @@ import 'package:stattrack/utils/string.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class CmsPage extends StatefulWidget {
-  const CmsPage({Key? key}) : super(key: key);
+  final String topTitle;
+  const CmsPage({
+    Key? key,
+    required this.topTitle,
+  }) : super(key: key);
 
   @override
   State<CmsPage> createState() => _CmsPageState();
@@ -21,18 +24,26 @@ class _CmsPageState extends State<CmsPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: appText(termOfServices,txtColor: Colors.white,),
+        title: appText(
+          widget.topTitle,
+          txtColor: Colors.white,
+        ),
         centerTitle: true,
         flexibleSpace: Stack(
           children: [
-            Container(child: Image.asset(topHeaderImg,fit: BoxFit.cover,  width: MediaQuery.of(context).size.width,))
+            Container(
+                child: Image.asset(
+              topHeaderImg,
+              fit: BoxFit.cover,
+              width: MediaQuery.of(context).size.width,
+            ))
           ],
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: (){
+          onPressed: () {
             Get.back();
           },
         ),

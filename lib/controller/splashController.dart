@@ -8,7 +8,7 @@ import 'package:stattrack/ui/payment_screen.dart';
 import 'package:stattrack/ui/selectMatch.dart';
 import 'package:stattrack/ui/welcome.dart';
 
-import '../ui/PaymentChkoutScreen.dart';
+ 
 import '../ui/subscription.dart';
 
 class SplashController extends GetxController {

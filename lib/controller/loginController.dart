@@ -49,22 +49,19 @@ class LoginController extends GetxController {
     try{
       isLoading.value =true;
       var data = await apiClient?.post(url: BASE_URL + "users/userLogin", body: map, context: Get.context!);
-      print("2");
       var responce = LoginModel.fromJson(data);
-      print("3");
       isLoading.value =false;
-      print("4${responce.toJson()}");
       MyApp.box.write("token", ""+responce.data.token);
       MyApp.box.write("id", ""+responce.data.user.id);
       MyApp.box.write("firstName", ""+responce.data.user.firstName);
       MyApp.box.write("lastName", ""+responce.data.user.lastName);
       MyApp.box.write("email", ""+responce.data.user.email);
       MyApp.box.write("imageUrl", ""+responce.data.user.profile_image);
-      print("5");
-       Get.off(Subscription());
+      MyApp.box.write(IS_SUBSCRIBE, false);    
+      Get.offAll(Subscription());
       //Get.off(Dashboard());
     }catch(e){
-      print("catch>>$e");
+      print("catch login>>$e");
     }
     finally { isLoading.value =false;}
   }

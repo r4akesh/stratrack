@@ -15,7 +15,9 @@ import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 import '../model/myDashboard.dart';
 import '../utils/string.dart';
+import 'HomeTabScreen.dart';
 import 'allteam.dart';
+import 'cmspage.dart';
 import 'notifaction.dart';
 
 class Dashboard extends StatefulWidget {
@@ -42,7 +44,7 @@ class _DashboardState extends State<Dashboard> {
                           : appBarProfile(),
               bottomNavigationBar: bottomNavigation(value),
               body: value.initialItemSelected == 0
-                  ? homeView(context)
+                  ? HomeTabScreen()
                   : value.initialItemSelected == 1
                       ? dashboardView()
                       : value.initialItemSelected == 2
@@ -125,13 +127,7 @@ class _DashboardState extends State<Dashboard> {
               ),
             ),
           ),
-          const Divider(
-            thickness: 0.5,
-            color: appTextGrey,
-            indent: 10,
-            endIndent: 15,
-            height: 0,
-          ),
+          myDivider(),
           ListTile(
             onTap: () {
               Get.to(const MyPlan());
@@ -148,13 +144,7 @@ class _DashboardState extends State<Dashboard> {
             contentPadding: EdgeInsets.only(left: 10, right: 0),
             minLeadingWidth: 5,
           ),
-          const Divider(
-            thickness: 0.5,
-            color: appTextGrey,
-            indent: 10,
-            height: 0,
-            endIndent: 15,
-          ),
+          myDivider(),
           ListTile(
             horizontalTitleGap: 10,
             title: appText(invitePeople,
@@ -168,13 +158,58 @@ class _DashboardState extends State<Dashboard> {
             contentPadding: EdgeInsets.only(left: 10, right: 0),
             minLeadingWidth: 5,
           ),
-          const Divider(
-            thickness: 0.5,
-            color: appTextGrey,
-            height: 0,
-            indent: 10,
-            endIndent: 15,
+          myDivider(),
+          ListTile(
+            onTap: () {
+               Get.to(CmsPage(AboutUs));
+            },
+            horizontalTitleGap: 10,
+            title: appText(AboutUs,
+                fontSize: 14,
+                txtColor: appTextGrey,
+                fontweight: FontWeight.w400),
+            leading: Image.asset(
+              IC_AboutUs,
+              scale: 3,
+            ),
+            contentPadding: EdgeInsets.only(left: 10, right: 0),
+            minLeadingWidth: 5,
           ),
+          myDivider(),
+          ListTile(
+            onTap: () {
+              Get.to(CmsPage(PrivacyPolicy));
+            },
+            horizontalTitleGap: 10,
+            title: appText(PrivacyPolicy,
+                fontSize: 14,
+                txtColor: appTextGrey,
+                fontweight: FontWeight.w400),
+            leading: Image.asset(
+              IC_Privacy,
+              scale: 3,
+            ),
+            contentPadding: EdgeInsets.only(left: 10, right: 0),
+            minLeadingWidth: 5,
+          ),
+          myDivider(),
+          ListTile(
+            onTap: () {
+               Get.to(CmsPage(TermsNCond));
+            },
+            horizontalTitleGap: 10,
+            title: appText(TermsNCond,
+                fontSize: 14,
+                txtColor: appTextGrey,
+                fontweight: FontWeight.w400),
+            leading: Image.asset(
+              IC_Term,
+              scale: 3,
+            ),
+            contentPadding: EdgeInsets.only(left: 10, right: 0),
+            minLeadingWidth: 5,
+          ),
+          myDivider(),
           ListTile(
             onTap: () {
               MyApp.box.remove("id");
@@ -192,15 +227,36 @@ class _DashboardState extends State<Dashboard> {
             contentPadding: EdgeInsets.only(left: 10, right: 0),
             minLeadingWidth: 5,
           ),
-          const Divider(
-            thickness: 0.5,
-            color: appTextGrey,
-            indent: 10,
-            endIndent: 15,
-            height: 0,
+          myDivider(),
+          ListTile(
+            onTap: () {
+               Get.to(CmsPage());
+            },
+            horizontalTitleGap: 10,
+            title: appText(DeleteAccount,
+                fontSize: 14,
+                txtColor: appTextGrey,
+                fontweight: FontWeight.w400),
+            leading: Image.asset(
+              IC_DelUser,
+              scale: 3,
+            ),
+            contentPadding: EdgeInsets.only(left: 10, right: 0),
+            minLeadingWidth: 5,
           ),
+          myDivider(),
         ],
       ),
+    );
+  }
+
+  myDivider() {
+    return const Divider(
+      thickness: 0.5,
+      color: appTextGrey,
+      indent: 10,
+      endIndent: 15,
+      height: 0,
     );
   }
 
@@ -612,68 +668,7 @@ class _DashboardState extends State<Dashboard> {
         });
   }
 
-  Widget homeView(BuildContext context) {
-    return ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () {
-              var vv = index;
-              if (index == 0) {
-                Get.to(const SelectMatch());
-              } else if (index == 1) {
-                showMyAlert(context, "Coming Soon...");
-              } else if (index == 2) {
-                showMyAlert(context, "Coming Soon...");
-              }
-            },
-            child: Card(
-              margin: EdgeInsets.all(10),
-              elevation: 5,
-              child: Stack(
-                children: [
-                  Image.asset(bgImag),
-                  Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 20,
-                      child: index == 0
-                          ? Image.asset(
-                              nflBallIcon,
-                              scale: 3,
-                            )
-                          : index == 1
-                              ? Image.asset(
-                                  nflBaseball,
-                                  scale: 3,
-                                )
-                              : Image.asset(
-                                  nflHockey,
-                                  scale: 3,
-                                )),
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      color: appOrange,
-                      height: 40,
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      child: appText(
-                          index == 0
-                              ? "Football"
-                              : index == 1
-                                  ? "Baseball"
-                                  : "Hockey",
-                          txtColor: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  //Widget homeView(BuildContext context) {}
 
   // Widget teamView() {
   Widget dashboardView() {
