@@ -9,10 +9,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class CmsPage extends StatefulWidget {
   final String topTitle;
-  const CmsPage({
-    Key? key,
-    required this.topTitle,
-  }) : super(key: key);
+  const CmsPage({Key? key, required this.topTitle}) : super(key: key);
 
   @override
   State<CmsPage> createState() => _CmsPageState();

@@ -51,6 +51,7 @@ class User {
     required this.firstName,
     required this.lastName,
     required this.email,
+    required this.isPlanActive,
     required this.profile_image,
     required this.password,
     required this.status,
@@ -64,6 +65,7 @@ class User {
   late final String firstName;
   late final String lastName;
   late final String email;
+  late final String isPlanActive;
   late final String profile_image;
   late final String password;
   late final String status;
@@ -78,6 +80,7 @@ class User {
     firstName = json['firstName'];
     lastName = json['lastName'];
     email = json['email'];
+    isPlanActive = json['isPlanActive'];
     profile_image = json['profile_image'];
     password = json['password'];
     status = json['status'];
@@ -94,6 +97,7 @@ class User {
     _data['firstName'] = firstName;
     _data['lastName'] = lastName;
     _data['email'] = email;
+    _data['isPlanActive'] = isPlanActive;
     _data['profile_image'] = profile_image;
     _data['password'] = password;
     _data['status'] = status;

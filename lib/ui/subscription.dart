@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 //import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:stattrack/ui/dashBoard.dart';
+import 'package:stattrack/ui/login.dart';
 import 'package:stattrack/utils/colors.dart';
 import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
@@ -33,12 +35,20 @@ class Subscription extends StatelessWidget {
               fit: BoxFit.fill,
               width: MediaQuery.of(context).size.width,
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 50, left: 15),
-              child: Image.asset(
-                backIcon,
-                scale: 3,
-                color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                print("click");
+                Get.off(Login());
+                // Navigator.pop(context);
+                //SystemNavigator.pop(); // kill app
+              },
+              child: Container(
+                margin: const EdgeInsets.only(top: 50, left: 15),
+                child: Image.asset(
+                  backIcon,
+                  scale: 3,
+                  color: Colors.white,
+                ),
               ),
             ),
             Column(
@@ -113,6 +123,13 @@ class Subscription extends StatelessWidget {
                         txtColor: Colors.grey,
                         fontweight: FontWeight.w300,
                         fontSize: 14),
+                    trailing: appText(
+                        "\$" +
+                                subscriptionListController
+                                    .subscriptionplans.value[index].planPrice
+                                    .toString() ??
+                            "N/A",
+                        fontSize: 12),
                   );
                 },
               ),

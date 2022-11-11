@@ -122,7 +122,7 @@ class Signup extends StatelessWidget {
                                 TextSpan(
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () {
-                                        Get.to(CmsPage());
+                                        Get.to(CmsPage( topTitle: PrivacyPolicy,));
 
                                       },
                                     text: termOfServices,

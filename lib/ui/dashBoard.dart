@@ -161,7 +161,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-               Get.to(CmsPage(AboutUs));
+               Get.to(CmsPage(topTitle : AboutUs));
             },
             horizontalTitleGap: 10,
             title: appText(AboutUs,
@@ -178,7 +178,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-              Get.to(CmsPage(PrivacyPolicy));
+              Get.to(CmsPage(topTitle : PrivacyPolicy));
             },
             horizontalTitleGap: 10,
             title: appText(PrivacyPolicy,
@@ -195,7 +195,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-               Get.to(CmsPage(TermsNCond));
+               Get.to(CmsPage(topTitle : TermsNCond));
             },
             horizontalTitleGap: 10,
             title: appText(TermsNCond,
@@ -230,7 +230,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-               Get.to(CmsPage());
+               
             },
             horizontalTitleGap: 10,
             title: appText(DeleteAccount,

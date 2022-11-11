@@ -429,7 +429,7 @@ class TeamDetails extends StatelessWidget {
                   text: "Rushing Touchdowns",
                 ),
                 Tab(
-                  text: "Rushing Yards PerAttempt",
+                  text: "Rushing Yards Per Attempt",
                 ),
               ]),
           Expanded(
@@ -639,27 +639,27 @@ class TeamDetails extends StatelessWidget {
       int i, AllteamStatsController controllerStats, int index) {
     switch (i) {
       case 0:
-        return "DefensiveInterceptions";
+        return "Defensive Interceptions";
       case 1:
-        return "DefensiveSacks";
+        return "Defensive Sacks";
       case 2:
-        return "DefensiveTotalTackles";
+        return "Defensive Total Tackles";
       case 3:
-        return "KickingFgMade";
+        return "Kicking Fg Made";
       case 4:
-        return "PassingCompletionPercentage";
+        return "Passing Completion Percentage";
       case 5:
-        return "PassingTouchdownInterceptionRatio";
+        return "Passing Touchdown InterceptionRatio";
       case 6:
-        return "PassingTouchdowns";
+        return "Passing Touchdowns";
       case 7:
-        return "ReceivingTouchdowns";
+        return "Receiving Touchdowns";
       case 8:
-        return "ReceivingYardsPerReception";
+        return "ReceivingYards PerReception";
       case 9:
-        return "RushingTouchdowns";
+        return "Rushing Touchdowns";
       case 10:
-        return "RushingYardsPerAttempt";
+        return "Rushing Yards Per Attempt";
       default:
         return "N/A";
     }

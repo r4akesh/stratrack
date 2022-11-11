@@ -19,4 +19,6 @@ class DashboardController extends GetxController {
     isNotificationOn.value = value;
     update();
   }
+
+ 
 }

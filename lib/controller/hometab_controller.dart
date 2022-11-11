@@ -41,7 +41,11 @@ class HomeTabController extends GetxController {
 
       if (response.code == 200) {
         var isSubscribe = response.data?.isPlanActive;
-        MyApp.box.write(IS_SUBSCRIBE, isSubscribe);
+        if (isSubscribe == IS_ENABLE) {
+          MyApp.box.write(IS_SUBSCRIBE, true);
+        } else {
+          MyApp.box.write(IS_SUBSCRIBE, false);
+        }        
         print("isSubscribe>>>${isSubscribe}");
       } else {
         print("${response.message}");

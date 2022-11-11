@@ -105,8 +105,10 @@ class SubscriptionListController extends GetxController {
 
         if (response.code == 200) {
           Get.offAll(PaymentScreen());
+          MyApp.box.write(IS_SUBSCRIBE, true);
           print("${response.data?.type.toString()}");
         } else {
+          MyApp.box.write(IS_SUBSCRIBE, false);
           print("${response.message}");
         }
         print("Payment Res>>${response.code}");

@@ -29,7 +29,6 @@ class LoginController extends GetxController {
     passwordEditController = TextEditingController();
   }
 
-
   void validation() {
     emailEditController!.text.toString().isNotEmpty
         ? isEmail(emailEditController!.text.toString())
@@ -46,23 +45,33 @@ class LoginController extends GetxController {
       "password": passwordEditController!.text.toString(),
     };
     print("1");
-    try{
-      isLoading.value =true;
-      var data = await apiClient?.post(url: BASE_URL + "users/userLogin", body: map, context: Get.context!);
+    try {
+      isLoading.value = true;
+      var data = await apiClient?.post(
+          url: BASE_URL + "users/userLogin", body: map, context: Get.context!);
       var responce = LoginModel.fromJson(data);
-      isLoading.value =false;
-      MyApp.box.write("token", ""+responce.data.token);
-      MyApp.box.write("id", ""+responce.data.user.id);
-      MyApp.box.write("firstName", ""+responce.data.user.firstName);
-      MyApp.box.write("lastName", ""+responce.data.user.lastName);
-      MyApp.box.write("email", ""+responce.data.user.email);
-      MyApp.box.write("imageUrl", ""+responce.data.user.profile_image);
-      MyApp.box.write(IS_SUBSCRIBE, false);    
-      Get.offAll(Subscription());
+      isLoading.value = false;
+      MyApp.box.write("token", "" + responce.data.token);
+      MyApp.box.write("id", "" + responce.data.user.id);
+      MyApp.box.write("firstName", "" + responce.data.user.firstName);
+      MyApp.box.write("lastName", "" + responce.data.user.lastName);
+      MyApp.box.write("email", "" + responce.data.user.email);
+      MyApp.box.write("imageUrl", "" + responce.data.user.profile_image);
+      if (responce.data.user.isPlanActive == IS_ENABLE) {
+        MyApp.box.write(IS_SUBSCRIBE, true);
+        print("IS_SUBSCRIBE if");
+          Get.offAll(Dashboard());
+      } else {
+        MyApp.box.write(IS_SUBSCRIBE, false);
+        print("IS_SUBSCRIBE else");
+          Get.offAll(Subscription());
+      }
+    
       //Get.off(Dashboard());
-    }catch(e){
+    } catch (e) {
       print("catch login>>$e");
+    } finally {
+      isLoading.value = false;
     }
-    finally { isLoading.value =false;}
   }
 }

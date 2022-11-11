@@ -87,10 +87,5 @@ class HomeTabScreen extends StatelessWidget {
         });
   }
 
-  bool isPlanActive() {
-    if (MyApp.box.read(IS_SUBSCRIBE))
-      return true;
-    else
-      return false;
-  }
+  
 }

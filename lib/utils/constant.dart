@@ -57,3 +57,5 @@ const TOURNAMENT_ID = "9464";
 final String StripePublishableKey =
     "pk_test_51Lg86eKVSA5dEldu2Lv0wMKPxoC3qm17ZQW7HEJq61WmTh3O9fNRSqKtyoLmlnWw43uv9UMtwvw8UJ6w1G20yDG300tVvNV6X8";
 final String IS_SUBSCRIBE = "IS_SUBSCRIBE";
+final String IS_ENABLE = "Enable";
+final String IS_DISABLE = "Disable";
