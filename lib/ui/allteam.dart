@@ -85,66 +85,63 @@ class Allteam extends StatelessWidget {
                                             bottom: 10),
                                         child: Container(
                                           height: 100,
-                                          child: GestureDetector(
-                                            onTap: () {},
-                                            child: Row(
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius: BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(55),
-                                                      bottomLeft: Radius.circular(
-                                                          55)), // Image border
-                                                  child: FadeInImage(
-                                                    height: 100,
-                                                    width: 100,
-                                                    image: NetworkImage(
-                                                        "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamId/image",
-                                                        headers: const {
-                                                          "X-RapidAPI-Key":
-                                                              RAPID_API_KEY,
-                                                          "X-RapidAPI-Host":
-                                                              "allsportsapi2.p.rapidapi.com"
-                                                        }),
-                                                    placeholder:
-                                                        AssetImage(appLogo),
-                                                    placeholderErrorBuilder:
-                                                        (context, error,
-                                                            stackTrace) {
-                                                      return Container(
-                                                          height: 100,
-                                                          width: 100,
-                                                          child: Image(
-                                                            image: AssetImage(
-                                                                appLogo),
-                                                          ));
-                                                    },
-                                                    imageErrorBuilder: (context,
-                                                        error, stackTrace) {
-                                                      return Container(
-                                                          height: 100,
-                                                          width: 100,
-                                                          child: Image(
-                                                            image: AssetImage(
-                                                                appLogo),
-                                                          ));
-                                                    },
-                                                  ),
+                                          child: Row(
+                                            children: [
+                                              ClipRRect(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(55),
+                                                    bottomLeft: Radius.circular(
+                                                        55)), // Image border
+                                                child: FadeInImage(
+                                                  height: 100,
+                                                  width: 100,
+                                                  image: NetworkImage(
+                                                      "https://allsportsapi2.p.rapidapi.com/api/american-football/team/$teamId/image",
+                                                      headers: const {
+                                                        "X-RapidAPI-Key":
+                                                            RAPID_API_KEY,
+                                                        "X-RapidAPI-Host":
+                                                            "allsportsapi2.p.rapidapi.com"
+                                                      }),
+                                                  placeholder:
+                                                      AssetImage(appLogo),
+                                                  placeholderErrorBuilder:
+                                                      (context, error,
+                                                          stackTrace) {
+                                                    return Container(
+                                                        height: 100,
+                                                        width: 100,
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                              appLogo),
+                                                        ));
+                                                  },
+                                                  imageErrorBuilder: (context,
+                                                      error, stackTrace) {
+                                                    return Container(
+                                                        height: 100,
+                                                        width: 100,
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                              appLogo),
+                                                        ));
+                                                  },
                                                 ),
-                                                SizedBox(
-                                                  width: 20,
-                                                ),
-                                                appText(
-                                                    controllerAllTeam
-                                                            .standingList[
-                                                                indexMain]
-                                                            .rows?[posList]
-                                                            .team
-                                                            ?.name ??
-                                                        "",
-                                                    fontweight: FontWeight.w400)
-                                              ],
-                                            ),
+                                              ),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              appText(
+                                                  controllerAllTeam
+                                                          .standingList[
+                                                              indexMain]
+                                                          .rows?[posList]
+                                                          .team
+                                                          ?.name ??
+                                                      "",
+                                                  fontweight: FontWeight.w400)
+                                            ],
                                           ),
                                         )),
                                   );
