@@ -18,7 +18,7 @@ class Subscription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var selectedplans = Subscriptionplans();
+    Subscriptionplans? selectedplans;
     SubscriptionListController subscriptionListController =
         Get.put(SubscriptionListController());
     return Scaffold(
@@ -95,14 +95,16 @@ class Subscription extends StatelessWidget {
                 itemCount:
                     subscriptionListController.subscriptionplans.value.length,
                 itemBuilder: (context, index) {
-                  selectedplans = subscriptionListController
+                  var _selectedplans = subscriptionListController
                       .subscriptionplans[index]; //intially 0th index set value
                   return ListTile(
                     onTap: () {
                       subscriptionListController.isSelected.value = index;
-                      subscriptionListController.update();
+
                       selectedplans =
                           subscriptionListController.subscriptionplans[index];
+
+                      subscriptionListController.update();
                     },
                     leading:
                         subscriptionListController.isSelected.value == index
@@ -141,8 +143,12 @@ class Subscription extends StatelessWidget {
           GestureDetector(
               onTap: () async {
                 //  Get.off(Dashboard());
+                if (selectedplans == null) {
+                  selectedplans =
+                      subscriptionListController.subscriptionplans[0];
+                }
                 showMyBottomSheet(
-                    context, subscriptionListController, selectedplans);
+                    context, subscriptionListController, selectedplans!);
               },
               child: appButton(context, "Active now", 60, appOrange)),
           SizedBox(
@@ -161,6 +167,7 @@ class Subscription extends StatelessWidget {
     var selectedCVC = "";
     var selectedMonth = "";
     var selectedYear = "";
+    print("11${selectedplansLcl.planPrice}");
     showModalBottomSheet<void>(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(10.0))),
