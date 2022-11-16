@@ -165,8 +165,8 @@ class Apiclient {
     _dio.options.headers["Content-Type"] = "application/json";
     _dio.options.headers["Accept"] = "application/json";
     _dio.options.connectTimeout = 30000;
-   // log("body => ${body}");
-   // log("url => ${url}");
+    log("body => ${body}");
+    log("url => ${url}");
     try {
       Response response = await _dio.post(url, data: formData);
       log("Response1111 => ${response}");

@@ -81,10 +81,8 @@ class OldMatchTeam extends StatelessWidget {
                                           child: Row(
                                             children: [
                                               appText(
-                                                  DateFormat(
-                                                          "EEE, MMMM, dd, yyyy")
-                                                      .format(DateTime
-                                                          .fromMillisecondsSinceEpoch(
+                                                  DateFormat("EEE, MMMM, dd, yyyy")
+                                                      .format(DateTime.fromMillisecondsSinceEpoch(
                                                               controller
                                                                       .eventList
                                                                       .value[
@@ -169,6 +167,7 @@ class OldMatchTeam extends StatelessWidget {
                               })),
             ],
           );
-        });
+        }
+        );
   }
 }

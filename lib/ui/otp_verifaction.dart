@@ -92,6 +92,7 @@ class OtpVerifaction extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             TimeCounderProgressBar(),
+                            //  getProg(context)
                           ],
                         ),
                       ),
@@ -126,6 +127,8 @@ class OtpVerifaction extends StatelessWidget {
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
                                             //addddd
+                                            print("object123");
+                                            TimeCounderProgressBar();
                                             otpController.callAPIForgot(email);
                                           },
                                         style: TextStyle(

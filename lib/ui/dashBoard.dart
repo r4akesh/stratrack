@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:stattrack/controller/DashboardController.dart';
 import 'package:stattrack/main.dart';
 import 'package:stattrack/model/matchdetail_model.dart';
@@ -14,6 +16,7 @@ import 'package:stattrack/utils/colors.dart';
 import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 import '../model/myDashboard.dart';
+
 import '../utils/string.dart';
 import 'HomeTabScreen.dart';
 import 'allteam.dart';
@@ -147,10 +150,17 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             horizontalTitleGap: 10,
-            title: appText(invitePeople,
-                fontSize: 14,
-                txtColor: appTextGrey,
-                fontweight: FontWeight.w400),
+            title: GestureDetector(
+              onTap: () {
+                Share.share('check out my app https://example.com');
+                // follow this link for open playStor or AppStore
+                //https://stackoverflow.com/questions/49685112/flutter-open-appstore-playstore-url
+              },
+              child: appText(invitePeople,
+                  fontSize: 14,
+                  txtColor: appTextGrey,
+                  fontweight: FontWeight.w400),
+            ),
             leading: Image.asset(
               inviteUser,
               scale: 3,
@@ -161,7 +171,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-               Get.to(CmsPage(topTitle : AboutUs));
+              Get.to(CmsPage(topTitle: AboutUs));
             },
             horizontalTitleGap: 10,
             title: appText(AboutUs,
@@ -178,7 +188,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-              Get.to(CmsPage(topTitle : PrivacyPolicy));
+              Get.to(CmsPage(topTitle: PrivacyPolicy));
             },
             horizontalTitleGap: 10,
             title: appText(PrivacyPolicy,
@@ -195,7 +205,7 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-               Get.to(CmsPage(topTitle : TermsNCond));
+              Get.to(CmsPage(topTitle: TermsNCond));
             },
             horizontalTitleGap: 10,
             title: appText(TermsNCond,
@@ -212,8 +222,18 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-              MyApp.box.remove("id");
-              Get.off(Welcome());
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.question,
+                animType: AnimType.rightSlide,
+                title: 'Logout',
+                desc: 'Are you sue you want to logout?',
+                btnCancelOnPress: () {},
+                btnOkOnPress: () {
+                  MyApp.box.remove("id");
+                  Get.off(Welcome());
+                },
+              )..show();
             },
             horizontalTitleGap: 10,
             title: appText(logout,
@@ -230,7 +250,17 @@ class _DashboardState extends State<Dashboard> {
           myDivider(),
           ListTile(
             onTap: () {
-               
+              AwesomeDialog(
+                context: context,
+                dialogType: DialogType.warning,
+                animType: AnimType.rightSlide,
+                title: 'Delete',
+                desc: 'Are you sue you want to delete your account?',
+                btnCancelOnPress: () {},
+                btnOkOnPress: () {
+                  value.callDelUserApi();
+                },
+              )..show();
             },
             horizontalTitleGap: 10,
             title: appText(DeleteAccount,

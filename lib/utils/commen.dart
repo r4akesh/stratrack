@@ -34,14 +34,18 @@ Text appText(String txt,
         Color txtColor = appBlack,
         bool isUnderline = false,
         TextAlign textAlign = TextAlign.start}) =>
-    Text(txt, textAlign: textAlign, style: TextStyle(
+    Text(
+      txt,
+      textAlign: textAlign,
+      style: TextStyle(
           fontSize: fontSize,
           color: txtColor,
           fontWeight: fontweight,
           fontFamily: 'Rubik',
-
-          decoration: isUnderline ? TextDecoration.underline : TextDecoration.none),
-    maxLines: 2,);
+          decoration:
+              isUnderline ? TextDecoration.underline : TextDecoration.none),
+      maxLines: 2,
+    );
 
 Widget appTextField(String lable,
     {TextEditingController? controller, String hint = ""}) {
@@ -123,11 +127,10 @@ Widget appTextFieldPassword(
 }
 
 TextField appTextFieldEdit({TextEditingController? controller}) {
-
   return TextField(
     textAlign: TextAlign.end,
     cursorColor: appBlack,
-    controller:controller,
+    controller: controller,
     maxLines: 1,
     style: const TextStyle(color: Colors.black, fontSize: 16),
     decoration: const InputDecoration(
@@ -157,6 +160,8 @@ bool isEmail(String email) {
       .hasMatch(email);
 }
 
+  
+
 void showMyAlert(BuildContext context, String msg) {
   showDialog(
     context: context,
@@ -178,33 +183,33 @@ void showMyAlert(BuildContext context, String msg) {
   );
 }
 
- String fetchNextDate(int weekValue){
-   var now =   DateTime.now();
-   final tomorrow = DateTime(now.year, now.month, now.day + weekValue);
- //  final yesterday = DateTime(now.year, now.month, now.day - 1);
-   var formatter =   DateFormat('dd/MM/yyyy');
- //  String formattedDate = formatter.format(now);//current
-   String formattedDate = formatter.format(tomorrow);//nextDate
+String fetchNextDate(int weekValue) {
+  var now = DateTime.now();
+  final tomorrow = DateTime(now.year, now.month, now.day + weekValue);
+  //  final yesterday = DateTime(now.year, now.month, now.day - 1);
+  var formatter = DateFormat('dd/MM/yyyy');
+  //  String formattedDate = formatter.format(now);//current
+  String formattedDate = formatter.format(tomorrow); //nextDate
   // String formattedDate = formatter.format(yesterday);//previousDate
   // print("formattedDate>>${formattedDate}"); // 2016-01-25
   // print("formattedDate>>${formattedDate}");
 
   return formattedDate;
- }
+}
 
-String fetchPreDate(int weekValue){
-  var now =   DateTime.now();
+String fetchPreDate(int weekValue) {
+  var now = DateTime.now();
   final yesterday = DateTime(now.year, now.month, now.day - weekValue);
-  var formatter =   DateFormat('dd/MM/yyyy');
-  String formattedDate = formatter.format(yesterday);//nextDate
+  var formatter = DateFormat('dd/MM/yyyy');
+  String formattedDate = formatter.format(yesterday); //nextDate
   //print("formattedDate>>${formattedDate}");
   return formattedDate;
 }
 
-String fetchMillsToDate(int mills){
+String fetchMillsToDate(int mills) {
   final DateTime date1 = DateTime.fromMillisecondsSinceEpoch(mills);
-  var formatter =   DateFormat('dd/MM/yyyy');
-  String formattedDate = formatter.format(date1);//nextDate
+  var formatter = DateFormat('dd/MM/yyyy');
+  String formattedDate = formatter.format(date1); //nextDate
   print("formattedDate>>${formattedDate}");
   return formattedDate;
 }
@@ -221,6 +226,7 @@ showProgressBar() {
     barrierDismissible: true,
   );
 }
+
 closeProgress() {
   Get.back();
 }

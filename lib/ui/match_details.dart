@@ -46,7 +46,7 @@ class _MatchDetailsState extends State<MatchDetails> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {   
     if (widget.from == "Upcoming") {
       matchDetailController.clearData();
       textMsg = "Match not started yet";

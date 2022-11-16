@@ -21,6 +21,10 @@ class SubscriptionListController extends GetxController {
     callAPIPlanList();
   }
 
+
+   
+
+
   callAPIPlanList() async {
     Map<String, dynamic> map = {};
     try {
@@ -117,4 +121,6 @@ class SubscriptionListController extends GetxController {
       }
     }
   }
+
+  
 }
