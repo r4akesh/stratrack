@@ -17,7 +17,7 @@ class ActivePlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("rak2");
+    print("rak3 3");
 
     return GetX<ActivePlanController>(
         init: ActivePlanController(),
