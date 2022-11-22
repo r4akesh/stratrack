@@ -17,8 +17,7 @@ class ActivePlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(DateTime.now().millisecondsSinceEpoch);
-    print(DateTime.now().millisecond);
+    print("rakesh1");
 
     return GetX<ActivePlanController>(
         init: ActivePlanController(),
