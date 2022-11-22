@@ -50,8 +50,20 @@ class LiveMatch extends StatelessWidget {
                                               controller.eventList.value[index]
                                                   .awayTeam!.name
                                                   .toString());
+                                      MyApp.box.write(
+                                          TeamHomeID,
+                                          "" +
+                                              controller.eventList.value[index]
+                                                  .homeTeam!.id
+                                                  .toString());
+                                      MyApp.box.write(
+                                          TeamAwayID,
+                                          "" +
+                                              controller.eventList.value[index]
+                                                  .awayTeam!.id
+                                                  .toString());
                                       print("Rakesh${controller.eventList.value[index].awayTeam!.name.toString()}");
-                                      Get.to(MatchDetails(from: "Old"));
+                                      Get.to(MatchDetails(from: "Live"));
                                     } else {
                                       print("no data");
                                     }

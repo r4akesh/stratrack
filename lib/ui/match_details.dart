@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:stattrack/controller/LiveMatchController.dart';
 import 'package:stattrack/controller/UpcomingMatchController.dart';
 import 'package:stattrack/main.dart';
 import 'package:stattrack/ui/MatchPlayerStats.dart';
@@ -23,7 +24,7 @@ class MatchDetails extends StatefulWidget {
 }
 
 class _MatchDetailsState extends State<MatchDetails> {
-  var oldMatchController = Get.put(OldMatchController());
+  var oldMatchController ;
   var upcomingMatchController = Get.put(UpcomingMatchController());
   int? matchID;
   var matchDetailController = Get.put(MatchDetailController());
@@ -33,8 +34,16 @@ class _MatchDetailsState extends State<MatchDetails> {
   String awayTeamId = "";
   @override
   void initState() {
+    if (widget.from == "Upcoming") {
+
+    }else if( widget.from == "Old"){
+      oldMatchController = Get.put(OldMatchController());
+    }else{
+      oldMatchController = Get.put(LiveMatchController());
+    }
     homeTeamId = MyApp.box.read(TeamHomeID);
     awayTeamId = MyApp.box.read(TeamAwayID);
+
     matchDetailController.isStats.value = true;
     matchDetailController.isHome.value = true;
     matchDetailController.hightLightList.value.clear();
@@ -50,14 +59,14 @@ class _MatchDetailsState extends State<MatchDetails> {
     if (widget.from == "Upcoming") {
       matchDetailController.clearData();
       textMsg = "Match not started yet";
-      matchID = upcomingMatchController.matchId;
+      matchID = upcomingMatchController.matchId;     
     } else {
       textMsg = "No players found";
       matchID = oldMatchController.matchId;
       // matchDetailController.getLineupsCall(matchID!);
-      matchDetailController.getStatisticsCall(matchID!);
+      matchDetailController.getStatisticsCall(matchID!);     
     }
-    matchHighLightController.matchHiglightCall(matchID!);
+   // matchHighLightController.matchHiglightCall(matchID!);
     return GetBuilder<MatchDetailController>(
         init: MatchDetailController(),
         builder: (valueController) => Scaffold(

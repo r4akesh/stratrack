@@ -62,7 +62,7 @@ class _MatchDetailsTeamState extends State<MatchDetailsTeam> {
       // matchDetailController.getLineupsCall(matchID!);
       matchDetailController.getStatisticsCall(matchID!);
     }
-    matchHighLightController.matchHiglightCall(matchID!);
+    //matchHighLightController.matchHiglightCall(matchID!);
     return GetBuilder<MatchDetailController>(
         init: MatchDetailController(),
         builder: (valueController) => Scaffold(

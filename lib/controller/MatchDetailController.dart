@@ -76,7 +76,7 @@ class MatchDetailController extends GetxController {
       print("statisticsLength1>${matchIdd}");
       isLoading.value = true;
       var data = await apiClient?.getSports(
-          url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/statistics",
+         url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/statistics",
           body: map,
           context: Get.context!);
       if(data!=null) {
@@ -128,6 +128,7 @@ class MatchDetailController extends GetxController {
       //showProgressBar();
       var data = await apiClient?.getSports(
           url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/highlights",
+         // url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/1/highlights",
           body: map,
           context: Get.context!);
 

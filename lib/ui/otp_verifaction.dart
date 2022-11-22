@@ -18,9 +18,12 @@ class OtpVerifaction extends StatelessWidget {
 
   OtpVerifaction(this.id, this.email, {Key? key}) : super(key: key);
 
+  Key _myKey = const Key("test");
+
   @override
   Widget build(BuildContext context) {
     OtpController otpController = Get.put(OtpController(id));
+    otpController.isTimerRunning.value = true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -91,7 +94,26 @@ class OtpVerifaction extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            TimeCounderProgressBar(),
+                            //otpProgress(otpController)
+                            GetBuilder<OtpController>(
+                              builder: (controller) {
+                                return SizedBox(
+                                  key: _myKey,
+                                  child: TimeCounderProgressBar(
+                                    getStatus: (status) {
+                                      if (status == AnimationStatus.completed) {
+                                        print("object@@@1");
+                                        controller.isTimerRunning.value = false;
+                                      } else if (AnimationStatus.dismissed ==
+                                          status) {
+                                        //heighlight
+                                        print("object@@@2");
+                                      }
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
                             //  getProg(context)
                           ],
                         ),
@@ -118,7 +140,7 @@ class OtpVerifaction extends StatelessWidget {
                               color: appOrangeTrans,
                               child: RichText(
                                 text: TextSpan(
-                                    text: "Didn't receive the OTP??",
+                                    text: "Didn't receive the OTP?",
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 15),
                                     children: <TextSpan>[
@@ -126,14 +148,29 @@ class OtpVerifaction extends StatelessWidget {
                                         text: " Resend",
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () {
-                                            //addddd
-                                            print("object123");
-                                            TimeCounderProgressBar();
-                                            otpController.callAPIForgot(email);
+                                            print(
+                                                "object##1 $otpController.isTimerRunning");
+                                            if (otpController
+                                                    .isTimerRunning.value ==
+                                                true) {
+                                              print("object##1");
+                                            } else {
+                                              _myKey = UniqueKey();
+                                              otpController
+                                                  .callAPIForgot(email);
+                                              otpController
+                                                  .isTimerRunning.value = true;
+                                              otpController.update();
+                                              print("object##2");
+                                            }
                                           },
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
-                                            color: appBlue2,
+                                            color: otpController
+                                                        .isTimerRunning.value ==
+                                                    true
+                                                ? appTextGrey
+                                                : appBlue2,
                                             fontSize: 15),
                                       )
                                     ]),

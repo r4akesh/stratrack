@@ -74,6 +74,6 @@ class SelectMatch extends StatelessWidget {
       ),
     );
 
-    ;
+   
   }
 }
