@@ -17,102 +17,108 @@ class ActivePlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     print("rak21");
     print("rak22");
     print("rak23");
 
-
     return GetX<ActivePlanController>(
         init: ActivePlanController(),
         builder: (controller) {
-          return controller.isLoading.value
-              ? LoadingWidget()
-              : Card(
-                  margin: const EdgeInsets.only(
-                      top: 20, left: 20, right: 20, bottom: 20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    children: [
-                      Container(
-                        height: 30,
-                        alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        decoration: const BoxDecoration(
-                            color: applightBlueGrey,
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                topLeft: Radius.circular(10))),
-                        //  child: appText( "Start date${controller.subscriptionDataNew.value[0].subscriptionStartdate ?? ""}",
-                        child: appText(
-                            "From :  ${dateToStr(controller.subscriptionDataNew.value[0].subscriptionStartdate)}",
-                            txtColor: Colors.black54,
-                            fontweight: FontWeight.w300,
-                            fontSize: 14),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 8),
-                        child: Column(
-                          children: [
-                            Row(
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              controller.isLoading.value
+                  ? LoadingWidget()
+                  : Card(
+                      margin: const EdgeInsets.only(
+                          top: 20, left: 20, right: 20, bottom: 20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            height: 30,
+                            alignment: Alignment.centerLeft,
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            decoration: const BoxDecoration(
+                                color: applightBlueGrey,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(10),
+                                    topLeft: Radius.circular(10))),
+                            //  child: appText( "Start date${controller.subscriptionDataNew.value[0].subscriptionStartdate ?? ""}",
+                            child: appText(
+                                "From :  ${dateToStr(controller.subscriptionDataNew.value[0].subscriptionStartdate)}",
+                                txtColor: Colors.black54,
+                                fontweight: FontWeight.w300,
+                                fontSize: 14),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 8),
+                            child: Column(
                               children: [
-                                Image.asset(
-                                  forwordIcon,
-                                  scale: 3,
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      forwordIcon,
+                                      scale: 3,
+                                    ),
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Flexible(
+                                      child: appText(
+                                          controller.subscriptionDataNew
+                                                  .value[0].planName?[0] ??
+                                              "",
+                                          fontweight: FontWeight.w400,
+                                          fontSize: 18),
+                                    )
+                                  ],
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  height: 5,
                                 ),
-                                Flexible(
-                                  child: appText(
-                                      controller.subscriptionDataNew.value[0]
-                                              .planName?[0] ??
-                                          "",
-                                      fontweight: FontWeight.w400,
-                                      fontSize: 18),
-                                )
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 0,
+                                    ),
+                                    Flexible(
+                                      child: appText(
+                                          controller
+                                                  .subscriptionDataNew
+                                                  .value[0]
+                                                  .planDescription?[0] ??
+                                              "",
+                                          fontweight: FontWeight.w400,
+                                          fontSize: 15),
+                                    )
+                                  ],
+                                ),
                               ],
                             ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Row(
-                              children: [
-                                const SizedBox(
-                                  width: 0,
-                                ),
-                                Flexible(
-                                  child: appText(
-                                      controller.subscriptionDataNew.value[0]
-                                              .planDescription?[0] ??
-                                          "",
-                                      fontweight: FontWeight.w400,
-                                      fontSize: 15),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
+                          ),
+                          Container(
+                            height: 40,
+                            alignment: Alignment.center,
+                            decoration: const BoxDecoration(
+                                color: appTextGrey,
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(10),
+                                    bottomLeft: Radius.circular(10))),
+                            child: appText(
+                                "Will be expired on :  ${dateToStr(controller.subscriptionDataNew.value[0].subscriptionEnddate)}",
+                                txtColor: Colors.white,
+                                fontweight: FontWeight.w400,
+                                fontSize: 14),
+                          )
+                        ],
                       ),
-                      Container(
-                        height: 40,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(
-                            color: appTextGrey,
-                            borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10))),
-                        child: appText(
-                            "Will be expired on :  ${dateToStr(controller.subscriptionDataNew.value[0].subscriptionEnddate)}",
-                            txtColor: Colors.white,
-                            fontweight: FontWeight.w400,
-                            fontSize: 14),
-                      )
-                    ],
-                  ),
-                );
+                    )
+            ],
+          );
         });
   }
 

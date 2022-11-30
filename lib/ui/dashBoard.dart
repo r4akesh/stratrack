@@ -762,8 +762,8 @@ class _DashboardState extends State<Dashboard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                        flex: 2,
-                                        child: appText("Kick Returns Total",
+                                        flex: 4,
+                                        child: appText("Pass Attempts",
                                             fontweight: FontWeight.w400,
                                             fontSize: 14)),
                                     Expanded(
@@ -773,11 +773,11 @@ class _DashboardState extends State<Dashboard> {
                                     Expanded(
                                         flex: 1,
                                         child: appText(
-                                            item.statistics!.kickReturnsTotal ==
+                                            item.statistics!.passingAttempts ==
                                                     null
                                                 ? "0"
-                                                : item.statistics!
-                                                    .kickReturnsTotal
+                                                : item
+                                                    .statistics!.passingAttempts
                                                     .toString(),
                                             fontweight: FontWeight.w400,
                                             fontSize: 14)),
@@ -788,8 +788,35 @@ class _DashboardState extends State<Dashboard> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
+                                        flex: 4,
+                                        child: appText("Pass Completions",
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                    Expanded(
                                         flex: 2,
-                                        child: appText("Passing yard",
+                                        child: appText(".............",
+                                            txtColor: appTextGrey)),
+                                    Expanded(
+                                        flex: 1,
+                                        child: appText(
+                                            item.statistics!
+                                                        .passingCompletions ==
+                                                    null
+                                                ? "0"
+                                                : item.statistics!
+                                                    .passingCompletions
+                                                    .toString(),
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        flex: 4,
+                                        child: appText("Passing Yards",
                                             fontweight: FontWeight.w400,
                                             fontSize: 14)),
                                     Expanded(
@@ -803,6 +830,35 @@ class _DashboardState extends State<Dashboard> {
                                                     null
                                                 ? "0"
                                                 : item.statistics!.passingYards
+                                                    .toString(),
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                  ],
+                                ),
+
+                                //
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        flex: 4,
+                                        child: appText("Passing Touchdowns",
+                                            fontweight: FontWeight.w400,
+                                            fontSize: 14)),
+                                    Expanded(
+                                        flex: 2,
+                                        child: appText(".............",
+                                            txtColor: appTextGrey)),
+                                    Expanded(
+                                        flex: 1,
+                                        child: appText(
+                                            item.statistics!
+                                                        .passingTouchdowns ==
+                                                    null
+                                                ? "0"
+                                                : item.statistics!
+                                                    .passingTouchdowns
                                                     .toString(),
                                             fontweight: FontWeight.w400,
                                             fontSize: 14)),

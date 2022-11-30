@@ -29,8 +29,7 @@ class MyPlan extends StatelessWidget {
                     text: "Expired plan",
                   )
                 ]),
-            Container(
-              height: 170,
+            Expanded(
               child: TabBarView(children: [
                 ActivePlanScreen(),
                 Center(
