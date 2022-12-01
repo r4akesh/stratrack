@@ -22,16 +22,17 @@ class MatchDetailController extends GetxController {
     super.onInit();
   }
 
-  updateView(bool value ){
-    isHome  = value.obs;
+  updateView(bool value) {
+    isHome = value.obs;
     update();
   }
 
-  updateViewStatsOrPlayer(bool value ){
-    isStats  = value.obs;
+  updateViewStatsOrPlayer(bool value) {
+    isStats = value.obs;
     update();
   }
-  clearData(){
+
+  clearData() {
     homePlayerList.clear();
     awayPlayerList.clear();
   }
@@ -43,21 +44,43 @@ class MatchDetailController extends GetxController {
       isLoading.value = true;
       update();
       var data = await apiClient?.getSports(
-          url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/lineups",
+          url:
+              "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/lineups",
           body: map,
           context: Get.context!);
-      if(data!=null) {
+      if (data != null) {
         var response = MatchDetailModel.fromJson(data);
         if (response.home != null) {
-          homePlayerList.value = response.home?.players as List<Players>;
-          awayPlayerList.value = response.away?.players as List<Players>;
-          print("catch3  >>$isLoading");
-          isLoading.value = false;
+          //  homePlayerList.value = response.home?.players as List<Players>;
+          // awayPlayerList.value = response.away?.players as List<Players>;
+          var homePlayerListLocl = <Players>[];
+          var awayPlayerListLocl = <Players>[];
+          homePlayerListLocl = response.home?.players as List<Players>;
+          awayPlayerListLocl = response.away?.players as List<Players>;
+          for (int i = 0; i < homePlayerListLocl.length; i++) {
+            if (homePlayerListLocl[i].position == "WR" ||
+                homePlayerListLocl[i].position == "RB" ||
+                homePlayerListLocl[i].position == "TE" ||
+                homePlayerListLocl[i].position == "RB") {
+              homePlayerList.add(homePlayerListLocl[i]);
+            }
+          }
+          for (int i = 0; i < awayPlayerListLocl.length; i++) {
+            if (awayPlayerListLocl[i].position == "WR" ||
+                awayPlayerListLocl[i].position == "RB" ||
+                awayPlayerListLocl[i].position == "TE" ||
+                awayPlayerListLocl[i].position == "RB") {
+              awayPlayerList.add(awayPlayerListLocl[i]);
+            }
+          }
           print("catch4  >>$isLoading");
+          print(homePlayerListLocl.length);
+          print(homePlayerList.length);
+          isLoading.value = false;
+
           update();
         }
       }
-
     } catch (e) {
       print("catch LineupsCall>>$e");
       homePlayerList.value.clear();
@@ -76,19 +99,20 @@ class MatchDetailController extends GetxController {
       print("statisticsLength1>${matchIdd}");
       isLoading.value = true;
       var data = await apiClient?.getSports(
-         url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/statistics",
+          url:
+              "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/statistics",
           body: map,
           context: Get.context!);
-      if(data!=null) {
+      if (data != null) {
         var response = MatchStatsModel.fromJson(data);
         if (response.statistics != null) {
-          staticList.value  =   response.statistics?[0].groups as List<Groups>; //getting group at 0th pos
+          staticList.value = response.statistics?[0].groups
+              as List<Groups>; //getting group at 0th pos
           print("statisticsLength2>${staticList.value.length}");
           isLoading.value = true;
           update();
         }
       }
-
     } catch (e) {
       print("catch statistics>>$e");
       staticList.value.clear();
@@ -100,12 +124,11 @@ class MatchDetailController extends GetxController {
     }
   }
 
-  matchHiglightCall(int matchIdd)  {
+  matchHiglightCall(int matchIdd) {
     //delay for 1 sec coz per sec Api call sow error limit excced
     Future.delayed(Duration(milliseconds: 2000), () {
-     matchNameApiCall(matchIdd);
+      matchNameApiCall(matchIdd);
     });
-
   }
 
   @override
@@ -123,15 +146,15 @@ class MatchDetailController extends GetxController {
     Map<String, dynamic> map = {};
     try {
       print("matchHiglightCall>>$matchIdd");
-        isLoadingTwo.value = true;
+      isLoadingTwo.value = true;
       // update();
       //showProgressBar();
       var data = await apiClient?.getSports(
-          url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/highlights",
-         // url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/1/highlights",
+          url:
+              "https://allsportsapi2.p.rapidapi.com/api/american-football/match/$matchIdd/highlights",
+          // url: "https://allsportsapi2.p.rapidapi.com/api/american-football/match/1/highlights",
           body: map,
           context: Get.context!);
-
 
       var response = MatchHilightModel.fromJson(data);
 

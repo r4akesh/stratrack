@@ -336,13 +336,18 @@ class Statistics {
   });
 
   Statistics.fromJson(Map<String, dynamic> json) {
-    defensiveAssistTackles = json['defensiveAssistTackles'];
-    defensiveCombineTackles = json['defensiveCombineTackles'];
-    defensiveForcedFumbles = json['defensiveForcedFumbles'];
-    defensiveInterceptions = json['defensiveInterceptions'];
+    defensiveAssistTackles =
+        int.parse(((json['defensiveAssistTackles'] ?? "0").toString()));
+    defensiveCombineTackles =
+        int.parse(((json['defensiveCombineTackles'] ?? "0").toString()));
+    defensiveForcedFumbles =
+        int.parse(((json['defensiveForcedFumbles'] ?? "0").toString()));
+    defensiveInterceptions =
+        int.parse(((json['defensiveInterceptions'] ?? "0").toString()));
     // defensiveInterceptionsYards = json['defensiveInterceptionsYards'];
-    defensivePassesDefensed = json['defensivePassesDefensed'];
-    defensiveSacks = json['defensiveSacks'];
+    defensivePassesDefensed =
+        int.parse(((json['defensivePassesDefensed'] ?? "0").toString()));
+    defensiveSacks = int.parse(((json['defensiveSacks'] ?? "0").toString()));
     fumbleFumbles = int.parse(((json['fumbleFumbles'] ?? "0").toString()));
     fumbleLost = int.parse(((json['fumbleLost'] ?? "0").toString()));
     fumbleRecovery = int.parse(((json['fumbleRecovery'] ?? "0").toString()));

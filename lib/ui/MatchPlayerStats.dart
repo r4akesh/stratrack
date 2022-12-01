@@ -32,7 +32,8 @@ class MatchPlayerstats extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Expanded(
+                    Flexible(
+                        fit: FlexFit.tight,
                         flex: 2,
                         child: GestureDetector(
                           onTap: () {
@@ -40,13 +41,12 @@ class MatchPlayerstats extends StatelessWidget {
                             //  print("plrID>>${plrId}");
                             Get.to(PlayerRecord(plrId!));
                           },
-                          child: Expanded(
-                            child: appText(matchId[index].player?.name ?? "",
-                                fontSize: 12),
-                          ),
+                          child: appText(matchId[index].player?.name ?? "",
+                              fontSize: 12),
                         )),
-                    Expanded(
-                        flex: 1,
+                    Flexible(
+                        fit: FlexFit.tight,
+                        flex: 2,
                         child: Container(
                             alignment: Alignment.centerRight,
                             child: appText(matchId[index].position ?? "",
@@ -84,633 +84,14 @@ class MatchPlayerstats extends StatelessWidget {
                     }
                   },
                 )),
-
                 SizedBox(
                   height: 3,
                 ),
-                //   Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //     children: [
-                //       Expanded(
-                //           flex: 2,
-                //           child: GestureDetector(
-                //             onTap: () {
-                //               var plrId = matchId[index].player?.id;
-                //               //  print("plrID>>${plrId}");
-                //               Get.to(PlayerRecord(plrId!));
-                //             },
-                //             child: appText(
-                //                 matchId[index]
-                //                         .statistics
-                //                         ?.kickReturnsTotal
-                //                         .toString() ??
-                //                     "N/A",
-                //                 fontSize: 12,
-                //                 textAlign: TextAlign.center),
-                //           )),
-                //       SizedBox(
-                //         width: 4,
-                //       ),
-                //       Expanded(
-                //           flex: 2,
-                //           child: GestureDetector(
-                //             onTap: () {
-                //               var plrId = matchId[index].player?.id;
-                //               //  print("plrID>>${plrId}");
-                //               Get.to(PlayerRecord(plrId!));
-                //             },
-                //             child: appText(
-                //                 matchId[index]
-                //                         .statistics
-                //                         ?.passingYards
-                //                         .toString() ??
-                //                     "N/A",
-                //                 fontSize: 12,
-                //                 textAlign: TextAlign.center),
-                //           )),
-                //       SizedBox(
-                //         width: 4,
-                //       ),
-                //       Expanded(
-                //           flex: 2,
-                //           child: GestureDetector(
-                //             onTap: () {
-                //               var plrId = matchId[index].player?.id;
-                //               //  print("plrID>>${plrId}");
-                //               Get.to(PlayerRecord(plrId!));
-                //             },
-                //             child: appText(
-                //                 matchId[index]
-                //                         .statistics
-                //                         ?.receivingYards
-                //                         .toString() ??
-                //                     "N/A",
-                //                 fontSize: 12,
-                //                 textAlign: TextAlign.center),
-                //           )),
-                //       SizedBox(
-                //         width: 4,
-                //       ),
-                //       Expanded(
-                //           flex: 2,
-                //           child: GestureDetector(
-                //             onTap: () {
-                //               var plrId = matchId[index].player?.id;
-                //               // print("plrID>>${plrId}");
-                //               Get.to(PlayerRecord(plrId!));
-                //             },
-                //             child: appText(
-                //                 matchId[index]
-                //                         .statistics
-                //                         ?.rushingYards
-                //                         .toString() ??
-                //                     "N/A",
-                //                 fontSize: 12,
-                //                 textAlign: TextAlign.center),
-                //           )),
-                //     ],
-                //   )
-                //
               ],
             ),
           ),
         );
       },
-    );
-  }
-
-  Widget qbView(int indexPos) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Attempts",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingAttempts
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Completions",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingCompletions
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Interceptions",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingInterceptions
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Longest",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingLongest
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Net Yards",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingNetYards
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Sacked",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingSacked
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Touchdowns",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingTouchdowns
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Yards",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingYards
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Passing Yards Per Attempt",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.passingYardsPerAttempt
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [],
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Rushing Attempts",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.rushingAttempts
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Rushing Longest",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.rushingLongest
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Rushing Touchdowns",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.rushingTouchdowns
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Rushing Yards",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.rushingYards
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Rushing Yards Per Attempt",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.rushingYardsPerAttempt
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(flex: 1, child: Container()),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Fumble Fumbles",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.fumbleFumbles
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Fumble Lost",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.fumbleLost
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Fumble Recovery",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.fumbleRecovery
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(flex: 1, child: Container()),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Fumble Touchdown Returns",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexPos]
-                                    .statistics
-                                    ?.fumbleTouchdownReturns
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
-                    ),
-                  ),
-                )),
-            Expanded(flex: 1, child: Container()),
-          ],
-        ),
-      ],
     );
   }
 
@@ -721,8 +102,9 @@ class MatchPlayerstats extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            Flexible(
                 flex: 2,
+                fit: FlexFit.tight,
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -746,8 +128,9 @@ class MatchPlayerstats extends StatelessWidget {
                     ),
                   ),
                 )),
-            Expanded(
+            Flexible(
                 flex: 2,
+                fit: FlexFit.tight,
                 child: Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -777,7 +160,8 @@ class MatchPlayerstats extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            Flexible(
+                fit: FlexFit.tight,
                 flex: 2,
                 child: Card(
                   child: Padding(
@@ -802,7 +186,8 @@ class MatchPlayerstats extends StatelessWidget {
                     ),
                   ),
                 )),
-            Expanded(
+            Flexible(
+                fit: FlexFit.tight,
                 flex: 2,
                 child: Card(
                   child: Padding(
@@ -833,7 +218,8 @@ class MatchPlayerstats extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            Flexible(
+                fit: FlexFit.tight,
                 flex: 2,
                 child: Card(
                   child: Padding(
@@ -858,7 +244,528 @@ class MatchPlayerstats extends StatelessWidget {
                     ),
                   ),
                 )),
-            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget qbView(int indexPos) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 2,
+              child: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      appText("Passing Attempts",
+                          fontSize: 11,
+                          fontweight: FontWeight.w500,
+                          textAlign: TextAlign.start),
+                      appText(
+                          matchId[indexPos]
+                                  .statistics
+                                  ?.passingAttempts
+                                  .toString() ??
+                              "N/A",
+                          fontSize: 12,
+                          fontweight: FontWeight.w600,
+                          textAlign: TextAlign.end),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Completions",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingCompletions
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Interceptions",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingInterceptions
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Longest",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingLongest
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Net Yards",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingNetYards
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Sacked",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingSacked
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Touchdowns",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingTouchdowns
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Passing Yards",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.passingYards
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    appText("Passing Yards Per Attempt",
+                        fontSize: 11,
+                        fontweight: FontWeight.w500,
+                        textAlign: TextAlign.start),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    appText(
+                        matchId[indexPos]
+                                .statistics
+                                ?.passingYardsPerAttempt
+                                .toString() ??
+                            "N/A",
+                        fontSize: 12,
+                        fontweight: FontWeight.w600,
+                        textAlign: TextAlign.end),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Rushing Attempts",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.rushingAttempts
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Rushing Longest",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.rushingLongest
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Rushing Touchdowns",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.rushingTouchdowns
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Rushing Yards",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.rushingYards
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    appText("Rushing Yards Per Attempt",
+                        fontSize: 11,
+                        fontweight: FontWeight.w500,
+                        textAlign: TextAlign.start),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    appText(
+                        matchId[indexPos]
+                                .statistics
+                                ?.rushingYardsPerAttempt
+                                .toString() ??
+                            "N/A",
+                        fontSize: 12,
+                        fontweight: FontWeight.w600,
+                        textAlign: TextAlign.end),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Fumble Fumbles",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.fumbleFumbles
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Fumble Lost",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexPos]
+                                    .statistics
+                                    ?.fumbleLost
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    appText("Fumble Recovery",
+                        fontSize: 11,
+                        fontweight: FontWeight.w500,
+                        textAlign: TextAlign.start),
+                    appText(
+                        matchId[indexPos]
+                                .statistics
+                                ?.fumbleRecovery
+                                .toString() ??
+                            "N/A",
+                        fontSize: 12,
+                        fontweight: FontWeight.w600,
+                        textAlign: TextAlign.end),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    appText("Fumble Touchdown Returns",
+                        fontSize: 11,
+                        fontweight: FontWeight.w500,
+                        textAlign: TextAlign.start),
+                    appText(
+                        matchId[indexPos]
+                                .statistics
+                                ?.fumbleTouchdownReturns
+                                .toString() ??
+                            "N/A",
+                        fontSize: 12,
+                        fontweight: FontWeight.w600,
+                        textAlign: TextAlign.end),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ],
@@ -984,32 +891,32 @@ class MatchPlayerstats extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-                flex: 2,
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        appText("Rushing Yards Per Attempt",
-                            fontSize: 11,
-                            fontweight: FontWeight.w500,
-                            textAlign: TextAlign.start),
-                        appText(
-                            matchId[indexRb]
-                                    .statistics
-                                    ?.rushingYardsPerAttempt
-                                    .toString() ??
-                                "N/A",
-                            fontSize: 12,
-                            fontweight: FontWeight.w600,
-                            textAlign: TextAlign.end),
-                      ],
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    appText("Rushing Yards Per Attempt",
+                        fontSize: 11,
+                        fontweight: FontWeight.w500,
+                        textAlign: TextAlign.start),
+                    SizedBox(
+                      width: 10,
                     ),
-                  ),
-                )),
-            Expanded(flex: 1, child: Container()),
+                    appText(
+                        matchId[indexRb]
+                                .statistics
+                                ?.rushingYardsPerAttempt
+                                .toString() ??
+                            "N/A",
+                        fontSize: 12,
+                        fontweight: FontWeight.w600,
+                        textAlign: TextAlign.end),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ],
@@ -1038,7 +945,7 @@ class MatchPlayerstats extends StatelessWidget {
                         appText(
                             matchId[indexWr]
                                     .statistics
-                                    ?.rushingAttempts
+                                    ?.defensiveAssistTackles
                                     .toString() ??
                                 "N/A",
                             fontSize: 12,
@@ -1070,7 +977,7 @@ class MatchPlayerstats extends StatelessWidget {
                         appText(
                             matchId[indexWr]
                                     .statistics
-                                    ?.rushingTouchdowns
+                                    ?.defensiveForcedFumbles
                                     .toString() ??
                                 "N/A",
                             fontSize: 12,
@@ -1102,7 +1009,7 @@ class MatchPlayerstats extends StatelessWidget {
                         appText(
                             matchId[indexWr]
                                     .statistics
-                                    ?.rushingYardsPerAttempt
+                                    ?.defensivePassesDefensed
                                     .toString() ??
                                 "N/A",
                             fontSize: 12,
@@ -1134,7 +1041,7 @@ class MatchPlayerstats extends StatelessWidget {
                         appText(
                             matchId[indexWr]
                                     .statistics
-                                    ?.rushingYardsPerAttempt
+                                    ?.defensiveCombineTackles
                                     .toString() ??
                                 "N/A",
                             fontSize: 12,
@@ -1168,6 +1075,171 @@ class MatchPlayerstats extends StatelessWidget {
                                     .statistics
                                     ?.rushingYardsPerAttempt
                                     .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+        //
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Receiving Longest",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexWr]
+                                    .statistics
+                                    ?.receivingLongest
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Receiving Receptions",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexWr]
+                                    .statistics
+                                    ?.receivingReceptions
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Receiving Touchdowns",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexWr]
+                                    .statistics
+                                    ?.receivingTouchdowns
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                flex: 2,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Receiving Yards",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexWr]
+                                    .statistics
+                                    ?.receivingYards
+                                    .toString() ??
+                                "N/A",
+                            fontSize: 12,
+                            fontweight: FontWeight.w600,
+                            textAlign: TextAlign.end),
+                      ],
+                    ),
+                  ),
+                )),
+            Expanded(flex: 1, child: Container()),
+          ],
+        ),
+
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                flex: 3,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        appText("Receiving Yards PerReception",
+                            fontSize: 11,
+                            fontweight: FontWeight.w500,
+                            textAlign: TextAlign.start),
+                        appText(
+                            matchId[indexWr]
+                                    .statistics
+                                    ?.receivingYardsPerReception
+                                    ?.toStringAsFixed(2) ??
                                 "N/A",
                             fontSize: 12,
                             fontweight: FontWeight.w600,
