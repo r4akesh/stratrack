@@ -17,10 +17,6 @@ class ActivePlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("rak21");
-    print("rak22");
-    print("rak23");
-
     return GetX<ActivePlanController>(
         init: ActivePlanController(),
         builder: (controller) {
@@ -28,7 +24,7 @@ class ActivePlanScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               controller.isLoading.value
-                  ? LoadingWidget()
+                  ? Expanded(child: LoadingWidget())
                   : Card(
                       margin: const EdgeInsets.only(
                           top: 20, left: 20, right: 20, bottom: 20),

@@ -4,6 +4,7 @@ import 'package:stattrack/utils/commen.dart';
 import 'package:stattrack/utils/constant.dart';
 
 import 'ActivePlanScreen.dart';
+import 'ExpiredPlanScreen.dart';
 
 class MyPlan extends StatelessWidget {
   const MyPlan({Key? key}) : super(key: key);
@@ -32,10 +33,11 @@ class MyPlan extends StatelessWidget {
             Expanded(
               child: TabBarView(children: [
                 ActivePlanScreen(),
-                Center(
-                  child: appText("User subscribed plan not found",
-                      fontSize: 16, fontweight: FontWeight.w500),
-                )
+                ExpiredPlanScreen()
+                // Center(
+                //   child: appText("User subscribed plan not found",
+                //       fontSize: 16, fontweight: FontWeight.w500),
+                // )
                 // Card(
                 //   margin: const EdgeInsets.all(20),
                 //   semanticContainer: true,

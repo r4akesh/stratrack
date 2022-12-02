@@ -41,7 +41,10 @@ class MatchPlayerstats extends StatelessWidget {
                             //  print("plrID>>${plrId}");
                             Get.to(PlayerRecord(plrId!));
                           },
-                          child: appText(matchId[index].player?.name ?? "",
+                          child: appText(
+                              fetchPlayerNameNPlrPos(
+                                  matchId[index].player?.name,
+                                  matchId[index].position),
                               fontSize: 12),
                         )),
                     Flexible(
@@ -49,10 +52,10 @@ class MatchPlayerstats extends StatelessWidget {
                         flex: 2,
                         child: Container(
                             alignment: Alignment.centerRight,
-                            child: appText(matchId[index].position ?? "",
-                                fontSize: 12,
-                                fontweight: FontWeight.w700,
-                                textAlign: TextAlign.end)))
+                            child: Container(
+                                height: 20,
+                                width: 20,
+                                child: Image.asset(arrowRightIcon))))
                   ],
                 ),
                 SizedBox(
@@ -79,7 +82,7 @@ class MatchPlayerstats extends StatelessWidget {
                         }
                       default:
                         {
-                          return Text("N/AAAA");
+                          return Text("N/A");
                         }
                     }
                   },
@@ -1253,5 +1256,13 @@ class MatchPlayerstats extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String fetchPlayerNameNPlrPos(String? name, String? position) {
+    String nm = name ?? "";
+    String ps = position ?? "";
+    String b1 = " (";
+    String b2 = ")";
+    return nm + b1 + ps + b2;
   }
 }
