@@ -128,8 +128,14 @@ class Players {
   String? position;
   Statistics? statistics;
   bool? substitute;
+  late bool isVisible; //custom
 
-  Players({this.player, this.position, this.statistics, this.substitute});
+  Players(
+      {this.player,
+      this.position,
+      this.statistics,
+      this.substitute,
+      this.isVisible = false});
 
   Players.fromJson(Map<String, dynamic> json) {
     player =
@@ -139,6 +145,7 @@ class Players {
         ? new Statistics.fromJson(json['statistics'])
         : null;
     substitute = json['substitute'];
+    isVisible = false;
   }
 
   Map<String, dynamic> toJson() {
