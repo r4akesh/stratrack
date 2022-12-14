@@ -53,15 +53,12 @@ class MatchPlayerstats extends StatelessWidget {
                           var plrId = matchId[index].player?.id;
                           Get.to(PlayerRecord(plrId!));
                         },
-                        child: Flexible(
-                            fit: FlexFit.tight,
-                            flex: 2,
+                        child: Container(
+                            alignment: Alignment.centerRight,
                             child: Container(
-                                alignment: Alignment.centerRight,
-                                child: Container(
-                                    height: 20,
-                                    width: 20,
-                                    child: Image.asset(arrowRightIcon)))),
+                                height: 20,
+                                width: 20,
+                                child: Image.asset(arrowRightIcon))),
                       )
                     ],
                   ),
