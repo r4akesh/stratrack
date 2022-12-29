@@ -85,7 +85,7 @@ class Rows {
  // List<Null>? descriptions;
   int? id;
   int? losses;
-  int? percentage;
+//  int? percentage;
   int? position;
   Team? team;
   int? wins;
@@ -95,7 +95,7 @@ class Rows {
         //this.descriptions,
       this.id,
       this.losses,
-      this.percentage,
+     // this.percentage,
       this.position,
       this.team,
       this.wins});
@@ -109,7 +109,7 @@ class Rows {
     // }
     id = json['id'];
     losses = json['losses'];
-    percentage = json['percentage'];
+   // percentage = json['percentage'];
     position = json['position'];
     team = json['team'] != null ? new Team.fromJson(json['team']) : null;
     wins = json['wins'];
@@ -122,7 +122,7 @@ class Rows {
     // }
     data['id'] = this.id;
     data['losses'] = this.losses;
-    data['percentage'] = this.percentage;
+  //  data['percentage'] = this.percentage;
     data['position'] = this.position;
     if (this.team != null) {
       data['team'] = this.team!.toJson();
